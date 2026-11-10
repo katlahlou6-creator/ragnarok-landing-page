@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261110d">
+  <link rel="stylesheet" href="style.css?v=20261110e">
 </head>
 <body>
 
@@ -29,7 +29,7 @@
       <a class="nav-link" href="#relive">Gameplay</a>
       <a class="nav-link" href="#explore">World</a>
       <a class="nav-link" href="#community">Community</a>
-      <a class="nav-link" href="#journey">Start</a>
+      <a class="nav-link" href="#go2offer" data-position="nav">Start</a>
     </nav>
 
     <a class="button button-gold header-cta" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" data-cta="header">Play Free Now</a>
@@ -270,7 +270,7 @@
           <li><b>3</b><strong>Enter Midgard</strong><small>Complete your first login and begin your adventure.</small></li>
         </ol>
 
-        <a class="button button-gold button-mega" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" data-cta="journey">
+        <a class="button button-gold button-mega" id="go2offer" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" data-cta="journey">
           Play Free Now
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
         </a>
@@ -352,6 +352,15 @@
     <button class="lightbox-nav next" type="button" id="lightboxNext" aria-label="Next image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
   </dialog>
 
-  <script src="script.js?v=20261110d"></script>
+  <!-- Bandeau de consentement : n'apparaît que si un Pixel ID est configuré dans script.js -->
+  <div class="consent" id="consentBar" role="dialog" aria-label="Cookie consent" hidden>
+    <p>We use the Meta Pixel to measure our ads (page visits and clicks to Steam). No personal data is put in links. Do you accept?</p>
+    <div class="consent-actions">
+      <button class="button button-gold" type="button" data-consent="accept">Accept</button>
+      <button class="button button-white" type="button" data-consent="refuse">Refuse</button>
+    </div>
+  </div>
+
+  <script src="script.js?v=20261110e"></script>
 </body>
 </html>

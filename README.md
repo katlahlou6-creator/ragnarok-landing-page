@@ -84,3 +84,25 @@ Va sur https://app.netlify.com/drop et glisse le dossier décompressé dans la z
 1. Mets l'image dans le dossier `assets/` (par exemple `assets/capture-1.jpg`).
 2. Dans `script.js`, ajoute une ligne dans le tableau `GALLERY` :
    `{ src: "assets/capture-1.jpg", caption: "Texte sous l'image" },`
+
+## Suivi Meta Pixel (plan de tracking)
+Tout se règle en haut de la partie « SUIVI » de `script.js` :
+
+1. **Créer le Pixel** dans Meta Events Manager (Connect Data → Web → « Ragnarok Landing Page »), copier le **Pixel ID**.
+2. Le coller dans `const META_PIXEL_ID = "";` (que des chiffres), puis **Commit changes** sur GitHub.
+3. Tant que le Pixel ID est vide : aucun Pixel, aucun bandeau. Une fois rempli : un bandeau de consentement apparaît, et le Pixel ne se charge **qu'après « Accept »**.
+
+**Événements envoyés :**
+| Événement | Quand | Sens |
+|---|---|---|
+| PageView | chargement de la page | visite |
+| ViewContent | clic sur une vidéo de gameplay (1 fois par visite) | intérêt |
+| CTA_Click | clic sur un lien `#go2offer` (menu « Start ») | intention |
+| SteamOutboundClick | clic sur un bouton Steam | départ vers Steam |
+| CompleteRegistration | **jamais** : un clic vers Steam n'est pas une inscription | — |
+
+**Paramètres de campagne :** les UTM de l'adresse (`utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `campaign`, `adset`, `ad`, ou `?source=`) sont gardés dans le navigateur (première source + dernière campagne) et ajoutés aux événements.
+
+**Lien Steam :** `ADD_UTM_TO_STEAM_LINK = false` par défaut → lien Steam **exact**, comme l'exige le TAF (AFBooster attribue le lien). Mettre `true` seulement pour la version GitHub Pages + Meta Ads si le client l'accepte.
+
+**Ancre de l'offre finale :** le grand bouton de la section 5 porte `id="go2offer"`.

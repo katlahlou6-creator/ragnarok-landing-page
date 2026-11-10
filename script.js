@@ -251,16 +251,117 @@ if ("IntersectionObserver" in window) {
   sections.forEach(section => observer.observe(section));
 }
 
-// ---------- Suivi des clics sur le CTA ----------
-// Envoie « cta_click » avec la position du bouton si un outil d'analyse
-// (Google Tag Manager / GA4 via dataLayer) est installé. Le lien n'est pas modifié.
-document.querySelectorAll("[data-cta]").forEach(link => {
+// =========================================================
+// SUIVI : Meta Pixel, paramètres de campagne (UTM) et événements
+// Voir README, partie « Suivi Meta Pixel ».
+// =========================================================
+
+// 1) Colle ici le Pixel ID donné par Meta Events Manager (que des chiffres).
+//    Tant qu'il est vide, aucun Pixel n'est chargé.
+const META_PIXEL_ID = "";
+
+// 2) Ajouter les UTM au lien Steam ?
+//    false = lien Steam EXACT, sans paramètre (consigne du TAF : AFBooster attribue le lien).
+//    true  = ajoute utm_source / utm_medium / utm_campaign / utm_content au lien Steam
+//            (utile seulement pour la version GitHub Pages + Meta Ads, si le client l'accepte).
+const ADD_UTM_TO_STEAM_LINK = false;
+
+// --- Paramètres de campagne : lus dans l'adresse, gardés dans le navigateur ---
+const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "campaign", "adset", "ad"];
+const TRACK_KEY = "ragnarok_tracking";
+const store = {
+  get() { try { return JSON.parse(localStorage.getItem(TRACK_KEY) || "{}"); } catch { return {}; } },
+  set(v) { try { localStorage.setItem(TRACK_KEY, JSON.stringify(v)); } catch { /* navigation privée */ } }
+};
+const tracking = (() => {
+  const params = new URLSearchParams(window.location.search);
+  const saved = store.get();
+  const current = {};
+  UTM_KEYS.forEach(key => {
+    const value = params.get(key);
+    if (value) current[key] = value.slice(0, 100);
+  });
+  if (!current.utm_source && params.get("source")) current.utm_source = params.get("source").slice(0, 100);
+  const result = {
+    first: saved.first || (Object.keys(current).length ? current : null), // première source connue
+    last: Object.keys(current).length ? current : (saved.last || null)    // dernière campagne connue
+  };
+  store.set(result);
+  return result;
+})();
+const lastCampaign = tracking.last || {};
+const trafficSource = lastCampaign.utm_source || "direct";
+
+// --- Consentement (le Pixel ne se charge qu'après « Accept ») ---
+const CONSENT_KEY = "ragnarok_consent";
+const getConsent = () => { try { return localStorage.getItem(CONSENT_KEY); } catch { return null; } };
+const setConsent = v => { try { localStorage.setItem(CONSENT_KEY, v); } catch { /* ignore */ } };
+
+function loadMetaPixel() {
+  if (!/^\d{6,20}$/.test(META_PIXEL_ID) || window.fbq) return;
+  /* Code de base Meta Pixel */
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+  (window,document,"script","https://connect.facebook.net/en_US/fbevents.js");
+  fbq("init", META_PIXEL_ID);
+  fbq("track", "PageView");
+}
+
+const consentBar = document.getElementById("consentBar");
+if (consentBar && META_PIXEL_ID) {
+  const choice = getConsent();
+  if (choice === "accepted") loadMetaPixel();
+  else if (choice !== "refused") consentBar.hidden = false;
+  consentBar.querySelector("[data-consent=accept]").addEventListener("click", () => {
+    setConsent("accepted"); consentBar.hidden = true; loadMetaPixel();
+  });
+  consentBar.querySelector("[data-consent=refuse]").addEventListener("click", () => {
+    setConsent("refused"); consentBar.hidden = true;
+  });
+}
+
+// --- Envoi d'un événement (Meta Pixel si accepté + dataLayer si présent) ---
+function trackEvent(name, data = {}, standard = false) {
+  const payload = { traffic_source: trafficSource, campaign: lastCampaign.utm_campaign || "unknown", ...data };
+  if (typeof window.fbq === "function") window.fbq(standard ? "track" : "trackCustom", name, payload);
+  if (Array.isArray(window.dataLayer)) window.dataLayer.push({ event: name, ...payload });
+}
+
+// --- Lien Steam : exact par défaut, UTM seulement si ADD_UTM_TO_STEAM_LINK = true ---
+const steamLinks = document.querySelectorAll('a[href^="https://store.steampowered.com/app/4212480/"]');
+if (ADD_UTM_TO_STEAM_LINK) {
+  const url = new URL(STEAM_URL);
+  url.searchParams.set("utm_source", trafficSource);
+  url.searchParams.set("utm_medium", lastCampaign.utm_medium || "paid_social");
+  url.searchParams.set("utm_campaign", lastCampaign.utm_campaign || "ragnarok_campaign");
+  url.searchParams.set("utm_content", lastCampaign.utm_content || "landing_page");
+  steamLinks.forEach(link => { link.href = url.toString(); });
+}
+
+// SteamOutboundClick : départ vers Steam (intention, PAS une inscription).
+// On n'envoie jamais CompleteRegistration : Steam ne confirme pas l'inscription à la page.
+steamLinks.forEach(link => {
   link.addEventListener("click", () => {
-    const payload = {
-      event: "cta_click",
-      cta_position: link.dataset.cta,
+    trackEvent("SteamOutboundClick", {
+      cta_position: link.dataset.cta || "other",
       device: window.matchMedia("(max-width: 900px)").matches ? "mobile" : "desktop"
-    };
-    if (Array.isArray(window.dataLayer)) window.dataLayer.push(payload);
+    });
+  });
+});
+
+// CTA_Click : clic vers l'offre finale (#go2offer)
+document.querySelectorAll('a[href="#go2offer"]').forEach(link => {
+  link.addEventListener("click", () => trackEvent("CTA_Click", { cta_position: link.dataset.position || "nav" }));
+});
+
+// ViewContent : la personne lance réellement la vidéo de gameplay (une seule fois par visite)
+let gameplaySent = false;
+document.querySelectorAll("[data-video], #trailerPlay").forEach(button => {
+  button.addEventListener("click", () => {
+    if (gameplaySent) return;
+    gameplaySent = true;
+    trackEvent("ViewContent", { content_name: "gameplay_video", content_type: "video" }, true);
   });
 });
