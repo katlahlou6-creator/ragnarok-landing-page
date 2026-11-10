@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ragnarok: The New World — Rediscover Midgard</title>
-  <meta name="description" content="Rediscover Midgard in Ragnarok: The New World. Explore an open world, find your role and face bosses together. Free on Steam, SEA servers.">
+  <meta name="description" content="Rediscover Midgard in Ragnarok: The New World. Explore an open world, master 8 classes and face bosses together. Free on Steam, SEA servers.">
   <meta name="theme-color" content="#1b2c86">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,16 +20,18 @@
       <span class="brand-sub">The New World</span>
     </a>
 
-    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false" aria-controls="mainNav">
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mainNav">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
 
     <nav class="main-nav" id="mainNav" aria-label="Main navigation">
       <a class="nav-link active" href="#home">Home</a>
-      <a class="nav-link" href="#features">Game Features</a>
-      <a class="nav-link" href="#events">Community Events</a>
-      <a class="nav-link" href="#before">Before you play</a>
+      <a class="nav-link" href="#features">Features</a>
+      <a class="nav-link" href="#classes">Classes</a>
+      <a class="nav-link" href="#gallery">Gallery</a>
+      <a class="nav-link" href="#events">Events</a>
       <a class="nav-link" href="#faq">FAQ</a>
+      <a class="nav-link" href="#community">Community</a>
     </nav>
 
     <a class="button button-navy header-cta" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" data-cta="header">Play Free on Steam</a>
@@ -37,17 +39,23 @@
 
   <main>
 
-    <!-- ========== 1. HERO ========== -->
+    <!-- ========== 1. HERO (avec vidéo de gameplay) ========== -->
     <section class="hero" id="home">
       <div class="hero-inner">
         <div class="hero-content">
           <p class="eyebrow">Ragnarok · The New World</p>
           <h1>Rediscover <span>Midgard.</span><br>Face bosses together.</h1>
           <p class="hero-copy">Explore an open world, develop your character, and team up with friends for boss battles. The world you grew up with, now bigger than ever. Play on PC, continue on your phone.</p>
-          <a class="button button-gold button-lg" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" data-cta="hero">
-            Play Free on Steam
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-          </a>
+          <div class="hero-actions">
+            <a class="button button-gold button-lg" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" data-cta="hero">
+              Play Free on Steam
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+            </a>
+            <button class="button button-ghost" type="button" data-video="gameplay">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg>
+              Watch gameplay
+            </button>
+          </div>
           <ul class="hero-facts" aria-label="Key information">
             <li>Windows PC</li>
             <li>Free to play with in-game purchases</li>
@@ -57,25 +65,30 @@
           <p class="mobile-note">On mobile? It opens Steam — install on your Windows PC.</p>
         </div>
 
-        <figure class="hero-art">
-          <img src="assets/home-decor-contest.webp" width="1200" height="671" alt="Official Ragnarok: The New World artwork: an adventurer with a map in a sunny Midgard town">
-          <figcaption class="floating-tag">Your next adventure awaits!</figcaption>
-        </figure>
+        <div class="hero-media">
+          <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/explore-poster.jpg" aria-label="Gameplay scene from Ragnarok: The New World">
+            <source src="assets/explore.mp4" type="video/mp4">
+          </video>
+          <button class="play-badge" type="button" data-video="gameplay" aria-label="Play the official gameplay video">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg>
+          </button>
+          <span class="media-label">Official gameplay · click to play with sound</span>
+          <span class="floating-tag">Your next adventure awaits!</span>
+        </div>
       </div>
 
-      <!-- Bandeau des 4 points forts -->
       <div class="feature-ribbon" aria-label="Game highlights">
         <a href="#features">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>
           <strong>Explore a vast world</strong><small>From Prontera to the open wilds</small>
         </a>
-        <a href="#features">
+        <a href="#classes">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19L19 5M15 5h4v4M5 5l5 5M14 14l5 5M17 21l4-4"/></svg>
-          <strong>Find your role</strong><small>Classes and builds</small>
+          <strong>8 classes</strong><small>Switch anytime on one character</small>
         </a>
-        <a href="#features">
+        <a href="#events">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M3 20c0-3 2.5-5 5-5s5 2 5 5M11 20c0-3 2.5-5 5-5s5 2 5 5"/></svg>
-          <strong>Team up together</strong><small>Take on bosses as a group</small>
+          <strong>Team up together</strong><small>Bosses, guilds and tournaments</small>
         </a>
         <a href="#journey">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="11" height="18" rx="2"/><rect x="15" y="9" width="6" height="11" rx="1.5"/></svg>
@@ -84,7 +97,7 @@
       </div>
     </section>
 
-    <!-- ========== 2. GAME FEATURES (Your adventure in Midgard) ========== -->
+    <!-- ========== 2. GAME FEATURES ========== -->
     <section class="section" id="features">
       <header class="section-heading reveal">
         <p class="eyebrow">Game features · Your adventure in Midgard</p>
@@ -95,16 +108,16 @@
       <div class="feature-grid">
         <article class="feature-card reveal">
           <div class="feature-art art-world">
-            <video class="game-photo" autoplay muted loop playsinline preload="metadata" poster="assets/explore-poster.jpg" aria-label="Animated scene from Ragnarok: The New World: a character under the moonlight"><source src="assets/explore.mp4" type="video/mp4"></video>
-            <svg viewBox="0 0 64 64"><path d="M6 50l16-22 10 12 8-10 18 20z"/><circle cx="46" cy="16" r="6"/></svg>
+            <img class="game-photo" src="assets/home-decor-contest.webp" alt="Official artwork: an adventurer in a sunny Midgard town" loading="lazy">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M6 50l16-22 10 12 8-10 18 20z"/><circle cx="46" cy="16" r="6"/></svg>
           </div>
           <h3>Explore the world</h3>
           <p>Discover Midgard's landscapes, from Prontera to the open wilds, and take on the monsters you meet along the way.</p>
         </article>
         <article class="feature-card reveal">
           <div class="feature-art art-classes">
-            <img class="game-photo" src="assets/legend-cup.webp" alt="Official artwork: the classes of Ragnarok: The New World lined up together" loading="lazy">
-            <svg viewBox="0 0 64 64"><path d="M32 6l6 14 15 1-11 10 4 15-14-8-14 8 4-15-11-10 15-1z"/></svg>
+            <img class="game-photo" src="assets/legend-cup.webp" alt="Official artwork: the classes of Ragnarok: The New World" loading="lazy">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6l6 14 15 1-11 10 4 15-14-8-14 8 4-15-11-10 15-1z"/></svg>
           </div>
           <h3>Find your role</h3>
           <p>Explore different classes and builds to shape how you fight and support your team.</p>
@@ -112,7 +125,7 @@
         <article class="feature-card reveal">
           <div class="feature-art art-bosses">
             <img class="game-photo" src="assets/halloween-nights.webp" alt="Official artwork: adventurers facing a giant boss" loading="lazy">
-            <svg viewBox="0 0 64 64"><path d="M14 50V26l8 8 10-16 10 16 8-8v24z"/><path d="M14 56h36"/></svg>
+            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M14 50V26l8 8 10-16 10 16 8-8v24z"/><path d="M14 56h36"/></svg>
           </div>
           <h3>Take on bosses together</h3>
           <p>Join forces with other adventurers and combine your strengths in group boss battles.</p>
@@ -124,6 +137,80 @@
         <h3>Watch the trailer</h3>
         <div class="trailer-frame" id="trailerFrame"></div>
       </div>
+    </section>
+
+    <!-- ========== 3. CLASSES ET PERSONNAGES ========== -->
+    <section class="section section-tint" id="classes">
+      <header class="section-heading reveal">
+        <p class="eyebrow">Classes &amp; characters</p>
+        <h2>Choose your class — or play them all</h2>
+        <p>8 base classes. With Job Freedom, one character can switch between all of them.</p>
+      </header>
+
+      <div class="class-grid">
+        <article class="class-card reveal" style="--c:#e2574c">
+          <span class="class-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.5 3H21v6.5L9 21.5 2.5 15z"/><path d="M5 13l6 6M3 21l3-3"/></svg></span>
+          <h3>Swordsman</h3><p class="role">Melee · Tank</p>
+          <p>Strong defense and solid attack: holds the front line.</p>
+        </article>
+        <article class="class-card reveal" style="--c:#5b6ef5">
+          <span class="class-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20L15 9M15 9l2-6 2 4 4 2-6 2z"/></svg></span>
+          <h3>Mage</h3><p class="role">Magic · Area damage</p>
+          <p>Elemental spells that hit many monsters at once.</p>
+        </article>
+        <article class="class-card reveal" style="--c:#2fa36b">
+          <span class="class-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3c8 3 13 8 16 16M5 3l14 14M5 3v5M5 3h5M21 19l-4-1M21 19l-1-4"/></svg></span>
+          <h3>Archer</h3><p class="role">Ranged damage</p>
+          <p>Attacks from a distance, safe and easy to play solo.</p>
+        </article>
+        <article class="class-card reveal" style="--c:#e8a423">
+          <span class="class-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M6 9h12"/></svg></span>
+          <h3>Acolyte</h3><p class="role">Support · Healer</p>
+          <p>Heals and protects the team: essential in group play.</p>
+        </article>
+        <article class="class-card reveal" style="--c:#8a4fd6">
+          <span class="class-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20l9-9M13 11l3-8 5 5-8 3"/><path d="M6 14l4 4"/></svg></span>
+          <h3>Thief</h3><p class="role">Speed · Critical hits</p>
+          <p>Fast, agile and dangerous in player-versus-player fights.</p>
+        </article>
+        <article class="class-card reveal" style="--c:#c9772f">
+          <span class="class-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 8h10l2 12H5z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg></span>
+          <h3>Merchant</h3><p class="role">Trade · Hybrid</p>
+          <p>Fights, trades and builds a fortune along the way.</p>
+        </article>
+        <article class="class-card reveal" style="--c:#3a8fc7">
+          <span class="class-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 10h14l3-2v4H8l-1 6H4l1-6H3z"/></svg></span>
+          <h3>Gunslinger</h3><p class="role">Ranged · Burst</p>
+          <p>Firearms and powerful shots from a distance.</p>
+        </article>
+        <article class="class-card reveal" style="--c:#4d9a3a">
+          <span class="badge-new">New</span>
+          <span class="class-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21c-5-3-8-7-8-11a8 8 0 0 1 16 0c0 4-3 8-8 11z"/><path d="M12 7v10M9 11l3 2 3-2"/></svg></span>
+          <h3>Druid</h3><p class="role">Shapeshifter</p>
+          <p>Switches between Werewolf, Wereraptor and Human Arcanist forms.</p>
+        </article>
+      </div>
+
+      <div class="job-paths reveal">
+        <h3>New second-job paths</h3>
+        <ul>
+          <li><span class="when">Sep 2026</span><b>Bard &amp; Dancer</b><small>from Archer</small></li>
+          <li><span class="when">Sep 2026</span><b>Alchemist</b><small>from Merchant</small></li>
+          <li><span class="when">Oct 2026</span><b>Sage</b><small>from Mage</small></li>
+          <li><span class="when">Oct 2026</span><b>Rogue</b><small>from Thief</small></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ========== 4. GALERIE ========== -->
+    <section class="section" id="gallery">
+      <header class="section-heading reveal">
+        <p class="eyebrow">Gallery</p>
+        <h2>Screenshots &amp; artwork</h2>
+        <p>Click an image to see it in full size.</p>
+      </header>
+      <!-- Les images sont listées dans script.js (tableau GALLERY) -->
+      <div class="gallery-grid" id="galleryGrid"></div>
     </section>
 
     <!-- ========== BANDEAU IMMERSIF ========== -->
@@ -141,18 +228,18 @@
       </div>
     </section>
 
-    <!-- ========== COMMUNITY EVENTS ========== -->
+    <!-- ========== 5. ÉVÉNEMENTS ========== -->
     <section class="section section-tint" id="events">
       <header class="section-heading reveal">
-        <p class="eyebrow">What's happening</p>
+        <p class="eyebrow">What's happening · updated Nov 10, 2026</p>
         <h2>Community Events</h2>
-        <p>Join the latest events and discover what's new in Midgard.</p>
+        <p>Current events, recent updates and their rewards.</p>
       </header>
 
-            <div class="event-grid">
+      <div class="event-grid">
         <article class="event-card reveal">
           <button class="event-image" type="button" data-event="legend" aria-label="View details: Legend Cup">
-            <img src="assets/legend-cup.webp" width="1200" height="675" loading="lazy" alt="Official artwork of the Legend Cup: Valkyrie's Trial Squad Arena and Odin's Valhalla Guild Battle">
+            <img src="assets/legend-cup.webp" width="1200" height="675" loading="lazy" alt="Official artwork of the Legend Cup tournament">
             <span class="badge badge-live">Live now</span>
             <span class="image-overlay">View event</span>
           </button>
@@ -160,19 +247,39 @@
             <h3>Legend Cup</h3>
             <p>The first global Ragnarok tournament: Squad Arena and Guild Battle.</p>
             <ul class="event-meta">
-              <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Squad Arena sign-up: Aug 6 – Dec 11, 2026 · Matches from November</span></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Squad Arena sign-up until Dec 11 · Guild Battle stage Dec 15–24, 2026</span></li>
               <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg><span>US$1.01M base prize pool + bonus rewards</span></li>
             </ul>
             <div class="event-actions">
-              <button class="button button-gold" type="button" data-event="legend">Discover more
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
-              <a class="source-link" href="https://gevents.gnjoy.hk/rocqb02/">Official notice ↗</a>
+              <button class="button button-gold" type="button" data-event="legend">Discover more <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+              <a class="source-link" href="https://gevents.gnjoy.hk/rocqb02/" target="_blank" rel="noopener">Official notice ↗</a>
             </div>
           </div>
         </article>
+
+        <article class="event-card reveal">
+          <button class="event-image" type="button" data-event="fields" aria-label="View details: New fields and mounts">
+            <img src="assets/explore-poster.jpg" width="1280" height="720" loading="lazy" alt="Gameplay scene: an adventurer exploring the open world">
+            <span class="badge badge-new-update">New update</span>
+            <span class="image-overlay">View update</span>
+          </button>
+          <div class="event-info">
+            <h3>New fields &amp; mounts</h3>
+            <p>New areas to explore and new mounts to collect, some dropped by MVP bosses.</p>
+            <ul class="event-meta">
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Since the Oct 23, 2026 update</span></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg><span>Comodo, Lutie and Aldebaran fields</span></li>
+            </ul>
+            <div class="event-actions">
+              <button class="button button-gold" type="button" data-event="fields">Discover more <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+              <a class="source-link" href="https://gwww.gnjoy.hk/sea_official/detail.html?group_id=179266348724&amp;language=en-US" target="_blank" rel="noopener">Official notice ↗</a>
+            </div>
+          </div>
+        </article>
+
         <article class="event-card reveal">
           <button class="event-image" type="button" data-event="decor" aria-label="View details: Home Decor Contest">
-            <img src="assets/home-decor-contest.webp" width="1200" height="675" loading="lazy" alt="Official artwork of the Home Decor Contest event">
+            <img src="assets/home-decor-contest.webp" width="1200" height="671" loading="lazy" alt="Official artwork of the Home Decor Contest event">
             <span class="badge badge-contest">Contest</span>
             <span class="image-overlay">View event</span>
           </button>
@@ -181,18 +288,18 @@
             <p>Decorate your home, submit your design and vote for your favorites.</p>
             <ul class="event-meta">
               <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Announced in the October 2026 update</span></li>
-              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg><span>Limited furniture, exclusive titles, Home materials</span></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg><span>Limited-edition furniture, exclusive titles, Home materials</span></li>
             </ul>
             <div class="event-actions">
-              <button class="button button-gold" type="button" data-event="decor">Discover more
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
-              <a class="source-link" href="https://gwww.gnjoy.hk/sea_official/detail.html?group_id=179144915915&amp;language=en-US">Official notice ↗</a>
+              <button class="button button-gold" type="button" data-event="decor">Discover more <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+              <a class="source-link" href="https://gwww.gnjoy.hk/sea_official/detail.html?group_id=179144915915&amp;language=en-US" target="_blank" rel="noopener">Official notice ↗</a>
             </div>
           </div>
         </article>
+
         <article class="event-card reveal">
           <button class="event-image" type="button" data-event="halloween" aria-label="View details: Halloween Nights">
-            <img src="assets/halloween-nights.webp" width="1200" height="675" loading="lazy" alt="Official artwork of the Halloween Nights update with two new class paths">
+            <img src="assets/halloween-nights.webp" width="1200" height="675" loading="lazy" alt="Official artwork of the Halloween Nights update">
             <span class="badge badge-ended">Ended · new classes live</span>
             <span class="image-overlay">View update</span>
           </button>
@@ -204,17 +311,28 @@
               <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg><span>Hallowspin: mounts and other rewards</span></li>
             </ul>
             <div class="event-actions">
-              <button class="button button-gold" type="button" data-event="halloween">Discover more
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
-              <a class="source-link" href="https://gwww.gnjoy.hk/sea_official/detail.html?group_id=179266348724&amp;language=en-US">Official notice ↗</a>
+              <button class="button button-gold" type="button" data-event="halloween">Discover more <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+              <a class="source-link" href="https://gwww.gnjoy.hk/sea_official/detail.html?group_id=179266348724&amp;language=en-US" target="_blank" rel="noopener">Official notice ↗</a>
             </div>
           </div>
         </article>
       </div>
-      <p class="fine-print">Dates and rewards from the official SEA notices (checked 10 Nov 2026). Check the game for the latest rules.</p>
+
+      <!-- Chronologie des mises à jour -->
+      <div class="timeline reveal">
+        <h3>Update timeline</h3>
+        <ol>
+          <li><time>Nov 2026</time><div><b>Legend Cup matches begin</b><span>Squad Arena and Guild Battle for Southeast Asia, Taiwan, Hong Kong and Macau.</span></div></li>
+          <li><time>Oct 23, 2026</time><div><b>New fields and mounts</b><span>Comodo, Lutie and Aldebaran fields open, plus new mounts and the Halloween countdown.</span></div></li>
+          <li><time>Oct 2026</time><div><b>Sage &amp; Rogue arrive</b><span>Two new second-job paths, Calamity Zone Season 1 and the Home Decor Contest.</span></div></li>
+          <li><time>Sep 2026</time><div><b>Bard, Dancer &amp; Alchemist</b><span>Three new second-job paths join the game.</span></div></li>
+          <li><time>Ongoing</time><div><b>Valkyrie Arena</b><span>Permanent player-versus-player arena, open from level 70.</span></div></li>
+        </ol>
+      </div>
+      <p class="fine-print">Dates and rewards from the official SEA notices and community guides (checked Nov 10, 2026). Check the game for the latest rules.</p>
     </section>
 
-    <!-- ========== 3. BEFORE YOU PLAY + 4. FAQ ========== -->
+    <!-- ========== 6. BEFORE YOU PLAY + 7. FAQ ========== -->
     <section class="section play-info">
       <div class="panel reveal" id="before">
         <h2>Before you play</h2>
@@ -254,39 +372,18 @@
       <div class="panel reveal" id="faq">
         <h2>Frequently asked questions</h2>
         <div class="faq-list">
-          <details>
-            <summary>What happens when I click “Play Free on Steam”?</summary>
-            <p>You'll go to the game's Steam page to start the installation. The button does not launch the game directly.</p>
-          </details>
-          <details>
-            <summary>Is installing the game enough to start playing?</summary>
-            <p>There's one more step: launch the game and follow the account instructions to log in and begin your adventure.</p>
-          </details>
-          <details>
-            <summary>Is this Ragnarok Online?</summary>
-            <p>No. It's a new game set in the same world of Midgard, with an open world and modern features.</p>
-          </details>
-          <details>
-            <summary>Is it pay-to-win?</summary>
-            <p>You can level up, explore and join boss battles without paying. In-game purchases are optional, but players who spend may progress faster and rank higher.</p>
-          </details>
-          <details>
-            <summary>Can I try different classes with the same character?</summary>
-            <p>Yes. You can explore different classes with one character.</p>
-          </details>
-          <details>
-            <summary>Can my character earn resources while I'm offline?</summary>
-            <p>Yes. The game includes offline resource accumulation, so your character can collect resources while you're away.</p>
-          </details>
-          <details>
-            <summary>Can I play on my phone too?</summary>
-            <p>Yes. Log in with the same Gravity account on mobile and your progress follows you.</p>
-          </details>
+          <details><summary>What happens when I click “Play Free on Steam”?</summary><p>You'll go to the game's Steam page to start the installation. The button does not launch the game directly.</p></details>
+          <details><summary>Is installing the game enough to start playing?</summary><p>There's one more step: launch the game and follow the account instructions to log in and begin your adventure.</p></details>
+          <details><summary>Is this Ragnarok Online?</summary><p>No. It's a new game set in the same world of Midgard, with an open world and modern features.</p></details>
+          <details><summary>Is it pay-to-win?</summary><p>You can level up, explore and join boss battles without paying. In-game purchases are optional, but players who spend may progress faster and rank higher.</p></details>
+          <details><summary>Can I try different classes with the same character?</summary><p>Yes. With Job Freedom, one character can switch between all 8 classes.</p></details>
+          <details><summary>Can my character earn resources while I'm offline?</summary><p>Yes. The game includes offline resource accumulation, so your character can collect resources while you're away.</p></details>
+          <details><summary>Can I play on my phone too?</summary><p>Yes. Log in with the same Gravity account on mobile and your progress follows you.</p></details>
         </div>
       </div>
     </section>
 
-    <!-- ========== 5. YOUR JOURNEY STARTS HERE ========== -->
+    <!-- ========== 8. YOUR JOURNEY STARTS HERE ========== -->
     <section class="journey" id="journey">
       <div class="journey-inner">
         <p class="eyebrow eyebrow-light">Your journey starts here</p>
@@ -302,30 +399,90 @@
         </a>
       </div>
     </section>
+
+    <!-- ========== 9. COMMUNAUTÉ ET RÉSEAUX SOCIAUX ========== -->
+    <section class="section" id="community">
+      <header class="section-heading reveal">
+        <p class="eyebrow">Community</p>
+        <h2>Join the adventurers</h2>
+        <p>Follow the news, find a guild and share your adventures.</p>
+      </header>
+      <div class="social-grid">
+        <a class="social-card reveal" href="https://discord.gg/pGbjenEwgN" target="_blank" rel="noopener" style="--s:#5865f2">
+          <span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 7c2.6-1 5.4-1 8 0l1.5 1c1.5 2.5 2.2 5.2 2 8-1.3 1-2.6 1.6-4 2l-1-1.8M8 7L6.5 8c-1.5 2.5-2.2 5.2-2 8 1.3 1 2.6 1.6 4 2l1-1.8M8 15.5c2.6 1 5.4 1 8 0"/><circle cx="9.5" cy="12" r=".8"/><circle cx="14.5" cy="12" r=".8"/></svg></span>
+          <strong>Discord</strong><small>Chat, guilds and news</small>
+        </a>
+        <a class="social-card reveal" href="https://www.facebook.com/RagnarokTheNewWorld.Gravity" target="_blank" rel="noopener" style="--s:#1877f2">
+          <span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/></svg></span>
+          <strong>Facebook</strong><small>Official page</small>
+        </a>
+        <a class="social-card reveal" href="https://www.youtube.com/@RagnarokTheNewWorld" target="_blank" rel="noopener" style="--s:#e62117">
+          <span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z"/></svg></span>
+          <strong>YouTube</strong><small>Trailers and updates</small>
+        </a>
+        <a class="social-card reveal" href="https://www.tiktok.com/@ragnarok.the.new.world" target="_blank" rel="noopener" style="--s:#111111">
+          <span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3v11a3.5 3.5 0 1 1-3.5-3.5M14 3c.5 3 2.5 5 5.5 5"/></svg></span>
+          <strong>TikTok</strong><small>Short clips</small>
+        </a>
+        <a class="social-card reveal" href="https://steamcommunity.com/app/4212480" target="_blank" rel="noopener" style="--s:#1b2838">
+          <span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="15" cy="10" r="2.5"/><path d="M3.5 14l5 2a2.5 2.5 0 1 0 4.5-2l2-2.5"/></svg></span>
+          <strong>Steam Community</strong><small>Discussions and guides</small>
+        </a>
+      </div>
+    </section>
   </main>
 
   <!-- ========== PIED DE PAGE ========== -->
   <footer class="site-footer">
     <a class="brand brand-light" href="#home"><span class="brand-mark">RAGNAROK</span><span class="brand-sub">The New World</span></a>
-    <p>This page was made by Groupe 106 V2 as part of a student challenge. It is not an official Gravity website.</p>
-    <p>Ragnarok © Gravity Co., Ltd. This project is not affiliated with or endorsed by Gravity.</p>
+    <div class="footer-text">
+      <p>This page was made by Groupe 106 V2 as part of a student challenge. It is not an official Gravity website.</p>
+      <p>Ragnarok © Gravity Co., Ltd. This project is not affiliated with or endorsed by Gravity.</p>
+    </div>
+    <nav class="footer-social" aria-label="Social networks">
+      <a href="https://discord.gg/pGbjenEwgN" target="_blank" rel="noopener">Discord</a>
+      <a href="https://www.facebook.com/RagnarokTheNewWorld.Gravity" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.youtube.com/@RagnarokTheNewWorld" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.tiktok.com/@ragnarok.the.new.world" target="_blank" rel="noopener">TikTok</a>
+    </nav>
     <a class="back-top" href="#home">Back to top ↑</a>
   </footer>
 
-  <!-- Fenêtre de détail des événements -->
+  <!-- Fenêtre : événements -->
   <dialog class="event-dialog" id="eventDialog" aria-labelledby="dialogTitle">
-    <button class="dialog-close" id="dialogClose" type="button" aria-label="Close">
+    <button class="dialog-close" type="button" data-close aria-label="Close">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
-    <img id="dialogImage" src="" alt="">
+    <img id="dialogImage" src="assets/legend-cup.webp" alt="">
     <div class="dialog-content">
       <p class="eyebrow">Event</p>
       <h2 id="dialogTitle"></h2>
       <p id="dialogDescription"></p>
       <ul class="event-meta" id="dialogMeta"></ul>
-      <p class="fine-print"><a class="source-link" id="dialogSource" href="#">Read the official notice ↗</a></p>
+      <p class="fine-print"><a class="source-link" id="dialogSource" href="#" target="_blank" rel="noopener">Read the official notice ↗</a></p>
       <a class="button button-gold" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" data-cta="dialog">Play Free on Steam</a>
     </div>
+  </dialog>
+
+  <!-- Fenêtre : vidéo -->
+  <dialog class="video-dialog" id="videoDialog" aria-label="Gameplay video">
+    <button class="dialog-close" type="button" data-close aria-label="Close the video">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="video-frame" id="videoFrame"></div>
+  </dialog>
+
+  <!-- Fenêtre : galerie -->
+  <dialog class="lightbox" id="lightbox" aria-label="Image viewer">
+    <button class="dialog-close" type="button" data-close aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <button class="lightbox-nav prev" type="button" id="lightboxPrev" aria-label="Previous image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <figure>
+      <img id="lightboxImage" src="assets/legend-cup.webp" alt="">
+      <figcaption id="lightboxCaption"></figcaption>
+    </figure>
+    <button class="lightbox-nav next" type="button" id="lightboxNext" aria-label="Next image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
   </dialog>
 
   <script src="script.js"></script>

@@ -1,19 +1,17 @@
 /* =========================================================
    Ragnarok: The New World — Landing page (Groupe 106 V2)
-   Interactions : menu mobile, fenêtre des événements,
-   lien actif dans le menu, suivi des clics sur le CTA.
+   Interactions : vidéo de gameplay, galerie, menu mobile,
+   fenêtres des événements, lien actif, suivi des clics CTA.
    Les boutons « Play Free on Steam » pointent directement vers
    https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/
    (écrit dans index.html, sans paramètre ajouté).
    ========================================================= */
 
 // ---------- Lien Steam officiel ----------
-// URL exacte imposée par le TAF. Elle est aussi écrite directement dans index.html
-// (attribut href de chaque bouton), donc les boutons fonctionnent même sans JavaScript.
 const STEAM_URL = "https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/";
 document.querySelectorAll("[data-cta]").forEach(link => { link.href = STEAM_URL; });
 
-// ---------- Photos du jeu (cases de Game Features) ----------
+// ---------- Photos du jeu ----------
 // Si une image manque, la case garde son fond coloré avec l'icône.
 document.querySelectorAll("img.game-photo").forEach(img => {
   const hide = () => img.remove();
@@ -21,34 +19,115 @@ document.querySelectorAll("img.game-photo").forEach(img => {
   else img.addEventListener("error", hide);
 });
 
-// ---------- Bande-annonce ----------
-// Option 1 (recommandée) : vidéo YouTube officielle.
-//   Colle ici l'identifiant de la vidéo : pour https://www.youtube.com/watch?v=ABC123xyz
-//   l'identifiant est ABC123xyz.
-const TRAILER_YOUTUBE_ID = "aNtKBoxVNlg";
-// Option 2 : ton propre fichier vidéo, placé dans assets/ sous ce nom (format .mp4).
-const TRAILER_FILE = "assets/trailer.mp4";
+// ---------- Vidéos YouTube officielles ----------
+// Pour changer une vidéo, colle l'identifiant YouTube (ce qui suit « v= » dans le lien).
+const VIDEOS = {
+  gameplay: "8jbCRwM15v0", // Official SEA Launch Gameplay (bouton du premier écran)
+  trailer: "aNtKBoxVNlg"   // Bande-annonce (section Game Features)
+};
+const youtubeUrl = (id, autoplay) =>
+  "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + (autoplay ? "?autoplay=1&rel=0" : "?rel=0");
 
+function makeIframe(id, autoplay, title) {
+  const iframe = document.createElement("iframe");
+  iframe.src = youtubeUrl(id, autoplay);
+  iframe.title = title;
+  iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
+  iframe.allowFullscreen = true;
+  return iframe;
+}
+
+// Bande-annonce intégrée dans la section Game Features
 const trailer = document.getElementById("trailer");
 const trailerFrame = document.getElementById("trailerFrame");
-if (TRAILER_YOUTUBE_ID.trim()) {
-  const iframe = document.createElement("iframe");
-  iframe.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(TRAILER_YOUTUBE_ID.trim());
-  iframe.title = "Ragnarok: The New World — trailer";
-  iframe.allow = "accelerometer; encrypted-media; gyroscope; picture-in-picture";
-  iframe.allowFullscreen = true;
+if (trailer && VIDEOS.trailer) {
+  const iframe = makeIframe(VIDEOS.trailer, false, "Ragnarok: The New World — trailer");
   iframe.loading = "lazy";
   trailerFrame.appendChild(iframe);
   trailer.hidden = false;
-} else {
-  const video = document.createElement("video");
-  video.src = TRAILER_FILE;
-  video.controls = true;
-  video.preload = "metadata";
-  video.playsInline = true;
-  video.addEventListener("loadedmetadata", () => { trailer.hidden = false; });
-  trailerFrame.appendChild(video); // reste caché si le fichier n'existe pas
 }
+
+// Fenêtre vidéo (bouton « Watch gameplay » du premier écran)
+const videoDialog = document.getElementById("videoDialog");
+const videoFrame = document.getElementById("videoFrame");
+document.querySelectorAll("[data-video]").forEach(button => {
+  button.addEventListener("click", () => {
+    const id = VIDEOS[button.dataset.video];
+    if (!id) return;
+    videoFrame.replaceChildren(makeIframe(id, true, "Ragnarok: The New World — gameplay"));
+    openDialog(videoDialog);
+  });
+});
+// Arrête la vidéo quand on ferme la fenêtre
+videoDialog.addEventListener("close", () => videoFrame.replaceChildren());
+
+// ---------- Galerie de captures ----------
+// Pour ajouter une capture : place l'image dans assets/ puis ajoute une ligne ici.
+const GALLERY = [
+  { src: "assets/explore-poster.jpg", caption: "Exploring the open world of Midgard" },
+  { src: "assets/legend-cup.webp", caption: "Legend Cup — the first global Ragnarok tournament" },
+  { src: "assets/halloween-nights.webp", caption: "Halloween Nights — Sage and Rogue arrive" },
+  { src: "assets/home-decor-contest.webp", caption: "Home Decor Contest — decorate your own home" }
+];
+
+const galleryGrid = document.getElementById("galleryGrid");
+const lightbox = document.getElementById("lightbox");
+const lightboxImage = document.getElementById("lightboxImage");
+const lightboxCaption = document.getElementById("lightboxCaption");
+let galleryIndex = 0;
+
+GALLERY.forEach((item, index) => {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "gallery-item reveal";
+  button.setAttribute("aria-label", "Open image: " + item.caption);
+  const img = document.createElement("img");
+  img.src = item.src;
+  img.alt = item.caption;
+  img.loading = "lazy";
+  img.addEventListener("error", () => button.remove());
+  const caption = document.createElement("span");
+  caption.textContent = item.caption;
+  button.append(img, caption);
+  button.addEventListener("click", () => showImage(index));
+  galleryGrid.appendChild(button);
+});
+
+function showImage(index) {
+  galleryIndex = (index + GALLERY.length) % GALLERY.length;
+  const item = GALLERY[galleryIndex];
+  lightboxImage.src = item.src;
+  lightboxImage.alt = item.caption;
+  lightboxCaption.textContent = item.caption + "  ·  " + (galleryIndex + 1) + " / " + GALLERY.length;
+  if (!lightbox.open) openDialog(lightbox);
+}
+document.getElementById("lightboxPrev").addEventListener("click", () => showImage(galleryIndex - 1));
+document.getElementById("lightboxNext").addEventListener("click", () => showImage(galleryIndex + 1));
+lightbox.addEventListener("keydown", event => {
+  if (event.key === "ArrowLeft") showImage(galleryIndex - 1);
+  if (event.key === "ArrowRight") showImage(galleryIndex + 1);
+});
+// Glisser du doigt sur téléphone
+let touchStartX = null;
+lightbox.addEventListener("touchstart", event => { touchStartX = event.touches[0].clientX; }, { passive: true });
+lightbox.addEventListener("touchend", event => {
+  if (touchStartX === null) return;
+  const dx = event.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 50) showImage(galleryIndex + (dx < 0 ? 1 : -1));
+  touchStartX = null;
+});
+
+// ---------- Fenêtres (ouverture / fermeture communes) ----------
+function openDialog(dialog) {
+  if (typeof dialog.showModal === "function") dialog.showModal();
+  else dialog.setAttribute("open", "");
+}
+document.querySelectorAll("dialog").forEach(dialog => {
+  dialog.querySelectorAll("[data-close]").forEach(btn => btn.addEventListener("click", () => dialog.close()));
+  dialog.addEventListener("click", event => {
+    if (event.target === dialog) dialog.close(); // clic en dehors de la fenêtre
+  });
+});
 
 // ---------- Apparition des blocs au défilement ----------
 const revealItems = document.querySelectorAll(".reveal");
@@ -80,6 +159,9 @@ mainNav.querySelectorAll("a").forEach(link => link.addEventListener("click", () 
 document.addEventListener("keydown", event => {
   if (event.key === "Escape" && mainNav.classList.contains("open")) setMenu(false);
 });
+document.addEventListener("click", event => {
+  if (mainNav.classList.contains("open") && !mainNav.contains(event.target) && !menuToggle.contains(event.target)) setMenu(false);
+});
 
 // ---------- Fenêtre des événements ----------
 const eventData = {
@@ -87,8 +169,24 @@ const eventData = {
     title: "Legend Cup — Valkyrie's Trial Squad Arena × Odin's Valhalla Guild Battle",
     image: "assets/legend-cup.webp",
     description: "The first global Ragnarok tournament, with two formats: form a squad for the Squad Arena, or fight with your guild in the Guild Battle. Guilds and squads from Southeast Asia, Taiwan, Hong Kong and Macau compete for the title of world's strongest.",
-    meta: ["Squad Arena Destiny Imprint: Aug 6 – Dec 11, 2026", "Matches from November 2026", "US$1.01M base prize pool + bonus rewards"],
+    meta: [
+      "Squad Arena sign-up: Aug 6 – Dec 11, 2026",
+      "Matches from November 2026",
+      "Guild Battle Swiss stage: Dec 15–24, 2026",
+      "US$1.01M base prize pool, plus a share of Legend Cup Pass sales"
+    ],
     source: "https://gevents.gnjoy.hk/rocqb02/"
+  },
+  fields: {
+    title: "New Fields & Mounts — Oct 23 update",
+    image: "assets/explore-poster.jpg",
+    description: "The October 23 maintenance opened new field maps around Comodo, Lutie and Aldebaran, added new mounts (some dropped by MVP bosses) and started the Halloween countdown.",
+    meta: [
+      "Available since Oct 23, 2026",
+      "New fields: Comodo, Lutie, Aldebaran",
+      "New mounts, including MVP drops"
+    ],
+    source: "https://gwww.gnjoy.hk/sea_official/detail.html?group_id=179266348724&language=en-US"
   },
   decor: {
     title: "Home Decor Contest",
@@ -106,36 +204,26 @@ const eventData = {
   }
 };
 
-const dialog = document.getElementById("eventDialog");
-const dialogImage = document.getElementById("dialogImage");
-const dialogTitle = document.getElementById("dialogTitle");
-const dialogDescription = document.getElementById("dialogDescription");
-
+const eventDialog = document.getElementById("eventDialog");
 function openEvent(key) {
   const item = eventData[key];
-  if (!item || !dialog) return;
-  dialogImage.src = item.image;
-  dialogImage.alt = item.title;
-  dialogTitle.textContent = item.title;
-  dialogDescription.textContent = item.description;
-  const metaList = document.getElementById("dialogMeta");
-  metaList.replaceChildren(...item.meta.map(text => {
+  if (!item) return;
+  const image = document.getElementById("dialogImage");
+  image.src = item.image;
+  image.alt = item.title;
+  document.getElementById("dialogTitle").textContent = item.title;
+  document.getElementById("dialogDescription").textContent = item.description;
+  document.getElementById("dialogMeta").replaceChildren(...item.meta.map(text => {
     const li = document.createElement("li");
     li.textContent = "• " + text;
     return li;
   }));
   document.getElementById("dialogSource").href = item.source;
-  if (typeof dialog.showModal === "function") dialog.showModal();
+  openDialog(eventDialog);
 }
 document.querySelectorAll("[data-event]").forEach(button => {
   button.addEventListener("click", () => openEvent(button.dataset.event));
 });
-if (dialog) {
-  document.getElementById("dialogClose").addEventListener("click", () => dialog.close());
-  dialog.addEventListener("click", event => {
-    if (event.target === dialog) dialog.close(); // clic en dehors de la fenêtre
-  });
-}
 
 // ---------- Lien actif dans le menu ----------
 const navLinks = [...document.querySelectorAll(".nav-link")];
@@ -156,9 +244,8 @@ if ("IntersectionObserver" in window) {
 }
 
 // ---------- Suivi des clics sur le CTA ----------
-// Envoie un événement « cta_click » avec la position du bouton (header, hero,
-// before, journey, dialog) si un outil d'analyse est installé sur la page
-// (Google Tag Manager / GA4 via dataLayer). Le lien lui-même n'est pas modifié.
+// Envoie « cta_click » avec la position du bouton si un outil d'analyse
+// (Google Tag Manager / GA4 via dataLayer) est installé. Le lien n'est pas modifié.
 document.querySelectorAll("[data-cta]").forEach(link => {
   link.addEventListener("click", () => {
     const payload = {
