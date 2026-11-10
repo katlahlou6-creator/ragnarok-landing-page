@@ -376,3 +376,37 @@ document.querySelectorAll("[data-video], #trailerPlay").forEach(button => {
     trackEvent("ViewContent", { content_name: "gameplay_video", content_type: "video" }, true);
   });
 });
+
+// --- Signaux d'intérêt pour l'algorithme (une seule fois par visite et par élément) ---
+const sentOnce = new Set();
+function trackOnce(key, name, data, standard = false) {
+  if (sentOnce.has(key)) return;
+  sentOnce.add(key);
+  trackEvent(name, data, standard);
+}
+
+// SectionView : la personne a vraiment regardé une section (elle atteint le milieu de l'écran)
+if ("IntersectionObserver" in window) {
+  const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      trackOnce("section_" + entry.target.id, "SectionView", { section: entry.target.id });
+      sectionObserver.unobserve(entry.target);
+    });
+  }, { rootMargin: "0px 0px -50% 0px" }); // la section atteint le milieu de l'écran
+  ["relive", "explore", "community", "go2offer"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) sectionObserver.observe(el);
+  });
+}
+
+// EventDetailsView : ouverture du détail d'un événement
+document.querySelectorAll("[data-event]").forEach(button => {
+  button.addEventListener("click", () =>
+    trackOnce("event_" + button.dataset.event, "EventDetailsView", { event_name: button.dataset.event }));
+});
+
+// GalleryView : ouverture d'une image de la galerie
+if (galleryGrid) {
+  galleryGrid.addEventListener("click", () => trackOnce("gallery", "GalleryView", {}));
+}

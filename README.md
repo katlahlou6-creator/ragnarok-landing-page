@@ -98,7 +98,10 @@ Tout se règle en haut de la partie « SUIVI » de `script.js` :
 | PageView | chargement de la page | visite |
 | ViewContent | clic sur une vidéo de gameplay (1 fois par visite) | intérêt |
 | CTA_Click | clic sur un bouton « Play Free Now » du haut (barre, premier écran, fenêtre d'événement) ou sur « Start » → `#go2offer` | intention |
-| SteamOutboundClick | clic sur le grand bouton final (vers Steam) | départ vers Steam |
+| SectionView | une section (Gameplay, World, Community, offre finale) atteint le milieu de l'écran | lecture du contenu |
+| EventDetailsView | ouverture du détail d'un événement | intérêt communauté |
+| GalleryView | ouverture d'une image de la galerie | intérêt visuel |
+| SteamOutboundClick | clic sur le grand bouton final « Play Free on Steam » | départ vers Steam |
 | CompleteRegistration | **jamais** : un clic vers Steam n'est pas une inscription | — |
 
 **Paramètres de campagne :** les UTM de l'adresse (`utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `campaign`, `adset`, `ad`, ou `?source=`) sont gardés dans le navigateur (première source + dernière campagne) et ajoutés aux événements.
