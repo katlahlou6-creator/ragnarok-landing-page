@@ -25,7 +25,7 @@ document.querySelectorAll("img.game-photo").forEach(img => {
 // Option 1 (recommandée) : vidéo YouTube officielle.
 //   Colle ici l'identifiant de la vidéo : pour https://www.youtube.com/watch?v=ABC123xyz
 //   l'identifiant est ABC123xyz.
-const TRAILER_YOUTUBE_ID = "";
+const TRAILER_YOUTUBE_ID = "aNtKBoxVNlg";
 // Option 2 : ton propre fichier vidéo, placé dans assets/ sous ce nom (format .mp4).
 const TRAILER_FILE = "assets/trailer.mp4";
 
