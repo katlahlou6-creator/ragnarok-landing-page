@@ -45,7 +45,7 @@ Les affiches sont au format WebP : même image, mais environ 25 fois plus légè
 Pour changer une image, remplace le fichier dans `assets/` en gardant le même nom, ou modifie le `src` correspondant dans `index.html`.
 
 **Vidéo (bande-annonce)**, au choix :
-- **YouTube** : dans `script.js`, colle l'identifiant de la vidéo dans `TRAILER_YOUTUBE_ID` (pour `https://www.youtube.com/watch?v=ABC123xyz`, l'identifiant est `ABC123xyz`) ;
+- **YouTube** : dans `script.js`, colle l'identifiant de la vidéo dans `VIDEOS` (`gameplay` = bouton du premier écran, `trailer` = bande-annonce) (pour `https://www.youtube.com/watch?v=ABC123xyz`, l'identifiant est `ABC123xyz`) ;
 - **ton fichier** : mets-le dans `assets/` sous le nom `trailer.mp4`.
 
 Tant qu'une photo ou la vidéo manque, la page garde son affichage normal.
@@ -80,3 +80,9 @@ Va sur https://app.netlify.com/drop et glisse le dossier décompressé dans la z
 - Vérifie que vous avez le droit d'utiliser les affiches et les logos du jeu.
 - Teste tous les boutons et la FAQ sur ordinateur et sur téléphone.
 - Garde la mention « page non officielle » du pied de page.
+
+## Ajouter des captures dans la galerie
+
+1. Mets l'image dans le dossier `assets/` (par exemple `assets/capture-1.jpg`).
+2. Dans `script.js`, ajoute une ligne dans le tableau `GALLERY` :
+   `{ src: "assets/capture-1.jpg", caption: "Texte sous l'image" },`
