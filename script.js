@@ -69,6 +69,8 @@ videoDialog.addEventListener("close", () => videoFrame.replaceChildren());
 // ---------- Galerie de captures ----------
 // Pour ajouter une capture : place l'image dans assets/ puis ajoute une ligne ici.
 const GALLERY = [
+  { src: "assets/prontera.webp", caption: "In-game screenshot — welcome back to Prontera" },
+  { src: "assets/key-art.webp", caption: "Official key art — Ragnarok: The New World" },
   { src: "assets/explore-poster.jpg", caption: "Exploring the open world of Midgard" },
   { src: "assets/legend-cup.webp", caption: "Legend Cup — the first global Ragnarok tournament" },
   { src: "assets/halloween-nights.webp", caption: "Halloween Nights — Sage and Rogue arrive" },
