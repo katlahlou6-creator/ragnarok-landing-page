@@ -22,29 +22,34 @@ document.querySelectorAll("img.game-photo").forEach(img => {
 // ---------- Vidéos YouTube officielles ----------
 // Pour changer une vidéo, colle l'identifiant YouTube (ce qui suit « v= » dans le lien).
 const VIDEOS = {
-  gameplay: "8jbCRwM15v0", // Official SEA Launch Gameplay (bouton du premier écran)
-  trailer: "aNtKBoxVNlg"   // Bande-annonce (section Game Features)
+  gameplay: "KVHa83JkUV0", // Official SEA Launch Gameplay (bouton du premier écran)
+  trailer: "KVHa83JkUV0"   // Section « Watch the gameplay »
 };
 const youtubeUrl = (id, autoplay) =>
-  "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + (autoplay ? "?autoplay=1&rel=0" : "?rel=0");
+  "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + "?rel=0&playsinline=1" + (autoplay ? "&autoplay=1" : "");
 
 function makeIframe(id, autoplay, title) {
   const iframe = document.createElement("iframe");
   iframe.src = youtubeUrl(id, autoplay);
   iframe.title = title;
-  iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
+  iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen";
   iframe.allowFullscreen = true;
   return iframe;
 }
 
-// Bande-annonce intégrée dans la section Game Features
-const trailer = document.getElementById("trailer");
+// Section « Watch the gameplay » : on affiche la miniature YouTube avec un bouton Play,
+// et la vraie vidéo ne se charge qu'au clic (page plus rapide, marche sur mobile).
 const trailerFrame = document.getElementById("trailerFrame");
-if (trailer && VIDEOS.trailer) {
-  const iframe = makeIframe(VIDEOS.trailer, false, "Ragnarok: The New World — trailer");
-  iframe.loading = "lazy";
-  trailerFrame.appendChild(iframe);
-  trailer.hidden = false;
+const trailerThumb = document.getElementById("trailerThumb");
+const trailerPlay = document.getElementById("trailerPlay");
+if (trailerThumb && VIDEOS.trailer) {
+  const thumb = "https://i.ytimg.com/vi/" + VIDEOS.trailer + "/hqdefault.jpg";
+  const test = new Image();
+  test.onload = () => { if (test.naturalWidth > 120) trailerThumb.src = thumb; }; // sinon on garde l'image locale
+  test.src = thumb;
+  trailerPlay.addEventListener("click", () => {
+    trailerFrame.replaceChildren(makeIframe(VIDEOS.trailer, true, "Ragnarok: The New World — gameplay"));
+  });
 }
 
 // Fenêtre vidéo (bouton « Watch gameplay » du premier écran)

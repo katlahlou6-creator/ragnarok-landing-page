@@ -132,10 +132,21 @@
         </article>
       </div>
 
-      <!-- Bande-annonce : s'affiche seulement si une vidéo est configurée (voir script.js) -->
-      <div class="trailer reveal" id="trailer" hidden>
-        <h3>Watch the trailer</h3>
-        <div class="trailer-frame" id="trailerFrame"></div>
+      <!-- Vidéo de gameplay : miniature + bouton Play, la vidéo se charge au clic (voir VIDEOS dans script.js) -->
+      <div class="trailer reveal" id="trailer">
+        <p class="eyebrow">Real in-game footage</p>
+        <h3>Watch the gameplay</h3>
+        <p class="trailer-sub">See the real game in action: combat, classes and the world of Midgard.</p>
+        <div class="trailer-frame" id="trailerFrame">
+          <button class="video-facade" type="button" id="trailerPlay" aria-label="Play the gameplay video">
+            <img id="trailerThumb" src="assets/explore-poster.jpg" alt="Gameplay video thumbnail: Ragnarok: The New World" loading="lazy">
+            <span class="play-badge play-badge-static" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z"/></svg></span>
+            <span class="media-label">▶ Play gameplay video</span>
+          </button>
+        </div>
+        <ul class="trailer-tags" aria-label="What the video shows">
+          <li>Combat</li><li>Classes</li><li>Environments</li><li>PC &amp; mobile</li>
+        </ul>
       </div>
     </section>
 
