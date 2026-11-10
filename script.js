@@ -351,9 +351,20 @@ steamLinks.forEach(link => {
   });
 });
 
-// CTA_Click : clic vers l'offre finale (#go2offer)
+// CTA_Click : les boutons « Play Free Now » du haut de page mènent à l'offre finale (#go2offer).
+// Là, le grand bouton ouvre Steam. On ferme la fenêtre ouverte et on met le bouton final en valeur.
+const steamButton = document.getElementById("steamButton");
 document.querySelectorAll('a[href="#go2offer"]').forEach(link => {
-  link.addEventListener("click", () => trackEvent("CTA_Click", { cta_position: link.dataset.position || "nav" }));
+  link.addEventListener("click", () => {
+    trackEvent("CTA_Click", { cta_position: link.dataset.position || "nav" });
+    const openDialog = link.closest("dialog");
+    if (openDialog) openDialog.close();
+    if (steamButton) {
+      steamButton.classList.remove("highlight");
+      void steamButton.offsetWidth; // relance l'animation
+      steamButton.classList.add("highlight");
+    }
+  });
 });
 
 // ViewContent : la personne lance réellement la vidéo de gameplay (une seule fois par visite)

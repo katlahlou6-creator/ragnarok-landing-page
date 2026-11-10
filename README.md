@@ -97,12 +97,12 @@ Tout se règle en haut de la partie « SUIVI » de `script.js` :
 |---|---|---|
 | PageView | chargement de la page | visite |
 | ViewContent | clic sur une vidéo de gameplay (1 fois par visite) | intérêt |
-| CTA_Click | clic sur un lien `#go2offer` (menu « Start ») | intention |
-| SteamOutboundClick | clic sur un bouton Steam | départ vers Steam |
+| CTA_Click | clic sur un bouton « Play Free Now » du haut (barre, premier écran, fenêtre d'événement) ou sur « Start » → `#go2offer` | intention |
+| SteamOutboundClick | clic sur le grand bouton final (vers Steam) | départ vers Steam |
 | CompleteRegistration | **jamais** : un clic vers Steam n'est pas une inscription | — |
 
 **Paramètres de campagne :** les UTM de l'adresse (`utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `campaign`, `adset`, `ad`, ou `?source=`) sont gardés dans le navigateur (première source + dernière campagne) et ajoutés aux événements.
 
 **Lien Steam :** `ADD_UTM_TO_STEAM_LINK = false` par défaut → lien Steam **exact**, comme l'exige le TAF (AFBooster attribue le lien). Mettre `true` seulement pour la version GitHub Pages + Meta Ads si le client l'accepte.
 
-**Ancre de l'offre finale :** le grand bouton de la section 5 porte `id="go2offer"`.
+**Parcours CTA :** les boutons « Play Free Now » du haut mènent à la section finale `#go2offer` ; seul le grand bouton de cette section ouvre Steam (lien exact).
