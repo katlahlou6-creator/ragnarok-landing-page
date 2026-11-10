@@ -13,6 +13,44 @@
 const STEAM_URL = "https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/";
 document.querySelectorAll("[data-cta]").forEach(link => { link.href = STEAM_URL; });
 
+// ---------- Photos du jeu (cases de Game Features) ----------
+// Mets tes photos dans assets/ avec ces noms exacts : explore.jpg, classes.jpg, bosses.jpg
+// Si une photo manque, la case garde son fond coloré avec l'icône.
+document.querySelectorAll(".game-photo").forEach(img => {
+  const hide = () => img.remove();
+  if (img.complete && img.naturalWidth === 0) hide();
+  else img.addEventListener("error", hide);
+});
+
+// ---------- Bande-annonce ----------
+// Option 1 (recommandée) : vidéo YouTube officielle.
+//   Colle ici l'identifiant de la vidéo : pour https://www.youtube.com/watch?v=ABC123xyz
+//   l'identifiant est ABC123xyz.
+const TRAILER_YOUTUBE_ID = "";
+// Option 2 : ton propre fichier vidéo, placé dans assets/ sous ce nom (format .mp4).
+const TRAILER_FILE = "assets/trailer.mp4";
+
+const trailer = document.getElementById("trailer");
+const trailerFrame = document.getElementById("trailerFrame");
+if (TRAILER_YOUTUBE_ID.trim()) {
+  const iframe = document.createElement("iframe");
+  iframe.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(TRAILER_YOUTUBE_ID.trim());
+  iframe.title = "Ragnarok: The New World — trailer";
+  iframe.allow = "accelerometer; encrypted-media; gyroscope; picture-in-picture";
+  iframe.allowFullscreen = true;
+  iframe.loading = "lazy";
+  trailerFrame.appendChild(iframe);
+  trailer.hidden = false;
+} else {
+  const video = document.createElement("video");
+  video.src = TRAILER_FILE;
+  video.controls = true;
+  video.preload = "metadata";
+  video.playsInline = true;
+  video.addEventListener("loadedmetadata", () => { trailer.hidden = false; });
+  trailerFrame.appendChild(video); // reste caché si le fichier n'existe pas
+}
+
 // ---------- Apparition des blocs au défilement ----------
 const revealItems = document.querySelectorAll(".reveal");
 if ("IntersectionObserver" in window) {

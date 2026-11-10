@@ -126,11 +126,19 @@ svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; 
 .feature-card { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; padding-bottom: 22px; }
 .feature-card h3 { font-size: 21px; color: #24358d; margin: 20px 22px 6px; }
 .feature-card p { margin: 0 22px; color: var(--muted); }
-.feature-art { height: 150px; display: grid; place-items: center; }
+.feature-art { height: 190px; display: grid; place-items: center; position: relative; overflow: hidden; }
+.feature-art .game-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+.feature-card:hover .game-photo { transform: scale(1.05); }
 .feature-art svg { width: 72px; height: 72px; stroke: #fff; stroke-width: 2.4; }
 .art-world { background: linear-gradient(135deg, #6ec3ff, #4f7cf0); }
 .art-classes { background: linear-gradient(135deg, #a98bff, #6248d8); }
 .art-bosses { background: linear-gradient(135deg, #ff9db7, #d4508f); }
+
+/* Bande-annonce */
+.trailer { max-width: 1000px; margin: 56px auto 0; text-align: center; }
+.trailer h3 { font-size: 26px; color: #24358d; margin-bottom: 18px; }
+.trailer-frame { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); background: #101a5a; border: 6px solid #fff; }
+.trailer-frame iframe, .trailer-frame video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; }
 
 /* Événements */
 .event-grid { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; }

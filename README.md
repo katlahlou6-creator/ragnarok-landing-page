@@ -36,6 +36,18 @@ Les affiches sont au format WebP : même image, mais environ 25 fois plus légè
 
 (Tu peux aussi double-cliquer directement sur `index.html`.)
 
+## Ajouter tes photos et ta vidéo
+**Photos des 3 cases « Game Features »** : mets 3 images (format .jpg) dans le dossier `assets/`, avec ces noms exacts :
+- `explore.jpg` : un paysage, le monde ouvert
+- `classes.jpg` : les classes ou un personnage
+- `bosses.jpg` : un combat de boss en groupe
+
+**Vidéo (bande-annonce)**, au choix :
+- **YouTube** : dans `script.js`, colle l'identifiant de la vidéo dans `TRAILER_YOUTUBE_ID` (pour `https://www.youtube.com/watch?v=ABC123xyz`, l'identifiant est `ABC123xyz`) ;
+- **ton fichier** : mets-le dans `assets/` sous le nom `trailer.mp4`.
+
+Tant qu'une photo ou la vidéo manque, la page garde son affichage normal.
+
 ## Le lien Steam est déjà configuré
 Tous les boutons « Play Free on Steam » mènent **exactement** à :
 https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/
