@@ -9,7 +9,7 @@ Site web en **HTML, CSS et JavaScript** (sans framework), construit à partir de
 - Section **Community Events** avec les deux affiches
 - **Fenêtres de détails** pour les événements
 - **FAQ interactive** (7 questions)
-- Boutons **Play Free on Steam**
+- Boutons **Play Free Now** (lien Steam officiel)
 - **Animations** : apparition des blocs au défilement, effets au survol
 - **Design responsive** : ordinateur, tablette et mobile
 
@@ -17,14 +17,19 @@ Site web en **HTML, CSS et JavaScript** (sans framework), construit à partir de
 ```
 ragnarok-landing-page/
 ├── index.html      → contenu et structure de la page
-├── styles.css      → couleurs, mise en page, animations, responsive
+├── style.css       → couleurs, mise en page, animations, responsive
 ├── script.js       → menu, fenêtres d'événements, animations, lien Steam
 ├── README.md       → ce fichier
-└── assets/
-    ├── home-decor-contest.webp
-    └── halloween-nights.webp
+└── assets/          → toutes les images et vidéos
+    ├── key-art.webp            (image officielle du premier écran)
+    ├── prontera.webp           (capture du jeu)
+    ├── legend-cup.webp         (événement Legend Cup)
+    ├── home-decor-contest.webp (événement Home Decor Contest)
+    ├── halloween-nights.webp   (événement Halloween Nights)
+    ├── explore-poster.jpg      (image tirée de la vidéo)
+    └── explore.mp4             (courte vidéo du jeu)
 ```
-Les affiches sont au format WebP : même image, mais environ 25 fois plus légère que le PNG, pour une page rapide.
+Les images sont au format WebP : même image, mais environ 25 fois plus légère que le PNG, pour une page rapide.
 
 ## Lancer le site sur ton ordinateur
 1. Télécharge et décompresse le ZIP.
