@@ -86,7 +86,7 @@ let galleryIndex = 0;
 GALLERY.forEach((item, index) => {
   const button = document.createElement("button");
   button.type = "button";
-  button.className = "gallery-item reveal";
+  button.className = "gallery-item";
   button.setAttribute("aria-label", "Open image: " + item.caption);
   const img = document.createElement("img");
   img.src = item.src;
