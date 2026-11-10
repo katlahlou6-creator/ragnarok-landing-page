@@ -71,7 +71,7 @@ videoDialog.addEventListener("close", () => videoFrame.replaceChildren());
 const GALLERY = [
   { src: "assets/prontera.webp", caption: "In-game screenshot — welcome back to Prontera" },
   { src: "assets/key-art.webp", caption: "Official key art — Ragnarok: The New World" },
-  { src: "assets/explore-poster.jpg", caption: "Exploring the open world of Midgard" },
+  { src: "assets/explore-poster.webp", caption: "Exploring the open world of Midgard" },
   { src: "assets/legend-cup.webp", caption: "Legend Cup — the first global Ragnarok tournament" },
   { src: "assets/halloween-nights.webp", caption: "Halloween Nights — Sage and Rogue arrive" },
   { src: "assets/home-decor-contest.webp", caption: "Home Decor Contest — decorate your own home" }
@@ -89,9 +89,10 @@ GALLERY.forEach((item, index) => {
   button.className = "gallery-item";
   button.setAttribute("aria-label", "Open image: " + item.caption);
   const img = document.createElement("img");
-  img.src = item.src;
+  img.src = item.src.replace(/(prontera|legend-cup|halloween-nights|home-decor-contest)\.webp$/, "$1-640.webp");
   img.alt = item.caption;
   img.loading = "lazy";
+  img.decoding = "async";
   img.addEventListener("error", () => button.remove());
   const caption = document.createElement("span");
   caption.textContent = item.caption;
@@ -186,7 +187,7 @@ const eventData = {
   },
   fields: {
     title: "New Fields & Mounts — Oct 23 update",
-    image: "assets/explore-poster.jpg",
+    image: "assets/explore-poster.webp",
     description: "The October 23 maintenance opened new field maps around Comodo, Lutie and Aldebaran, added new mounts (some dropped by MVP bosses) and started the Halloween countdown.",
     meta: [
       "Available since Oct 23, 2026",

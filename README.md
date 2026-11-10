@@ -20,16 +20,20 @@ ragnarok-landing-page/
 ├── style.css       → couleurs, mise en page, animations, responsive
 ├── script.js       → menu, fenêtres d'événements, animations, lien Steam
 ├── README.md       → ce fichier
-└── assets/          → toutes les images et vidéos
-    ├── key-art.webp            (image officielle du premier écran)
-    ├── prontera.webp           (capture du jeu)
-    ├── legend-cup.webp         (événement Legend Cup)
-    ├── home-decor-contest.webp (événement Home Decor Contest)
-    ├── halloween-nights.webp   (événement Halloween Nights)
-    ├── explore-poster.jpg      (image tirée de la vidéo)
-    └── explore.mp4             (courte vidéo du jeu)
+└── assets/          → toutes les images (format WebP, optimisées)
+    ├── key-art.webp                  (image officielle du premier écran)
+    ├── prontera.webp / -640.webp     (capture du jeu)
+    ├── legend-cup.webp / -640.webp
+    ├── home-decor-contest.webp / -640.webp
+    ├── halloween-nights.webp / -640.webp
+    └── explore-poster.webp
 ```
-Les images sont au format WebP : même image, mais environ 25 fois plus légère que le PNG, pour une page rapide.
+
+## Optimisation des images et vidéos
+- Toutes les images sont en **WebP** (bien plus léger que PNG/JPG).
+- Chaque grande image existe en **2 tailles** : `-640.webp` (petite, pour les cartes et le téléphone) et la grande (pour la visionneuse et les grands écrans). Le navigateur choisit seul la bonne taille (`srcset`).
+- Les images plus bas dans la page se chargent **seulement quand on arrive dessus** (`loading="lazy"`). L'image du premier écran se charge **en priorité**.
+- Les vidéos sont sur **YouTube** : elles ne se chargent **qu'au clic** sur le bouton ▶. La page reste donc légère.
 
 ## Lancer le site sur ton ordinateur
 1. Télécharge et décompresse le ZIP.
@@ -41,22 +45,11 @@ Les images sont au format WebP : même image, mais environ 25 fois plus légère
 
 (Tu peux aussi double-cliquer directement sur `index.html`.)
 
-## Ajouter tes photos et ta vidéo
-**Médias des 3 cases « Game Features »** (déjà en place) :
-- Explore the world → `assets/explore.mp4` (animation en boucle, avec l'image d'attente `explore-poster.jpg`)
-- Find your role → `assets/legend-cup.webp`
-- Take on bosses together → `assets/halloween-nights.webp`
-
-Pour changer une image, remplace le fichier dans `assets/` en gardant le même nom, ou modifie le `src` correspondant dans `index.html`.
-
-**Vidéo (bande-annonce)**, au choix :
-- **YouTube** : dans `script.js`, colle l'identifiant de la vidéo dans `VIDEOS` (`gameplay` = bouton du premier écran, `trailer` = bande-annonce) (pour `https://www.youtube.com/watch?v=ABC123xyz`, l'identifiant est `ABC123xyz`) ;
-- **ton fichier** : mets-le dans `assets/` sous le nom `trailer.mp4`.
-
-Tant qu'une photo ou la vidéo manque, la page garde son affichage normal.
+## Changer une vidéo
+Dans `script.js`, colle l'identifiant YouTube dans `VIDEOS` (pour `https://www.youtube.com/watch?v=ABC123xyz`, l'identifiant est `ABC123xyz`).
 
 ## Le lien Steam est déjà configuré
-Tous les boutons « Play Free on Steam » mènent **exactement** à :
+Tous les boutons « Play Free Now » mènent **exactement** à :
 https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/
 
 L'adresse est écrite à deux endroits :
