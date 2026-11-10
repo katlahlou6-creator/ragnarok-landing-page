@@ -14,9 +14,8 @@ const STEAM_URL = "https://store.steampowered.com/app/4212480/Ragnarok_The_New_W
 document.querySelectorAll("[data-cta]").forEach(link => { link.href = STEAM_URL; });
 
 // ---------- Photos du jeu (cases de Game Features) ----------
-// Mets tes photos dans assets/ avec ces noms exacts : explore.jpg, classes.jpg, bosses.jpg
-// Si une photo manque, la case garde son fond coloré avec l'icône.
-document.querySelectorAll(".game-photo").forEach(img => {
+// Si une image manque, la case garde son fond coloré avec l'icône.
+document.querySelectorAll("img.game-photo").forEach(img => {
   const hide = () => img.remove();
   if (img.complete && img.naturalWidth === 0) hide();
   else img.addEventListener("error", hide);
@@ -88,6 +87,11 @@ const eventData = {
     title: "Home Decor Contest",
     image: "assets/home-decor-contest.webp",
     description: "Decorate your home in Midgard and show it to the community. Become the crowd favorite!"
+  },
+  legend: {
+    title: "Legend Cup — Valkyrie's Trial Squad Arena × Odin's Valhalla Guild Battle",
+    image: "assets/legend-cup.webp",
+    description: "Team up with your squad and your guild to compete for supreme honor and forge a legendary legacy."
   },
   halloween: {
     title: "Halloween Nights — Two New Class Paths",
