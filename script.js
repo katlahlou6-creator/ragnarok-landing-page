@@ -82,6 +82,8 @@ const lightboxImage = document.getElementById("lightboxImage");
 const lightboxCaption = document.getElementById("lightboxCaption");
 let galleryIndex = 0;
 
+// La galerie n'existe que dans la version longue de la page
+if (galleryGrid && lightbox) {
 GALLERY.forEach((item, index) => {
   const button = document.createElement("button");
   button.type = "button";
@@ -123,6 +125,7 @@ lightbox.addEventListener("touchend", event => {
   if (Math.abs(dx) > 50) showImage(galleryIndex + (dx < 0 ? 1 : -1));
   touchStartX = null;
 });
+}
 
 // ---------- Fenêtres (ouverture / fermeture communes) ----------
 function openDialog(dialog) {

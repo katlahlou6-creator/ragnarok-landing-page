@@ -248,7 +248,8 @@ svg.icon-fill path { fill: currentColor; stroke: none; }
 .steps b { width: 48px; height: 48px; border-radius: 50%; background: var(--gold); color: #4a2a00; display: grid; place-items: center; font-family: var(--title); font-size: 24px; box-shadow: 0 4px 0 var(--gold-deep); }
 .steps strong { font-family: var(--title); font-size: 21px; }
 .steps small { font-size: 15px; color: #f0f4ff; }
-.journey-note { margin: 18px 0 0; font-weight: 700; color: #eef2ff; }
+.offer-facts { margin: 16px auto 0; font-size: 15px; font-weight: 800; color: #fff; max-width: 640px; }
+.journey-note { margin: 8px 0 0; font-size: 14px; font-weight: 700; color: #eef2ff; }
 .community-links { margin: 28px auto 0; text-align: center; font-size: 14px; font-weight: 700; color: var(--muted); }
 .community-links a { color: var(--sky-deep); text-decoration: underline; text-underline-offset: 3px; }
 .info-grid { margin-top: 56px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 24px; text-align: left; color: var(--ink); align-items: start; }

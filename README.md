@@ -130,3 +130,9 @@ Sur téléphone, un **bouton fixe** « Play Free on Steam · Windows PC » appar
 ## Cohérence PC (11 novembre 2026)
 - Vidéo de gameplay : **version PC** (« Ragnarok: The New World PC Gameplay & Trailer », YouTube `kjUtno9wKP8`), à la place de la vidéo filmée sur téléphone.
 - La capture de Prontera (interface de téléphone) a été retirée de la page et du dossier `assets/`.
+
+## Version courte (principale) et version longue (à tester) — 11 novembre 2026
+- `index.html` = **version courte**, page principale pour le trafic payant : promesse → vidéo PC → 3 bénéfices + classes → téléchargement (étapes, prérequis, FAQ courte). C'est la seule incluse dans le ZIP AFBooster.
+- `version-longue.html` = variante avec la galerie et les événements, gardée sur GitHub pour un test A/B. On ne la garde que si elle apporte plus de clics qualifiés ou de first logins.
+- **Boutons :** « See how to download ↓ » (descend vers `#go2offer`) et un seul bouton qui ouvre Steam : « Download free on Steam — Windows PC », avec dessous : *Opens the Steam page · Windows PC only · Gravity account required · Optional in-game purchases*.
+- **Plus de bouton fixe sur téléphone.** Sur téléphone, une note indique que le jeu est pour Windows PC.
