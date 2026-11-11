@@ -393,7 +393,7 @@ if ("IntersectionObserver" in window) {
       sectionObserver.unobserve(entry.target);
     });
   }, { rootMargin: "0px 0px -50% 0px" }); // la section atteint le milieu de l'écran
-  ["relive", "explore", "community", "go2offer"].forEach(id => {
+  ["gameplay", "explore", "community", "go2offer"].forEach(id => {
     const el = document.getElementById(id);
     if (el) sectionObserver.observe(el);
   });
@@ -408,4 +408,24 @@ document.querySelectorAll("[data-event]").forEach(button => {
 // GalleryView : ouverture d'une image de la galerie
 if (galleryGrid) {
   galleryGrid.addEventListener("click", () => trackOnce("gallery", "GalleryView", {}));
+}
+
+// --- Bouton fixe sur mobile ---
+// Visible quand le bouton du premier écran a disparu, caché quand la section Offre est à l'écran
+// (le grand bouton Steam y est déjà) et pendant que le bandeau de consentement est affiché.
+const stickyCta = document.getElementById("stickyCta");
+const heroActions = document.querySelector(".hero-actions");
+const offerSection = document.getElementById("go2offer");
+if (stickyCta && heroActions && offerSection && "IntersectionObserver" in window) {
+  let heroVisible = true, offerVisible = false;
+  const updateSticky = () => {
+    const consentOpen = consentBar && !consentBar.hidden;
+    const show = !heroVisible && !offerVisible && !consentOpen;
+    stickyCta.classList.toggle("show", show);
+    stickyCta.setAttribute("aria-hidden", String(!show));
+    stickyCta.tabIndex = show ? 0 : -1;
+  };
+  new IntersectionObserver(([entry]) => { heroVisible = entry.isIntersecting; updateSticky(); }).observe(heroActions);
+  new IntersectionObserver(([entry]) => { offerVisible = entry.isIntersecting; updateSticky(); }, { rootMargin: "0px 0px -30% 0px" }).observe(offerSection);
+  if (consentBar) consentBar.querySelectorAll("[data-consent]").forEach(b => b.addEventListener("click", () => setTimeout(updateSticky, 0)));
 }

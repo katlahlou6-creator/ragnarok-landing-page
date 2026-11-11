@@ -249,8 +249,8 @@ svg.icon-fill path { fill: currentColor; stroke: none; }
 .steps strong { font-family: var(--title); font-size: 21px; }
 .steps small { font-size: 15px; color: #f0f4ff; }
 .journey-note { margin: 18px 0 0; font-weight: 700; color: #eef2ff; }
-.community-links { margin: 40px 0 0; font-size: 14px; font-weight: 700; color: #e6ebff; }
-.community-links a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.community-links { margin: 28px auto 0; text-align: center; font-size: 14px; font-weight: 700; color: var(--muted); }
+.community-links a { color: var(--sky-deep); text-decoration: underline; text-underline-offset: 3px; }
 .info-grid { margin-top: 56px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 24px; text-align: left; color: var(--ink); align-items: start; }
 .panel { background: #fff; border-radius: var(--radius); padding: 28px; box-shadow: 0 20px 40px rgba(30, 40, 120, .25); }
 .panel h3 { font-size: 28px; text-transform: uppercase; color: var(--ink); margin-bottom: 14px; }
@@ -294,6 +294,27 @@ dialog::backdrop { background: rgba(20, 30, 80, .7); }
 .lightbox-nav { position: absolute; top: 45%; z-index: 2; width: 48px; height: 48px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .92); color: var(--ink); cursor: pointer; display: grid; place-items: center; }
 .lightbox-nav svg { width: 24px; height: 24px; stroke-width: 3; }
 .lightbox-nav.prev { left: 12px; } .lightbox-nav.next { right: 12px; }
+
+/* ---------- Bouton après une section (mène vers #go2offer) ---------- */
+.section-cta { text-align: center; margin: 48px auto 0; }
+.section-cta p { margin: 12px 0 0; font-size: 14px; font-weight: 800; color: var(--muted); }
+
+/* ---------- Bouton fixe sur mobile ---------- */
+.sticky-cta { display: none; }
+@media (max-width: 900px) {
+  .sticky-cta {
+    position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 40;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 58px; padding: 8px 16px; border-radius: 999px;
+    color: #4a2a00; font-weight: 900; text-transform: uppercase; letter-spacing: .5px; font-size: 16px; line-height: 1.2;
+    background: linear-gradient(180deg, #ffe07a, var(--gold) 55%, var(--gold-deep));
+    box-shadow: 0 5px 0 #c97f00, 0 14px 30px rgba(30, 40, 120, .3);
+    transform: translateY(140%); transition: transform .3s ease;
+  }
+  .sticky-cta small { font-size: 11px; letter-spacing: 1px; opacity: .8; }
+  .sticky-cta.show { transform: translateY(0); }
+  .site-footer { padding-bottom: 96px; }
+}
 
 /* ---------- Bandeau de consentement ---------- */
 .consent { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 50; max-width: 720px; margin: 0 auto; background: #fff; border-radius: 20px; padding: 16px 20px; box-shadow: 0 20px 50px rgba(20, 30, 90, .3); display: flex; align-items: center; gap: 16px; border: 3px solid var(--sky); }
@@ -362,6 +383,7 @@ dialog::backdrop { background: rgba(20, 30, 80, .7); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .sticky-cta { transition: none; }
   .cloud, .spark, .hero-art, .hero-play, .button-gold::after, .badge-live::before { animation: none; }
   .reveal { opacity: 1; translate: none; transition: none; }
 }

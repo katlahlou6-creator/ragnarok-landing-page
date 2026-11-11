@@ -116,3 +116,14 @@ Tout se règle en haut de la partie « SUIVI » de `script.js` :
 - **Aucune mention** de jeu sur Android, iOS ou de progression entre appareils.
 - **Réseaux sociaux en option :** simples liens texte sous la FAQ et dans le pied de page, jamais à côté du bouton de téléchargement.
 - **Infos vérifiées le 11 novembre 2026** (fiche Steam et annonces officielles) : configuration (12 Go de RAM minimum, 16 Go recommandés, 30 Go de stockage), 4 langues, prix (gratuit), compte Gravity requis, dotation du Legend Cup (US$1,01 M garantis + pool des ventes du Pass). Les dates non confirmées par une source officielle ont été retirées.
+
+## Parcours en 5 sections
+| Section | id | Rôle marketing | Bouton |
+|---|---|---|---|
+| 1. Hero | `#home` | Attirer et donner envie | Play Free on Steam → `#go2offer` |
+| 2. Gameplay | `#gameplay` | Montrer l'expérience réelle (vidéo + galerie) | après la vidéo → `#go2offer` |
+| 3. Explore Midgard | `#explore` | Faire rêver (cartes + 8 classes) | après le monde → `#go2offer` |
+| 4. Community | `#community` | Créer de l'engagement (événements, réseaux sociaux en option) | « Discover more » → fenêtre → `#go2offer` |
+| 5. Offer | `#go2offer` | Déclencher le clic | **seul bouton qui ouvre Steam** (lien exact) |
+
+Sur téléphone, un **bouton fixe** « Play Free on Steam · Windows PC » apparaît en bas de l'écran après le premier écran ; il mène à `#go2offer` et se cache dans la section Offre.
