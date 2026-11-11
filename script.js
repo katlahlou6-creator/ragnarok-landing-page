@@ -176,12 +176,11 @@ const eventData = {
   legend: {
     title: "Legend Cup — Valkyrie's Trial Squad Arena × Odin's Valhalla Guild Battle",
     image: "assets/legend-cup.webp",
-    description: "The first global Ragnarok tournament, with two formats: form a squad for the Squad Arena, or fight with your guild in the Guild Battle. Guilds and squads from Southeast Asia, Taiwan, Hong Kong and Macau compete for the title of world's strongest.",
+    description: "A Ragnarok tournament with two formats: form a squad for Valkyrie's Trial Squad Arena, or fight with your guild in Odin's Valhalla Guild Battle. The full schedule is on the official page.",
     meta: [
-      "Squad Arena sign-up: Aug 6 – Dec 11, 2026",
-      "Matches from November 2026",
-      "Guild Battle Swiss stage: Dec 15–24, 2026",
-      "US$1.01M base prize pool, plus a share of Legend Cup Pass sales"
+      "Formats: Squad Arena and Guild Battle",
+      "Guaranteed prize pool: US$1.01M",
+      "Plus an uncapped Pass revenue / Starstone pool"
     ],
     source: "https://gevents.gnjoy.hk/rocqb02/"
   },
@@ -200,7 +199,7 @@ const eventData = {
     title: "Home Decor Contest",
     image: "assets/home-decor-contest.webp",
     description: "Decorate your Home, submit your design, then earn free votes every day to support your favorite homes. Entering, advancing and placing on the leaderboard all give rewards.",
-    meta: ["Announced in the October 2026 update", "Limited-edition Home furniture, exclusive titles, Home materials"],
+    meta: ["Announced in the October 2026 update", "Dates: see the official notice", "Limited-edition Home furniture, exclusive titles, Home materials"],
     source: "https://gwww.gnjoy.hk/sea_official/detail.html?group_id=179144915915&language=en-US"
   },
   halloween: {

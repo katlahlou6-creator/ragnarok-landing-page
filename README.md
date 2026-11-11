@@ -9,7 +9,7 @@ Site web en **HTML, CSS et JavaScript** (sans framework), construit à partir de
 - Section **Community Events** avec les deux affiches
 - **Fenêtres de détails** pour les événements
 - **FAQ interactive** (7 questions)
-- Boutons **Play Free Now** (lien Steam officiel)
+- Boutons **Play Free on Steam** (lien Steam officiel)
 - **Animations** : apparition des blocs au défilement, effets au survol
 - **Design responsive** : ordinateur, tablette et mobile
 
@@ -49,7 +49,7 @@ ragnarok-landing-page/
 Dans `script.js`, colle l'identifiant YouTube dans `VIDEOS` (pour `https://www.youtube.com/watch?v=ABC123xyz`, l'identifiant est `ABC123xyz`).
 
 ## Le lien Steam est déjà configuré
-Tous les boutons « Play Free Now » mènent **exactement** à :
+Tous les boutons « Play Free on Steam » mènent **exactement** à :
 https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/
 
 L'adresse est écrite à deux endroits :
@@ -97,7 +97,7 @@ Tout se règle en haut de la partie « SUIVI » de `script.js` :
 |---|---|---|
 | PageView | chargement de la page | visite |
 | ViewContent | clic sur une vidéo de gameplay (1 fois par visite) | intérêt |
-| CTA_Click | clic sur un bouton « Play Free Now » du haut (barre, premier écran, fenêtre d'événement) ou sur « Start » → `#go2offer` | intention |
+| CTA_Click | clic sur un bouton « Play Free on Steam » du haut (barre, premier écran, fenêtre d'événement) ou sur « Start » → `#go2offer` | intention |
 | SectionView | une section (Gameplay, World, Community, offre finale) atteint le milieu de l'écran | lecture du contenu |
 | EventDetailsView | ouverture du détail d'un événement | intérêt communauté |
 | GalleryView | ouverture d'une image de la galerie | intérêt visuel |
@@ -108,4 +108,11 @@ Tout se règle en haut de la partie « SUIVI » de `script.js` :
 
 **Lien Steam :** `ADD_UTM_TO_STEAM_LINK = false` par défaut → lien Steam **exact**, comme l'exige le TAF (AFBooster attribue le lien). Mettre `true` seulement pour la version GitHub Pages + Meta Ads si le client l'accepte.
 
-**Parcours CTA :** les boutons « Play Free Now » du haut mènent à la section finale `#go2offer` ; seul le grand bouton de cette section ouvre Steam (lien exact).
+**Parcours CTA :** les boutons « Play Free on Steam » du haut mènent à la section finale `#go2offer` ; seul le grand bouton de cette section ouvre Steam (lien exact).
+
+## Règles de conversion (appliquées partout)
+- **Un seul libellé de bouton :** « Play Free on Steam ». Les boutons du haut mènent à `#go2offer`, le grand bouton final ouvre Steam.
+- **Plateforme claire avant le clic :** « Free download for Windows PC via Steam » sous les boutons du premier écran et sous le bouton final, plus une question dans la FAQ.
+- **Aucune mention** de jeu sur Android, iOS ou de progression entre appareils.
+- **Réseaux sociaux en option :** simples liens texte sous la FAQ et dans le pied de page, jamais à côté du bouton de téléchargement.
+- **Infos vérifiées le 11 novembre 2026** (fiche Steam et annonces officielles) : configuration (12 Go de RAM minimum, 16 Go recommandés, 30 Go de stockage), 4 langues, prix (gratuit), compte Gravity requis, dotation du Legend Cup (US$1,01 M garantis + pool des ventes du Pass). Les dates non confirmées par une source officielle ont été retirées.
