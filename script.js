@@ -52,7 +52,7 @@ if (trailerThumb && VIDEOS.trailer) {
   });
 }
 
-// Fenêtre vidéo (bouton « Watch gameplay » du premier écran)
+// Fenêtre vidéo (bouton « Watch PC gameplay » du premier écran)
 const videoDialog = document.getElementById("videoDialog");
 const videoFrame = document.getElementById("videoFrame");
 document.querySelectorAll("[data-video]").forEach(button => {
