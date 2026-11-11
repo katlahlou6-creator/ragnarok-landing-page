@@ -22,7 +22,6 @@ ragnarok-landing-page/
 ├── README.md       → ce fichier
 └── assets/          → toutes les images (format WebP, optimisées)
     ├── key-art.webp                  (image officielle du premier écran)
-    ├── prontera.webp / -640.webp     (capture du jeu)
     ├── legend-cup.webp / -640.webp
     ├── home-decor-contest.webp / -640.webp
     ├── halloween-nights.webp / -640.webp
@@ -127,3 +126,7 @@ Tout se règle en haut de la partie « SUIVI » de `script.js` :
 | 5. Offer | `#go2offer` | Déclencher le clic | **seul bouton qui ouvre Steam** (lien exact) |
 
 Sur téléphone, un **bouton fixe** « Play Free on Steam · Windows PC » apparaît en bas de l'écran après le premier écran ; il mène à `#go2offer` et se cache dans la section Offre.
+
+## Cohérence PC (11 novembre 2026)
+- Vidéo de gameplay : **version PC** (« Ragnarok: The New World PC Gameplay & Trailer », YouTube `kjUtno9wKP8`), à la place de la vidéo filmée sur téléphone.
+- La capture de Prontera (interface de téléphone) a été retirée de la page et du dossier `assets/`.

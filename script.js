@@ -22,8 +22,8 @@ document.querySelectorAll("img.game-photo").forEach(img => {
 // ---------- Vidéos YouTube officielles ----------
 // Pour changer une vidéo, colle l'identifiant YouTube (ce qui suit « v= » dans le lien).
 const VIDEOS = {
-  gameplay: "KVHa83JkUV0", // Official SEA Launch Gameplay (bouton du premier écran)
-  trailer: "KVHa83JkUV0"   // Section « Watch the gameplay »
+  gameplay: "kjUtno9wKP8", // « Ragnarok: The New World PC Gameplay & Trailer » (version PC) — bouton du premier écran
+  trailer: "kjUtno9wKP8"   // même vidéo PC — section Gameplay
 };
 const youtubeUrl = (id, autoplay) =>
   "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + "?rel=0&playsinline=1" + (autoplay ? "&autoplay=1" : "");
@@ -69,7 +69,6 @@ videoDialog.addEventListener("close", () => videoFrame.replaceChildren());
 // ---------- Galerie de captures ----------
 // Pour ajouter une capture : place l'image dans assets/ puis ajoute une ligne ici.
 const GALLERY = [
-  { src: "assets/prontera.webp", caption: "In-game screenshot — welcome back to Prontera" },
   { src: "assets/key-art.webp", caption: "Official key art — Ragnarok: The New World" },
   { src: "assets/explore-poster.webp", caption: "Exploring the open world of Midgard" },
   { src: "assets/legend-cup.webp", caption: "Legend Cup — the first global Ragnarok tournament" },
@@ -89,7 +88,7 @@ GALLERY.forEach((item, index) => {
   button.className = "gallery-item";
   button.setAttribute("aria-label", "Open image: " + item.caption);
   const img = document.createElement("img");
-  img.src = item.src.replace(/(prontera|legend-cup|halloween-nights|home-decor-contest)\.webp$/, "$1-640.webp");
+  img.src = item.src.replace(/(legend-cup|halloween-nights|home-decor-contest)\.webp$/, "$1-640.webp");
   img.alt = item.caption;
   img.loading = "lazy";
   img.decoding = "async";
