@@ -130,6 +130,7 @@ svg.icon-fill path { fill: currentColor; stroke: none; }
 .platforms-label { font-family: var(--title); font-size: 15px; letter-spacing: 1px; text-transform: uppercase; color: #123a6b; }
 .platform { display: inline-flex; align-items: center; gap: 8px; font-weight: 900; font-size: 16px; color: #123a6b; background: rgba(255, 255, 255, .75); border-radius: 999px; padding: 7px 15px; }
 .platform svg { width: 18px; height: 18px; }
+.cta-micro { font-size: 14px; font-weight: 800; color: #1f3d63; margin: 14px 0 0; max-width: 560px; }
 .hero-note { font-size: 14px; font-weight: 700; color: #2a5585; margin: 14px 0 0; max-width: 540px; }
 
 .hero-art { position: relative; flex: 0 1 560px; margin: 0; animation: floaty 6s ease-in-out infinite; }

@@ -1,5 +1,13 @@
 # Ragnarok: The New World — Landing page (Groupe 106 V2)
 
+> **Mise à jour du 12/11/2026 : règle des CTA (elle remplace les sections plus bas qui parlent de « Play Free on Steam » ou de « See how to download »)**
+> - Tout bouton **« Download free on Steam »** ouvre directement la fiche Steam exacte : barre du haut, Hero, après la vidéo, après les classes, section Offer (et fenêtre d'événement dans la version longue).
+> - **« Watch PC gameplay »** ouvre la vidéo. Le lien de menu **« Download steps »** descend vers `#go2offer`.
+> - Micro-texte près des boutons Steam : *Windows PC · Opens the Steam page · Gravity account required · Optional in-game purchases*.
+> - 3 étapes : *Open the Steam page → Install the game → Launch the game and log in* (first login = seule conversion).
+> - Version longue : cartes d'événements « View official event details » (fenêtre sur la page avec le lien vers l'annonce officielle).
+> - Mesure : `SteamOutboundClick` avec `cta_position` (header, hero, after_video, after_world, journey, event_popup). Un clic n'est ni une installation ni une conversion.
+
 Site web en **HTML, CSS et JavaScript** (sans framework), construit à partir de la maquette PDF et des deux affiches originales.
 
 ## Ce que contient le projet

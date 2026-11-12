@@ -352,7 +352,7 @@ steamLinks.forEach(link => {
   });
 });
 
-// CTA_Click : les boutons « Play Free Now » du haut de page mènent à l'offre finale (#go2offer).
+// CTA_Click : le lien de menu « Download steps » descend vers l'offre (#go2offer). Les boutons « Download free on Steam » ouvrent Steam directement (SteamOutboundClick).
 // Là, le grand bouton ouvre Steam. On ferme la fenêtre ouverte et on met le bouton final en valeur.
 const steamButton = document.getElementById("steamButton");
 document.querySelectorAll('a[href="#go2offer"]').forEach(link => {
