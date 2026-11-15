@@ -14,7 +14,9 @@ document.querySelectorAll("[data-cta]").forEach(link => { link.href = STEAM_URL;
 // ---------- Vidéo YouTube : colle ici l'identifiant (ce qui suit « v= ») ----------
 const VIDEO_ID = "kjUtno9wKP8"; // « Ragnarok: The New World PC Gameplay & Trailer »
 const ytUrl = id => "https://www.youtube-nocookie.com/embed/" + id + "?rel=0&playsinline=1&autoplay=1";
-function makeIframe(){const f=document.createElement('iframe');f.src=ytUrl(VIDEO_ID);f.title="Ragnarok: The New World — PC gameplay";f.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";f.allowFullscreen=true;return f;}
+function makeIframe(){const f=document.createElement('iframe');f.src=ytUrl(VIDEO_ID);f.title="Ragnarok: The New World — PC gameplay";f.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";f.allowFullscreen=true;f.referrerPolicy="strict-origin-when-cross-origin";return f;}
+// Lien de secours vers YouTube (si la lecture intégrée est bloquée)
+document.querySelectorAll("[data-yt-link]").forEach(a=>{a.href="https://www.youtube.com/watch?v="+VIDEO_ID;});
 
 // Miniature YouTube (sinon on garde l'image locale)
 const thumb=document.getElementById('gameThumb');

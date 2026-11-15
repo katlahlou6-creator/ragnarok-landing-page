@@ -286,3 +286,5 @@ ol.steps{list-style:none;margin-bottom:0;padding-left:0}
 .consent div{display:flex;gap:8px;flex:none}
 .consent .btn{padding:11px 16px;font-size:10px}
 @media(max-width:560px){.consent{flex-direction:column;align-items:stretch}.consent div .btn{flex:1}.cta-row .btn{width:100%}}
+.yt-fallback{margin:12px 0 0;text-align:center;color:var(--muted);font-size:14px}
+.yt-fallback a,.video-note a{color:var(--cyan);text-decoration:underline}
