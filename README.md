@@ -1,5 +1,11 @@
 # Ragnarok: The New World — Landing page (Groupe 106 V2)
 
+> **Mise à jour du 15/11/2026 : nouvelle direction artistique « Neo Midgard » (futuriste)**
+> - Fond sombre, néons cyan / magenta / violet, boutons dorés, cadres type interface de jeu ; polices Orbitron (titres) et Rajdhani (texte). Couleurs modifiables dans `:root` en haut de `style.css`.
+> - Sections : `#home` (Hero) → `#gameplay` (vidéo + galerie de 5 images) → `#explore` (3 cartes + 8 classes) → `#community` (Legend Cup, Halloween Nights, Home Decor Contest) → `#go2offer` (bouton Steam, 3 étapes, Before you play, FAQ).
+> - Vidéo : « PC Gameplay & Trailer » (`VIDEO_ID` dans `script.js`), chargée seulement au clic. Galerie : tableau `GALLERY`.
+> - Règles du brief conservées : lien Steam exact sans paramètre, `cta_position` = header, hero, after_video, after_world, journey ; micro-texte seulement dans la section de téléchargement ; suivi Meta inchangé (Pixel inactif tant que `META_PIXEL_ID` est vide).
+
 > **Mise à jour du 12/11/2026 : règle des CTA (elle remplace les sections plus bas qui parlent de « Play Free on Steam » ou de « See how to download »)**
 > - Tout bouton **« Download free on Steam »** ouvre directement la fiche Steam exacte : barre du haut, Hero, après la vidéo, après les classes, section Offer (et fenêtre d'événement dans la version longue).
 > - **« Watch PC gameplay »** ouvre la vidéo. Le lien de menu **« Download steps »** descend vers `#go2offer`.

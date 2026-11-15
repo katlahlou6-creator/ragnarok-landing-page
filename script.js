@@ -1,8 +1,8 @@
 /* =========================================================
    Ragnarok: The New World — Landing page (Groupe 106 V2)
-   Interactions : vidéo de gameplay, galerie, menu mobile,
-   fenêtres des événements, lien actif, suivi des clics CTA.
-   Les boutons « Play Free on Steam » pointent directement vers
+   Interactions : vidéo de gameplay, galerie, fenêtres,
+   apparition au défilement, suivi Meta (Pixel, UTM, événements).
+   Tous les boutons « Download free on Steam » ouvrent directement
    https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/
    (écrit dans index.html, sans paramètre ajouté).
    ========================================================= */
@@ -11,260 +11,68 @@
 const STEAM_URL = "https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/";
 document.querySelectorAll("[data-cta]").forEach(link => { link.href = STEAM_URL; });
 
-// ---------- Photos du jeu ----------
-// Si une image manque, la case garde son fond coloré avec l'icône.
-document.querySelectorAll("img.game-photo").forEach(img => {
-  const hide = () => img.remove();
-  if (img.complete && img.naturalWidth === 0) hide();
-  else img.addEventListener("error", hide);
-});
+// ---------- Vidéo YouTube : colle ici l'identifiant (ce qui suit « v= ») ----------
+const VIDEO_ID = "kjUtno9wKP8"; // « Ragnarok: The New World PC Gameplay & Trailer »
+const ytUrl = id => "https://www.youtube-nocookie.com/embed/" + id + "?rel=0&playsinline=1&autoplay=1";
+function makeIframe(){const f=document.createElement('iframe');f.src=ytUrl(VIDEO_ID);f.title="Ragnarok: The New World — PC gameplay";f.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";f.allowFullscreen=true;return f;}
 
-// ---------- Vidéos YouTube officielles ----------
-// Pour changer une vidéo, colle l'identifiant YouTube (ce qui suit « v= » dans le lien).
-const VIDEOS = {
-  gameplay: "kjUtno9wKP8", // « Ragnarok: The New World PC Gameplay & Trailer » (version PC) — bouton du premier écran
-  trailer: "kjUtno9wKP8"   // même vidéo PC — section Gameplay
-};
-const youtubeUrl = (id, autoplay) =>
-  "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + "?rel=0&playsinline=1" + (autoplay ? "&autoplay=1" : "");
+// Miniature YouTube (sinon on garde l'image locale)
+const thumb=document.getElementById('gameThumb');
+const t=new Image();t.onload=()=>{if(t.naturalWidth>120)thumb.src=t.src;};t.src="https://i.ytimg.com/vi/"+VIDEO_ID+"/hqdefault.jpg";
 
-function makeIframe(id, autoplay, title) {
-  const iframe = document.createElement("iframe");
-  iframe.src = youtubeUrl(id, autoplay);
-  iframe.title = title;
-  iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen";
-  iframe.allowFullscreen = true;
-  return iframe;
-}
+// Lecture dans le cadre (façade : la vidéo ne se charge qu'au clic)
+const frame=document.getElementById('gameFrame');
+document.getElementById('watchFrame').addEventListener('click',()=>{frame.querySelector('.inner').appendChild(makeIframe());frame.classList.add('playing');});
 
-// Section « Watch the gameplay » : on affiche la miniature YouTube avec un bouton Play,
-// et la vraie vidéo ne se charge qu'au clic (page plus rapide, marche sur mobile).
-const trailerFrame = document.getElementById("trailerFrame");
-const trailerThumb = document.getElementById("trailerThumb");
-const trailerPlay = document.getElementById("trailerPlay");
-if (trailerThumb && VIDEOS.trailer) {
-  const thumb = "https://i.ytimg.com/vi/" + VIDEOS.trailer + "/hqdefault.jpg";
-  const test = new Image();
-  test.onload = () => { if (test.naturalWidth > 120) trailerThumb.src = thumb; }; // sinon on garde l'image locale
-  test.src = thumb;
-  trailerPlay.addEventListener("click", () => {
-    trailerFrame.replaceChildren(makeIframe(VIDEOS.trailer, true, "Ragnarok: The New World — gameplay"));
-  });
-}
+// ---------- Fenêtres ----------
+const videoModal=document.getElementById('videoModal'),videoWrap=document.getElementById('videoWrap'),lightbox=document.getElementById('lightbox');
+function openModal(m){m.classList.add('open');document.body.style.overflow='hidden';}
+function closeModals(){document.querySelectorAll('.modal.open').forEach(m=>m.classList.remove('open'));videoWrap.replaceChildren();document.body.style.overflow='';}
+document.getElementById('watchHero').addEventListener('click',()=>{videoWrap.replaceChildren(makeIframe());openModal(videoModal);});
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeModals));
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModals();}));
 
-// Fenêtre vidéo (bouton « Watch PC gameplay » du premier écran)
-const videoDialog = document.getElementById("videoDialog");
-const videoFrame = document.getElementById("videoFrame");
-document.querySelectorAll("[data-video]").forEach(button => {
-  button.addEventListener("click", () => {
-    const id = VIDEOS[button.dataset.video];
-    if (!id) return;
-    videoFrame.replaceChildren(makeIframe(id, true, "Ragnarok: The New World — gameplay"));
-    openDialog(videoDialog);
-  });
-});
-// Arrête la vidéo quand on ferme la fenêtre
-videoDialog.addEventListener("close", () => videoFrame.replaceChildren());
-
-// ---------- Galerie de captures ----------
-// Pour ajouter une capture : place l'image dans assets/ puis ajoute une ligne ici.
-const GALLERY = [
-  { src: "assets/key-art.webp", caption: "Official key art — Ragnarok: The New World" },
-  { src: "assets/explore-poster.webp", caption: "Exploring the open world of Midgard" },
-  { src: "assets/legend-cup.webp", caption: "Legend Cup — the first global Ragnarok tournament" },
-  { src: "assets/halloween-nights.webp", caption: "Halloween Nights — Sage and Rogue arrive" },
-  { src: "assets/home-decor-contest.webp", caption: "Home Decor Contest — decorate your own home" }
+// ---------- Galerie : ajoute une ligne pour chaque nouvelle image de assets/ ----------
+const GALLERY=[
+  {src:"assets/key-art.webp",cap:"Official key art — Ragnarok: The New World"},
+  {src:"assets/explore-poster.webp",cap:"Exploring the open world of Midgard"},
+  {src:"assets/legend-cup.webp",cap:"Legend Cup — Squad Arena × Guild Battle"},
+  {src:"assets/halloween-nights.webp",cap:"Halloween Nights — Sage and Rogue arrive"},
+  {src:"assets/home-decor-contest.webp",cap:"Home Decor Contest — decorate your own home"}
 ];
-
-const galleryGrid = document.getElementById("galleryGrid");
-const lightbox = document.getElementById("lightbox");
-const lightboxImage = document.getElementById("lightboxImage");
-const lightboxCaption = document.getElementById("lightboxCaption");
-let galleryIndex = 0;
-
-// La galerie n'existe que dans la version longue de la page
-if (galleryGrid && lightbox) {
-GALLERY.forEach((item, index) => {
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = "gallery-item";
-  button.setAttribute("aria-label", "Open image: " + item.caption);
-  const img = document.createElement("img");
-  img.src = item.src.replace(/(legend-cup|halloween-nights|home-decor-contest)\.webp$/, "$1-640.webp");
-  img.alt = item.caption;
-  img.loading = "lazy";
-  img.decoding = "async";
-  img.addEventListener("error", () => button.remove());
-  const caption = document.createElement("span");
-  caption.textContent = item.caption;
-  button.append(img, caption);
-  button.addEventListener("click", () => showImage(index));
-  galleryGrid.appendChild(button);
+const gal=document.getElementById('gallery');let cur=0;
+GALLERY.forEach((g,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','View: '+g.cap);
+  const im=document.createElement('img');im.src=g.src.replace(/(legend-cup|halloween-nights|home-decor-contest)\.webp$/,'$1-640.webp');im.alt=g.cap;im.loading='lazy';
+  im.addEventListener('error',()=>b.remove());b.appendChild(im);b.addEventListener('click',()=>show(i));gal.appendChild(b);});
+const lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap');
+function show(i){cur=(i+GALLERY.length)%GALLERY.length;lbImg.src=GALLERY[cur].src;lbImg.alt=GALLERY[cur].cap;lbCap.textContent=GALLERY[cur].cap;if(!lightbox.classList.contains('open'))openModal(lightbox);}
+document.getElementById('lbPrev').addEventListener('click',()=>show(cur-1));
+document.getElementById('lbNext').addEventListener('click',()=>show(cur+1));
+let x0=null;lightbox.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
+lightbox.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)show(cur+(dx<0?1:-1));x0=null;});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')closeModals();
+  if(lightbox.classList.contains('open')){if(e.key==='ArrowRight')show(cur+1);if(e.key==='ArrowLeft')show(cur-1);}
 });
 
-function showImage(index) {
-  galleryIndex = (index + GALLERY.length) % GALLERY.length;
-  const item = GALLERY[galleryIndex];
-  lightboxImage.src = item.src;
-  lightboxImage.alt = item.caption;
-  lightboxCaption.textContent = item.caption + "  ·  " + (galleryIndex + 1) + " / " + GALLERY.length;
-  if (!lightbox.open) openDialog(lightbox);
-}
-document.getElementById("lightboxPrev").addEventListener("click", () => showImage(galleryIndex - 1));
-document.getElementById("lightboxNext").addEventListener("click", () => showImage(galleryIndex + 1));
-lightbox.addEventListener("keydown", event => {
-  if (event.key === "ArrowLeft") showImage(galleryIndex - 1);
-  if (event.key === "ArrowRight") showImage(galleryIndex + 1);
-});
-// Glisser du doigt sur téléphone
-let touchStartX = null;
-lightbox.addEventListener("touchstart", event => { touchStartX = event.touches[0].clientX; }, { passive: true });
-lightbox.addEventListener("touchend", event => {
-  if (touchStartX === null) return;
-  const dx = event.changedTouches[0].clientX - touchStartX;
-  if (Math.abs(dx) > 50) showImage(galleryIndex + (dx < 0 ? 1 : -1));
-  touchStartX = null;
-});
-}
-
-// ---------- Fenêtres (ouverture / fermeture communes) ----------
-function openDialog(dialog) {
-  if (typeof dialog.showModal === "function") dialog.showModal();
-  else dialog.setAttribute("open", "");
-}
-document.querySelectorAll("dialog").forEach(dialog => {
-  dialog.querySelectorAll("[data-close]").forEach(btn => btn.addEventListener("click", () => dialog.close()));
-  dialog.addEventListener("click", event => {
-    if (event.target === dialog) dialog.close(); // clic en dehors de la fenêtre
-  });
-});
-
-// ---------- Apparition des blocs au défilement ----------
-const revealItems = document.querySelectorAll(".reveal");
-if ("IntersectionObserver" in window) {
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  revealItems.forEach(item => revealObserver.observe(item));
-} else {
-  revealItems.forEach(item => item.classList.add("visible"));
-}
-
-// ---------- Menu mobile ----------
-const menuToggle = document.getElementById("menuToggle");
-const mainNav = document.getElementById("mainNav");
-
-function setMenu(open) {
-  mainNav.classList.toggle("open", open);
-  menuToggle.setAttribute("aria-expanded", String(open));
-  menuToggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
-}
-menuToggle.addEventListener("click", () => setMenu(!mainNav.classList.contains("open")));
-mainNav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => setMenu(false)));
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape" && mainNav.classList.contains("open")) setMenu(false);
-});
-document.addEventListener("click", event => {
-  if (mainNav.classList.contains("open") && !mainNav.contains(event.target) && !menuToggle.contains(event.target)) setMenu(false);
-});
-
-// ---------- Fenêtre des événements ----------
-const eventData = {
-  legend: {
-    title: "Legend Cup — Valkyrie's Trial Squad Arena × Odin's Valhalla Guild Battle",
-    image: "assets/legend-cup.webp",
-    description: "A Ragnarok tournament with two formats: form a squad for Valkyrie's Trial Squad Arena, or fight with your guild in Odin's Valhalla Guild Battle. The full schedule is on the official page.",
-    meta: [
-      "Formats: Squad Arena and Guild Battle",
-      "Guaranteed prize pool: US$1.01M",
-      "Plus an uncapped Pass revenue / Starstone pool"
-    ],
-    source: "https://gevents.gnjoy.hk/rocqb02/"
-  },
-  fields: {
-    title: "New Fields & Mounts — Oct 23 update",
-    image: "assets/explore-poster.webp",
-    description: "The October 23 maintenance opened new field maps around Comodo, Lutie and Aldebaran, added new mounts (some dropped by MVP bosses) and started the Halloween countdown.",
-    meta: [
-      "Available since Oct 23, 2026",
-      "New fields: Comodo, Lutie, Aldebaran",
-      "New mounts, including MVP drops"
-    ],
-    source: "https://gwww.gnjoy.hk/sea_official/detail.html?group_id=179266348724&language=en-US"
-  },
-  decor: {
-    title: "Home Decor Contest",
-    image: "assets/home-decor-contest.webp",
-    description: "Decorate your Home, submit your design, then earn free votes every day to support your favorite homes. Entering, advancing and placing on the leaderboard all give rewards.",
-    meta: ["Announced in the October 2026 update", "Dates: see the official notice", "Limited-edition Home furniture, exclusive titles, Home materials"],
-    source: "https://gwww.gnjoy.hk/sea_official/detail.html?group_id=179144915915&language=en-US"
-  },
-  halloween: {
-    title: "Halloween Nights — Two New Class Paths",
-    image: "assets/halloween-nights.webp",
-    description: "The Halloween season is over, but its update stays: the new second-job paths Sage and Rogue are now part of the game.",
-    meta: ["Halloween events: Oct 24 – early Nov 2026 (ended)", "Hallowspin: mounts and other rewards", "Sage and Rogue: available now"],
-    source: "https://gwww.gnjoy.hk/sea_official/detail.html?group_id=179266348724&language=en-US"
-  }
-};
-
-const eventDialog = document.getElementById("eventDialog");
-function openEvent(key) {
-  const item = eventData[key];
-  if (!item) return;
-  const image = document.getElementById("dialogImage");
-  image.src = item.image;
-  image.alt = item.title;
-  document.getElementById("dialogTitle").textContent = item.title;
-  document.getElementById("dialogDescription").textContent = item.description;
-  document.getElementById("dialogMeta").replaceChildren(...item.meta.map(text => {
-    const li = document.createElement("li");
-    li.textContent = "• " + text;
-    return li;
-  }));
-  document.getElementById("dialogSource").href = item.source;
-  openDialog(eventDialog);
-}
-document.querySelectorAll("[data-event]").forEach(button => {
-  button.addEventListener("click", () => openEvent(button.dataset.event));
-});
-
-// ---------- Lien actif dans le menu ----------
-const navLinks = [...document.querySelectorAll(".nav-link")];
-const sections = navLinks
-  .map(link => document.querySelector(link.getAttribute("href")))
-  .filter(Boolean);
-
-if ("IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      navLinks.forEach(link =>
-        link.classList.toggle("active", link.getAttribute("href") === "#" + entry.target.id)
-      );
-    });
-  }, { rootMargin: "-35% 0px -55% 0px" });
-  sections.forEach(section => observer.observe(section));
-}
+// ---------- Apparition au défilement ----------
+const reveals=document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}}),{threshold:.12});
+  reveals.forEach(r=>io.observe(r));
+}else reveals.forEach(r=>r.classList.add('visible'));
 
 // =========================================================
 // SUIVI : Meta Pixel, paramètres de campagne (UTM) et événements
-// Voir README, partie « Suivi Meta Pixel ».
 // =========================================================
 
 // 1) Colle ici le Pixel ID donné par Meta Events Manager (que des chiffres).
-//    Tant qu'il est vide, aucun Pixel n'est chargé.
+//    Tant qu'il est vide, aucun Pixel n'est chargé et le bandeau reste caché.
 const META_PIXEL_ID = "";
 
 // 2) Ajouter les UTM au lien Steam ?
 //    false = lien Steam EXACT, sans paramètre (consigne du TAF : AFBooster attribue le lien).
-//    true  = ajoute utm_source / utm_medium / utm_campaign / utm_content au lien Steam
-//            (utile seulement pour la version GitHub Pages + Meta Ads, si le client l'accepte).
+//    true  = ajoute les UTM au lien Steam (seulement si le client l'accepte).
 const ADD_UTM_TO_STEAM_LINK = false;
 
 // --- Paramètres de campagne : lus dans l'adresse, gardés dans le navigateur ---
@@ -278,10 +86,7 @@ const tracking = (() => {
   const params = new URLSearchParams(window.location.search);
   const saved = store.get();
   const current = {};
-  UTM_KEYS.forEach(key => {
-    const value = params.get(key);
-    if (value) current[key] = value.slice(0, 100);
-  });
+  UTM_KEYS.forEach(key => { const value = params.get(key); if (value) current[key] = value.slice(0, 100); });
   if (!current.utm_source && params.get("source")) current.utm_source = params.get("source").slice(0, 100);
   const result = {
     first: saved.first || (Object.keys(current).length ? current : null), // première source connue
@@ -315,12 +120,8 @@ if (consentBar && META_PIXEL_ID) {
   const choice = getConsent();
   if (choice === "accepted") loadMetaPixel();
   else if (choice !== "refused") consentBar.hidden = false;
-  consentBar.querySelector("[data-consent=accept]").addEventListener("click", () => {
-    setConsent("accepted"); consentBar.hidden = true; loadMetaPixel();
-  });
-  consentBar.querySelector("[data-consent=refuse]").addEventListener("click", () => {
-    setConsent("refused"); consentBar.hidden = true;
-  });
+  consentBar.querySelector("[data-consent=accept]").addEventListener("click", () => { setConsent("accepted"); consentBar.hidden = true; loadMetaPixel(); });
+  consentBar.querySelector("[data-consent=refuse]").addEventListener("click", () => { setConsent("refused"); consentBar.hidden = true; });
 }
 
 // --- Envoi d'un événement (Meta Pixel si accepté + dataLayer si présent) ---
@@ -329,9 +130,15 @@ function trackEvent(name, data = {}, standard = false) {
   if (typeof window.fbq === "function") window.fbq(standard ? "track" : "trackCustom", name, payload);
   if (Array.isArray(window.dataLayer)) window.dataLayer.push({ event: name, ...payload });
 }
+const sentOnce = new Set();
+function trackOnce(key, name, data, standard = false) {
+  if (sentOnce.has(key)) return;
+  sentOnce.add(key);
+  trackEvent(name, data, standard);
+}
 
 // --- Lien Steam : exact par défaut, UTM seulement si ADD_UTM_TO_STEAM_LINK = true ---
-const steamLinks = document.querySelectorAll('a[href^="https://store.steampowered.com/app/4212480/"]');
+const steamLinks = document.querySelectorAll("[data-cta]");
 if (ADD_UTM_TO_STEAM_LINK) {
   const url = new URL(STEAM_URL);
   url.searchParams.set("utm_source", trafficSource);
@@ -352,41 +159,26 @@ steamLinks.forEach(link => {
   });
 });
 
-// CTA_Click : le lien de menu « Download steps » descend vers l'offre (#go2offer). Les boutons « Download free on Steam » ouvrent Steam directement (SteamOutboundClick).
-// Là, le grand bouton ouvre Steam. On ferme la fenêtre ouverte et on met le bouton final en valeur.
+// CTA_Click : un lien interne vers #go2offer (s'il y en a) met le grand bouton en valeur.
 const steamButton = document.getElementById("steamButton");
 document.querySelectorAll('a[href="#go2offer"]').forEach(link => {
   link.addEventListener("click", () => {
     trackEvent("CTA_Click", { cta_position: link.dataset.position || "nav" });
-    const openDialog = link.closest("dialog");
-    if (openDialog) openDialog.close();
-    if (steamButton) {
-      steamButton.classList.remove("highlight");
-      void steamButton.offsetWidth; // relance l'animation
-      steamButton.classList.add("highlight");
-    }
+    closeModals();
+    if (steamButton) { steamButton.classList.remove("highlight"); void steamButton.offsetWidth; steamButton.classList.add("highlight"); }
   });
 });
 
 // ViewContent : la personne lance réellement la vidéo de gameplay (une seule fois par visite)
-let gameplaySent = false;
-document.querySelectorAll("[data-video], #trailerPlay").forEach(button => {
-  button.addEventListener("click", () => {
-    if (gameplaySent) return;
-    gameplaySent = true;
-    trackEvent("ViewContent", { content_name: "gameplay_video", content_type: "video" }, true);
-  });
+["watchHero", "watchFrame"].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener("click", () => trackOnce("video", "ViewContent", { content_name: "gameplay_video", content_type: "video" }, true));
 });
 
-// --- Signaux d'intérêt pour l'algorithme (une seule fois par visite et par élément) ---
-const sentOnce = new Set();
-function trackOnce(key, name, data, standard = false) {
-  if (sentOnce.has(key)) return;
-  sentOnce.add(key);
-  trackEvent(name, data, standard);
-}
+// GalleryView : ouverture d'une image de la galerie
+gal.addEventListener("click", e => { if (e.target.closest("button")) trackOnce("gallery", "GalleryView", {}); });
 
-// SectionView : la personne a vraiment regardé une section (elle atteint le milieu de l'écran)
+// SectionView : la section atteint le milieu de l'écran (une fois par section)
 if ("IntersectionObserver" in window) {
   const sectionObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -394,40 +186,9 @@ if ("IntersectionObserver" in window) {
       trackOnce("section_" + entry.target.id, "SectionView", { section: entry.target.id });
       sectionObserver.unobserve(entry.target);
     });
-  }, { rootMargin: "0px 0px -50% 0px" }); // la section atteint le milieu de l'écran
+  }, { rootMargin: "0px 0px -50% 0px" });
   ["gameplay", "explore", "community", "go2offer"].forEach(id => {
     const el = document.getElementById(id);
     if (el) sectionObserver.observe(el);
   });
-}
-
-// EventDetailsView : ouverture du détail d'un événement
-document.querySelectorAll("[data-event]").forEach(button => {
-  button.addEventListener("click", () =>
-    trackOnce("event_" + button.dataset.event, "EventDetailsView", { event_name: button.dataset.event }));
-});
-
-// GalleryView : ouverture d'une image de la galerie
-if (galleryGrid) {
-  galleryGrid.addEventListener("click", () => trackOnce("gallery", "GalleryView", {}));
-}
-
-// --- Bouton fixe sur mobile ---
-// Visible quand le bouton du premier écran a disparu, caché quand la section Offre est à l'écran
-// (le grand bouton Steam y est déjà) et pendant que le bandeau de consentement est affiché.
-const stickyCta = document.getElementById("stickyCta");
-const heroActions = document.querySelector(".hero-actions");
-const offerSection = document.getElementById("go2offer");
-if (stickyCta && heroActions && offerSection && "IntersectionObserver" in window) {
-  let heroVisible = true, offerVisible = false;
-  const updateSticky = () => {
-    const consentOpen = consentBar && !consentBar.hidden;
-    const show = !heroVisible && !offerVisible && !consentOpen;
-    stickyCta.classList.toggle("show", show);
-    stickyCta.setAttribute("aria-hidden", String(!show));
-    stickyCta.tabIndex = show ? 0 : -1;
-  };
-  new IntersectionObserver(([entry]) => { heroVisible = entry.isIntersecting; updateSticky(); }).observe(heroActions);
-  new IntersectionObserver(([entry]) => { offerVisible = entry.isIntersecting; updateSticky(); }, { rootMargin: "0px 0px -30% 0px" }).observe(offerSection);
-  if (consentBar) consentBar.querySelectorAll("[data-consent]").forEach(b => b.addEventListener("click", () => setTimeout(updateSticky, 0)));
 }
