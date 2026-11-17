@@ -1,196 +1,284 @@
-/* =========================================================
-   Ragnarok: The New World — Landing page (Groupe 106 V2)
-   Interactions : vidéo de gameplay, galerie, fenêtres,
-   apparition au défilement, suivi Meta (Pixel, UTM, événements).
-   Tous les boutons « Download free on Steam » ouvrent directement
-   https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/
-   (écrit dans index.html, sans paramètre ajouté).
-   ========================================================= */
+'use strict';
+// Complete 18.4-second cinematic. It always starts muted so autoplay works in every browser;
+// sound is opt-in through the button and stays low at 18%.
+const video = document.querySelector('#hero-video');
+const soundToggle = document.querySelector('#sound-toggle');
+const soundLabel = document.querySelector('#sound-label');
+const soundWaves = document.querySelector('#sound-waves');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-// ---------- Lien Steam officiel ----------
-const STEAM_URL = "https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/";
-document.querySelectorAll("[data-cta]").forEach(link => { link.href = STEAM_URL; });
-
-// ---------- Vidéo YouTube : colle ici l'identifiant (ce qui suit « v= ») ----------
-const VIDEO_ID = "kjUtno9wKP8"; // « Ragnarok: The New World PC Gameplay & Trailer »
-const ytUrl = id => "https://www.youtube-nocookie.com/embed/" + id + "?rel=0&playsinline=1&autoplay=1";
-function makeIframe(){const f=document.createElement('iframe');f.src=ytUrl(VIDEO_ID);f.title="Ragnarok: The New World — PC gameplay";f.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";f.allowFullscreen=true;f.referrerPolicy="strict-origin-when-cross-origin";return f;}
-// Lien de secours vers YouTube (si la lecture intégrée est bloquée)
-document.querySelectorAll("[data-yt-link]").forEach(a=>{a.href="https://www.youtube.com/watch?v="+VIDEO_ID;});
-
-// Miniature YouTube (sinon on garde l'image locale)
-const thumb=document.getElementById('gameThumb');
-const t=new Image();t.onload=()=>{if(t.naturalWidth>120)thumb.src=t.src;};t.src="https://i.ytimg.com/vi/"+VIDEO_ID+"/hqdefault.jpg";
-
-// Lecture dans le cadre (façade : la vidéo ne se charge qu'au clic)
-const frame=document.getElementById('gameFrame');
-document.getElementById('watchFrame').addEventListener('click',()=>{frame.querySelector('.inner').appendChild(makeIframe());frame.classList.add('playing');});
-
-// ---------- Fenêtres ----------
-const videoModal=document.getElementById('videoModal'),videoWrap=document.getElementById('videoWrap'),lightbox=document.getElementById('lightbox');
-function openModal(m){m.classList.add('open');document.body.style.overflow='hidden';}
-function closeModals(){document.querySelectorAll('.modal.open').forEach(m=>m.classList.remove('open'));videoWrap.replaceChildren();document.body.style.overflow='';}
-document.getElementById('watchHero').addEventListener('click',()=>{videoWrap.replaceChildren(makeIframe());openModal(videoModal);});
-document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeModals));
-document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModals();}));
-
-// ---------- Galerie : ajoute une ligne pour chaque nouvelle image de assets/ ----------
-const GALLERY=[
-  {src:"assets/key-art.webp",cap:"Official key art — Ragnarok: The New World"},
-  {src:"assets/explore-poster.webp",cap:"Exploring the open world of Midgard"},
-  {src:"assets/legend-cup.webp",cap:"Legend Cup — Squad Arena × Guild Battle"},
-  {src:"assets/halloween-nights.webp",cap:"Halloween Nights — Sage and Rogue arrive"},
-  {src:"assets/home-decor-contest.webp",cap:"Home Decor Contest — decorate your own home"}
-];
-const gal=document.getElementById('gallery');let cur=0;
-GALLERY.forEach((g,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','View: '+g.cap);
-  const im=document.createElement('img');im.src=g.src.replace(/(legend-cup|halloween-nights|home-decor-contest)\.webp$/,'$1-640.webp');im.alt=g.cap;im.loading='lazy';
-  im.addEventListener('error',()=>b.remove());b.appendChild(im);b.addEventListener('click',()=>show(i));gal.appendChild(b);});
-const lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap');
-function show(i){cur=(i+GALLERY.length)%GALLERY.length;lbImg.src=GALLERY[cur].src;lbImg.alt=GALLERY[cur].cap;lbCap.textContent=GALLERY[cur].cap;if(!lightbox.classList.contains('open'))openModal(lightbox);}
-document.getElementById('lbPrev').addEventListener('click',()=>show(cur-1));
-document.getElementById('lbNext').addEventListener('click',()=>show(cur+1));
-let x0=null;lightbox.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
-lightbox.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)show(cur+(dx<0?1:-1));x0=null;});
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape')closeModals();
-  if(lightbox.classList.contains('open')){if(e.key==='ArrowRight')show(cur+1);if(e.key==='ArrowLeft')show(cur-1);}
-});
-
-// ---------- Apparition au défilement ----------
-const reveals=document.querySelectorAll('.reveal');
-if('IntersectionObserver' in window){
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}}),{threshold:.12});
-  reveals.forEach(r=>io.observe(r));
-}else reveals.forEach(r=>r.classList.add('visible'));
-
-// =========================================================
-// SUIVI : Meta Pixel, paramètres de campagne (UTM) et événements
-// =========================================================
-
-// 1) Colle ici le Pixel ID donné par Meta Events Manager (que des chiffres).
-//    Tant qu'il est vide, aucun Pixel n'est chargé et le bandeau reste caché.
-const META_PIXEL_ID = "";
-
-// 2) Ajouter les UTM au lien Steam ?
-//    false = lien Steam EXACT, sans paramètre (consigne du TAF : AFBooster attribue le lien).
-//    true  = ajoute les UTM au lien Steam (seulement si le client l'accepte).
-const ADD_UTM_TO_STEAM_LINK = false;
-
-// --- Paramètres de campagne : lus dans l'adresse, gardés dans le navigateur ---
-const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "campaign", "adset", "ad"];
-const TRACK_KEY = "ragnarok_tracking";
-const store = {
-  get() { try { return JSON.parse(localStorage.getItem(TRACK_KEY) || "{}"); } catch { return {}; } },
-  set(v) { try { localStorage.setItem(TRACK_KEY, JSON.stringify(v)); } catch { /* navigation privée */ } }
-};
-const tracking = (() => {
-  const params = new URLSearchParams(window.location.search);
-  const saved = store.get();
-  const current = {};
-  UTM_KEYS.forEach(key => { const value = params.get(key); if (value) current[key] = value.slice(0, 100); });
-  if (!current.utm_source && params.get("source")) current.utm_source = params.get("source").slice(0, 100);
-  const result = {
-    first: saved.first || (Object.keys(current).length ? current : null), // première source connue
-    last: Object.keys(current).length ? current : (saved.last || null)    // dernière campagne connue
+if (video && soundToggle) {
+  video.volume = 0.18;
+  video.muted = true;
+  soundToggle.hidden = false;
+  const updateSound = () => {
+    const audible = !video.muted;
+    soundLabel.textContent = audible ? 'Sound off' : 'Sound on';
+    soundToggle.setAttribute('aria-label', audible ? 'Turn video sound off' : 'Turn video sound on');
+    soundToggle.setAttribute('aria-pressed', String(audible));
+    soundWaves.setAttribute('d', audible ? 'M16 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14' : 'm16 9 6 6m0-6-6 6');
   };
-  store.set(result);
-  return result;
+  soundToggle.addEventListener('click', async () => {
+    video.muted = !video.muted;
+    if (video.paused && !video.muted) {
+      try { await video.play(); } catch { video.muted = true; }
+    }
+    updateSound();
+  });
+  video.addEventListener('volumechange', updateSound);
+  video.addEventListener('error', () => { soundToggle.hidden = true; });
+  reducedMotion.addEventListener('change', event => { if (event.matches) video.pause(); });
+  if (!reducedMotion.matches && !navigator.connection?.saveData) {
+    video.play().catch(() => { /* Keep the full-frame poster visible. */ });
+  }
+  updateSound();
+}
+
+// Independent gameplay carousel; the Hero's playback behavior stays unchanged.
+(() => {
+  const carousel = document.querySelector('.carousel');
+  if (!carousel) return;
+  const cards = [...carousel.querySelectorAll('.carousel__card')];
+  const clips = cards.map(card => card.querySelector('video'));
+  // The section heading stays fixed; only the visible caption follows the active clip.
+  const caption = document.querySelector('#gameplay-caption');
+  const backdrop = carousel.querySelector('.carousel__backdrop');
+  const interactions = cards.map(card => card.querySelector('.carousel__interaction'));
+  const updateLabels = () => interactions.forEach((button, i) => {
+    button.setAttribute('aria-label', `${paused ? 'Resume' : 'Pause'} ${cards[i].dataset.title}`);
+    button.tabIndex = i === active ? 0 : -1;
+  });
+  const status = carousel.querySelector('.carousel__status');
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let active = 0;
+  let paused = motion.matches;
+  let visible = false;
+  let revision = 0;
+
+  const sync = async () => {
+    const ticket = ++revision;
+    clips.forEach(clip => { clip.muted = true; clip.pause(); });
+    updateLabels();
+    if (paused || !visible || document.hidden) return;
+    const clip = clips[active];
+    try {
+      await clip.play();
+      // A previous play request may settle after navigation or leaving the viewport.
+      if (clip !== clips[active] || paused || !visible || document.hidden) clip.pause();
+    } catch {
+      if (ticket !== revision) return;
+      paused = true;
+      updateLabels();
+      status.textContent = 'Playback is paused. Activate the central video to resume.';
+    }
+  };
+
+  const show = (index, announce = false) => {
+    const restoreFocus = document.activeElement === interactions[active];
+    active = (index + cards.length) % cards.length;
+    clips.forEach(clip => clip.pause());
+    cards.forEach((card, i) => {
+      card.classList.remove('is-active', 'is-previous', 'is-next', 'is-hidden');
+      card.classList.add(i === active ? 'is-active' : i === (active + 1) % cards.length ? 'is-next' : i === (active - 1 + cards.length) % cards.length ? 'is-previous' : 'is-hidden');
+      card.setAttribute('aria-hidden', String(i !== active));
+    });
+    if (caption) caption.textContent = cards[active].dataset.title;
+    backdrop.style.backgroundImage = `url("${clips[active].getAttribute('poster')}")`;
+    clips[active].currentTime = 0;
+    updateLabels();
+    if (restoreFocus) interactions[active].focus({ preventScroll: true });
+    if (announce) status.textContent = `${active + 1} of ${cards.length}: ${cards[active].dataset.title}`;
+    sync();
+  };
+
+  carousel.querySelector('.carousel__previous').addEventListener('click', () => show(active - 1, true));
+  carousel.querySelector('.carousel__next').addEventListener('click', () => show(active + 1, true));
+  interactions.forEach((button, i) => button.addEventListener('click', () => {
+    if (i !== active) return;
+    paused = !paused;
+    if (!paused && clips[active].ended) clips[active].currentTime = 0;
+    sync();
+  }));
+  carousel.addEventListener('keydown', event => {
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    const target = { ArrowLeft: active - 1, ArrowRight: active + 1, Home: 0, End: cards.length - 1 }[event.key];
+    if (target === undefined) return;
+    event.preventDefault();
+    show(target, true);
+  });
+  clips.forEach((clip, i) => {
+    clip.muted = true;
+    clip.addEventListener('ended', () => {
+      if (i !== active || paused || !visible || document.hidden) return;
+      if (motion.matches) { paused = true; sync(); }
+      else show(active + 1);
+    });
+    clip.addEventListener('error', () => {
+      if (i !== active) return;
+      paused = true;
+      sync();
+      status.textContent = 'This video could not be loaded. Try the next video.';
+    });
+  });
+  const observer = new IntersectionObserver(entries => {
+    visible = entries[0].isIntersecting && entries[0].intersectionRatio >= .25;
+    sync();
+  }, { threshold: [0, .25] });
+  observer.observe(carousel);
+  document.addEventListener('visibilitychange', sync);
+  motion.addEventListener('change', () => {
+    // A preference change never restarts motion without an explicit click.
+    paused = true;
+    sync();
+  });
+  sync();
 })();
-const lastCampaign = tracking.last || {};
-const trafficSource = lastCampaign.utm_source || "direct";
 
-// --- Consentement (le Pixel ne se charge qu'après « Accept ») ---
-const CONSENT_KEY = "ragnarok_consent";
-const getConsent = () => { try { return localStorage.getItem(CONSENT_KEY); } catch { return null; } };
-const setConsent = v => { try { localStorage.setItem(CONSENT_KEY, v); } catch { /* ignore */ } };
+// Compact menu on small screens. Without JS the full link list stays visible.
+(() => {
+  const header = document.querySelector('.header');
+  const toggle = header?.querySelector('.nav__toggle');
+  const menu = document.querySelector('#nav-menu');
+  if (!toggle || !menu) return;
+  header.classList.add('has-js-nav');
+  const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
+  const setOpen = open => {
+    toggle.setAttribute('aria-expanded', String(open));
+    header.classList.toggle('is-nav-open', open);
+  };
+  toggle.addEventListener('click', () => setOpen(!isOpen()));
+  menu.addEventListener('click', event => { if (event.target.closest('a')) setOpen(false); });
+  document.addEventListener('click', event => { if (isOpen() && !header.contains(event.target)) setOpen(false); });
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Escape' || !isOpen()) return;
+    setOpen(false);
+    toggle.focus();
+  });
+})();
 
-function loadMetaPixel() {
-  if (!/^\d{6,20}$/.test(META_PIXEL_ID) || window.fbq) return;
-  /* Code de base Meta Pixel */
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-  n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
-  (window,document,"script","https://connect.facebook.net/en_US/fbevents.js");
-  fbq("init", META_PIXEL_ID);
-  fbq("track", "PageView");
-}
+// Progressive enhancement: hidden entrance states exist only after successful JS setup.
+(() => {
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (motion.matches || !('IntersectionObserver' in window)) return;
+  const states = new Map();
+  let fastUntil = 0;
+  let lastY = window.scrollY;
+  let lastTime = performance.now();
 
-const consentBar = document.getElementById("consentBar");
-if (consentBar && META_PIXEL_ID) {
-  const choice = getConsent();
-  if (choice === "accepted") loadMetaPixel();
-  else if (choice !== "refused") consentBar.hidden = false;
-  consentBar.querySelector("[data-consent=accept]").addEventListener("click", () => { setConsent("accepted"); consentBar.hidden = true; loadMetaPixel(); });
-  consentBar.querySelector("[data-consent=refuse]").addEventListener("click", () => { setConsent("refused"); consentBar.hidden = true; });
-}
+  const finish = element => {
+    const state = states.get(element);
+    if (!state) return;
+    state.phase = 'done';
+    clearTimeout(state.timer);
+    element.classList.remove('scroll-reveal-pending', 'scroll-reveal-running');
+    element.style.removeProperty('--reveal-delay');
+    observer.unobserve(element);
+  };
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      const element = entry.target;
+      const state = states.get(element);
+      if (!state || state.phase !== 'pending') continue;
+      if (!entry.isIntersecting) {
+        if (entry.boundingClientRect.bottom <= 0) finish(element);
+        continue;
+      }
+      observer.unobserve(element);
+      state.phase = 'queued';
+      // Two frames ensure the masked state has been painted before its transition.
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (state.phase !== 'queued') return;
+        if (motion.matches || element.open || element.contains(document.activeElement) || element.getBoundingClientRect().bottom <= 0) {
+          finish(element);
+          return;
+        }
+        const delay = performance.now() < fastUntil ? 0 : state.delay;
+        element.style.setProperty('--reveal-delay', `${delay}ms`);
+        element.classList.add('scroll-reveal-running');
+        element.classList.remove('scroll-reveal-pending');
+        state.phase = 'running';
+        state.timer = setTimeout(() => finish(element), 550 + delay);
+      }));
+    }
+  }, { threshold: 0, rootMargin: '0px 0px -8px 0px' });
 
-// --- Envoi d'un événement (Meta Pixel si accepté + dataLayer si présent) ---
-function trackEvent(name, data = {}, standard = false) {
-  const payload = { traffic_source: trafficSource, campaign: lastCampaign.utm_campaign || "unknown", ...data };
-  if (typeof window.fbq === "function") window.fbq(standard ? "track" : "trackCustom", name, payload);
-  if (Array.isArray(window.dataLayer)) window.dataLayer.push({ event: name, ...payload });
-}
-const sentOnce = new Set();
-function trackOnce(key, name, data, standard = false) {
-  if (sentOnce.has(key)) return;
-  sentOnce.add(key);
-  trackEvent(name, data, standard);
-}
+  try {
+    document.querySelectorAll('main > section:not(.hero)').forEach(section => {
+      const targets = [...section.querySelectorAll('h2, p, .benefit-card, .class-card, .how-to-start__steps > li, .requirements, .faq__item, .carousel')]
+        .filter(element => {
+          if (element.matches('h2, p')) return !element.closest('.benefit-card, .class-card, .how-to-start__steps li, .requirements, .faq__item, .carousel');
+          return !element.open;
+        });
+      targets.forEach((target, index) => {
+        let element = target;
+        if (target.matches('.benefit-card, .class-card, .carousel')) {
+          element = document.createElement('div');
+          element.className = 'scroll-reveal-shell';
+          target.before(element);
+          element.append(target);
+        }
+        if (element.getBoundingClientRect().bottom <= 0 || element.contains(document.activeElement)) return;
+        states.set(element, { phase: 'pending', delay: Math.min(index * 80, 240) });
+        element.classList.add('scroll-reveal-pending');
+        observer.observe(element);
+        element.addEventListener('focusin', () => finish(element));
+        if (element.matches('details')) element.addEventListener('toggle', () => {
+          if (element.open) finish(element);
+        });
+        element.addEventListener('transitionend', event => {
+          if (event.target === element && event.propertyName === 'opacity') finish(element);
+        });
+      });
+    });
+  } catch (error) {
+    // A partial setup failure must not leave any content hidden.
+    states.forEach((_, element) => finish(element));
+    observer.disconnect();
+    console.warn('Scroll entrance setup skipped:', error);
+    return;
+  }
 
-// --- Lien Steam : exact par défaut, UTM seulement si ADD_UTM_TO_STEAM_LINK = true ---
-const steamLinks = document.querySelectorAll("[data-cta]");
-if (ADD_UTM_TO_STEAM_LINK) {
-  const url = new URL(STEAM_URL);
-  url.searchParams.set("utm_source", trafficSource);
-  url.searchParams.set("utm_medium", lastCampaign.utm_medium || "paid_social");
-  url.searchParams.set("utm_campaign", lastCampaign.utm_campaign || "ragnarok_campaign");
-  url.searchParams.set("utm_content", lastCampaign.utm_content || "landing_page");
-  steamLinks.forEach(link => { link.href = url.toString(); });
-}
+  window.addEventListener('scroll', () => {
+    const now = performance.now();
+    const distance = Math.abs(window.scrollY - lastY);
+    const elapsed = Math.max(1, now - lastTime);
+    // Only remove stagger for a large jump or genuinely rapid scrolling.
+    // Never cancel an entrance merely because the visitor is scrolling.
+    if (distance > window.innerHeight * .6 || (distance > 60 && distance / elapsed > 3)) {
+      fastUntil = now + 200;
+      states.forEach((state, element) => {
+        if (state.phase === 'running') element.style.setProperty('--reveal-delay', '0ms');
+      });
+    }
+    lastY = window.scrollY;
+    lastTime = now;
+  }, { passive: true });
+  motion.addEventListener('change', () => {
+    if (!motion.matches) return;
+    states.forEach((_, element) => finish(element));
+    observer.disconnect();
+  });
+})();
 
-// SteamOutboundClick : départ vers Steam (intention, PAS une inscription).
-// On n'envoie jamais CompleteRegistration : Steam ne confirme pas l'inscription à la page.
-steamLinks.forEach(link => {
-  link.addEventListener("click", () => {
-    trackEvent("SteamOutboundClick", {
-      cta_position: link.dataset.cta || "other",
-      device: window.matchMedia("(max-width: 900px)").matches ? "mobile" : "desktop"
+
+// Subtle cinematic pointer parallax on the hero; disabled for touch and reduced motion.
+(() => {
+  const stage = document.querySelector('.hero__stage');
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (!stage || motion.matches || !window.matchMedia('(pointer: fine)').matches) return;
+  let frame = 0;
+  stage.addEventListener('pointermove', event => {
+    if (frame) cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(() => {
+      const rect = stage.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - .5;
+      const y = (event.clientY - rect.top) / rect.height - .5;
+      stage.style.setProperty('--pointer-x', `${-x * 10}px`);
+      stage.style.setProperty('--pointer-y', `${-y * 8}px`);
     });
   });
-});
-
-// CTA_Click : un lien interne vers #go2offer (s'il y en a) met le grand bouton en valeur.
-const steamButton = document.getElementById("steamButton");
-document.querySelectorAll('a[href="#go2offer"]').forEach(link => {
-  link.addEventListener("click", () => {
-    trackEvent("CTA_Click", { cta_position: link.dataset.position || "nav" });
-    closeModals();
-    if (steamButton) { steamButton.classList.remove("highlight"); void steamButton.offsetWidth; steamButton.classList.add("highlight"); }
+  stage.addEventListener('pointerleave', () => {
+    stage.style.setProperty('--pointer-x', '0px');
+    stage.style.setProperty('--pointer-y', '0px');
   });
-});
-
-// ViewContent : la personne lance réellement la vidéo de gameplay (une seule fois par visite)
-["watchHero", "watchFrame"].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.addEventListener("click", () => trackOnce("video", "ViewContent", { content_name: "gameplay_video", content_type: "video" }, true));
-});
-
-// GalleryView : ouverture d'une image de la galerie
-gal.addEventListener("click", e => { if (e.target.closest("button")) trackOnce("gallery", "GalleryView", {}); });
-
-// SectionView : la section atteint le milieu de l'écran (une fois par section)
-if ("IntersectionObserver" in window) {
-  const sectionObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      trackOnce("section_" + entry.target.id, "SectionView", { section: entry.target.id });
-      sectionObserver.unobserve(entry.target);
-    });
-  }, { rootMargin: "0px 0px -50% 0px" });
-  ["gameplay", "explore", "community", "go2offer"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) sectionObserver.observe(el);
-  });
-}
+})();

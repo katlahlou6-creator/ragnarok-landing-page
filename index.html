@@ -1,212 +1,299 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Your legend begins in Midgard. Explore the open world of Ragnarok: The New World, master your class and fight powerful bosses with friends.">
-<meta name="theme-color" content="#05060f">
-<title>Ragnarok: The New World — Your Legend Begins</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261115b">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Your legend begins in Midgard. Explore the open world, master your class and take on powerful bosses with your friends and guild. Free download for Windows PC via Steam.">
+  <meta name="theme-color" content="#071b26">
+  <title>Ragnarok: The New World — Download free on Steam</title>
+  <link rel="preload" as="image" href="./assets/images/midgard-poster.webp" fetchpriority="high">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./script.js" defer></script>
 </head>
 <body>
-<div class="bg-fx" aria-hidden="true"></div>
-
-<header class="topbar">
-  <div class="container navwrap">
-    <a class="brand" href="#home" aria-label="Ragnarok The New World home"><span class="brandmark">R</span><span>RAGNAROK<small>THE NEW WORLD</small></span></a>
-    <nav aria-label="Main navigation"><a href="#home">Home</a><a href="#gameplay">Gameplay</a><a href="#explore">Features</a><a href="#faq">FAQ</a></nav>
-    <a class="btn" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" data-cta="header">Download free on Steam <span>↗</span></a>
-  </div>
-</header>
-
-<main>
-<!-- ========== 1. HERO ========== -->
-<section class="hero" id="home">
-  <div class="container hero-grid">
-    <div>
-      <span class="tag"><i></i>SEA servers · Online now</span>
-      <h1><span class="glitch" data-text="Your legend">Your legend</span><span class="neon">begins in Midgard</span></h1>
-      <p class="hero-copy">Explore the open world of Midgard, master your class and take on powerful bosses with your friends and guild.</p>
-      <div class="hero-actions">
-        <a class="btn" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" data-cta="hero">Download free on Steam <span>↗</span></a>
-        <button class="btn btn-ghost" id="watchHero" type="button">▶&nbsp; Watch PC gameplay</button>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero__stage">
+        <video class="hero__video" id="hero-video" loop muted playsinline preload="metadata" poster="./assets/images/midgard-poster.webp" aria-label="Promotional cinematic showing adventurers in Midgard">
+          <source src="./assets/videos/midgard-hero.mp4" type="video/mp4">
+        </video>
+        <div class="hero__shade" aria-hidden="true"></div>
+        <header class="header">
+          <a class="brand-link" href="#top" aria-label="Ragnarok: The New World, back to top">
+            <img class="brand" src="./assets/images/ragnarok-logo.webp" width="420" height="296" alt="" fetchpriority="high">
+          </a>
+          <nav class="nav" aria-label="Main">
+            <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <span>Menu</span>
+            </button>
+            <ul class="nav__list" id="nav-menu">
+              <li><a href="#top">Home</a></li>
+              <li><a href="#gameplay">Gameplay</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="#go2offer">Download steps</a></li>
+            </ul>
+          </nav>
+          <a class="header__cta" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/">Download free on Steam</a>
+        </header>
+        <button class="sound-button" id="sound-toggle" type="button" aria-label="Turn video sound on" aria-pressed="false" hidden>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="m11 5-6 4H2v6h3l6 4V5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path id="sound-waves" d="m16 9 6 6m0-6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span id="sound-label">Sound on</span>
+        </button>
       </div>
-      <div class="stats">
-        <div class="stat cut"><strong>OPEN</strong><span>World to explore</span></div>
-        <div class="stat cut"><strong>8</strong><span>Playable classes</span></div>
-        <div class="stat cut"><strong>CO-OP</strong><span>MVP bosses</span></div>
-      </div>
-    </div>
-    <div class="hud">
-      <div class="holo cut">
-        <div class="holo-inner cut"><img src="assets/key-art.webp" width="640" height="360" fetchpriority="high" decoding="async" alt="Official key art of Ragnarok: The New World: adventurers flying over the floating world of Midgard"></div>
-      </div>
-      <span class="holo-badge">FREE TO PLAY</span>
-      <span class="holo-label">MIDGARD // SECTOR 01</span>
-    </div>
-  </div>
-  <div class="ticker" aria-hidden="true"><div class="ticker-track">
-    <span>Open world</span><span>8 classes</span><span>Job Freedom</span><span>Flying mounts</span><span>MVP bosses</span><span>Guild battles</span><span>Legend Cup</span><span>Free on Steam</span>
-    <span>Open world</span><span>8 classes</span><span>Job Freedom</span><span>Flying mounts</span><span>MVP bosses</span><span>Guild battles</span><span>Legend Cup</span><span>Free on Steam</span>
-  </div></div>
-</section>
-
-<!-- ========== 2. GAMEPLAY ========== -->
-<section class="section" id="gameplay">
-  <div class="container">
-    <div class="reveal">
-      <div class="kicker">See the world for yourself</div>
-      <h2 class="title">Step into the <em>adventure</em></h2>
-      <p class="intro">Get a closer look at the PC experience: explore Midgard, discover your combat style and see what awaits beyond the next horizon.</p>
-    </div>
-    <div class="game-frame hud reveal" id="gameFrame">
-      <div class="inner">
-        <img class="game-thumb" id="gameThumb" src="assets/explore-poster.webp" width="560" height="318" loading="lazy" alt="Thumbnail of the Ragnarok: The New World PC gameplay video">
-        <span class="hud-line hud-tl"><span class="rec"></span>LIVE FEED · PC</span>
-        <span class="hud-line hud-tr">SEA-01 // 1080P</span>
-        <span class="hud-line hud-bl">PC Gameplay &amp; Trailer</span>
-        <span class="ring" aria-hidden="true"></span>
-        <button class="playbutton" id="watchFrame" type="button" aria-label="Play the PC gameplay video">▶</button>
-      </div>
-    </div>
-    <div class="video-note"><span>Watch the PC version before you download.</span><span>Video not playing? <a data-yt-link href="https://www.youtube.com/" target="_blank" rel="noopener">Watch it on YouTube ↗</a></span></div>
-    <div class="gallery reveal" id="gallery" aria-label="Screenshots and artwork gallery"></div>
-    <div class="cta-row"><a class="btn" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" data-cta="after_video">Download free on Steam <span>↗</span></a></div>
-  </div>
-</section>
-
-<!-- ========== 3. FEATURES ========== -->
-<section class="section" id="explore">
-  <div class="container">
-    <div class="reveal">
-      <div class="kicker">Make the world yours</div>
-      <h2 class="title">Adventure <em>your way</em></h2>
-      <p class="intro">Build your character, explore a world without the usual zone boundaries and take on challenges with your party.</p>
-    </div>
-    <div class="cards">
-      <article class="card cut reveal"><div class="card-img"><img src="assets/explore-poster.webp" width="560" height="318" loading="lazy" alt="An adventurer under the night sky of Midgard"></div>
-        <div class="card-body"><span class="card-no">01</span><h3>Explore</h3><p>Discover the open world of Midgard and take to the skies with the game's flying feature.</p></div></article>
-      <article class="card cut reveal"><div class="card-img"><img src="assets/halloween-nights-640.webp" srcset="assets/halloween-nights-640.webp 640w, assets/halloween-nights.webp 1200w" sizes="(max-width:980px) 92vw, 390px" width="1200" height="675" loading="lazy" alt="Adventurers facing a giant boss"></div>
-        <div class="card-body"><span class="card-no">02</span><h3>Fight together</h3><p>Team up with friends and your guild to challenge powerful MVP bosses.</p></div></article>
-      <article class="card cut reveal"><div class="card-img"><img src="assets/legend-cup-640.webp" srcset="assets/legend-cup-640.webp 640w, assets/legend-cup.webp 1200w" sizes="(max-width:980px) 92vw, 390px" width="1200" height="675" loading="lazy" alt="The playable classes of Ragnarok: The New World"></div>
-        <div class="card-body"><span class="card-no">03</span><h3>Become a legend</h3><p>Choose from 8 classes, use Job Freedom to change class on the same character and customize your look with outfits.</p></div></article>
-    </div>
-    <div class="classes cut reveal">
-      <div class="classes-head"><div><div class="kicker">Find your playstyle</div><h3>Eight classes. Your own path.</h3></div><p>Choose the role that fits your way of playing. Switch classes on the same character with Job Freedom.</p></div>
-      <div class="class-grid">
-        <div class="class-item"><span class="class-symbol">♜</span><span>Class 01</span></div>
-        <div class="class-item"><span class="class-symbol">✦</span><span>Class 02</span></div>
-        <div class="class-item"><span class="class-symbol">⚔</span><span>Class 03</span></div>
-        <div class="class-item"><span class="class-symbol">❖</span><span>Class 04</span></div>
-        <div class="class-item"><span class="class-symbol">☼</span><span>Class 05</span></div>
-        <div class="class-item"><span class="class-symbol">➶</span><span>Class 06</span></div>
-        <div class="class-item"><span class="class-symbol">♧</span><span>Class 07</span></div>
-        <div class="class-item"><span class="class-symbol">✧</span><span>Class 08</span></div>
-      </div>
-    </div>
-    <div class="cta-row"><a class="btn" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" data-cta="after_world">Download free on Steam <span>↗</span></a></div>
-  </div>
-</section>
-
-<!-- ========== 4. EVENTS ========== -->
-<section class="section" id="community">
-  <div class="container">
-    <div class="reveal">
-      <div class="kicker">Join the community</div>
-      <h2 class="title">Midgard is <em>alive</em></h2>
-      <p class="intro">Tournaments, seasonal updates and player contests: there is always something happening in Ragnarok: The New World.</p>
-    </div>
-    <div class="events-grid">
-      <article class="event cut reveal"><img src="assets/legend-cup.webp" width="1200" height="675" loading="lazy" alt="Legend Cup tournament artwork">
-        <div class="event-body"><span class="event-tag">Tournament</span><h3>Legend Cup</h3><p>Form a squad for Valkyrie's Trial Squad Arena or fight with your guild in Odin's Valhalla Guild Battle. Guaranteed prize pool: US$1.01M.</p></div></article>
-      <article class="event cut reveal"><img src="assets/halloween-nights-640.webp" srcset="assets/halloween-nights-640.webp 640w, assets/halloween-nights.webp 1200w" sizes="(max-width:980px) 92vw, 480px" width="1200" height="675" loading="lazy" alt="Halloween Nights update artwork">
-        <div class="event-body"><span class="event-tag">Update</span><h3>Two new class paths</h3><p>The Halloween season is over, but its update stays: Sage and Rogue are now part of the game.</p></div></article>
-      <article class="event cut reveal"><img src="assets/home-decor-contest-640.webp" srcset="assets/home-decor-contest-640.webp 640w, assets/home-decor-contest.webp 1200w" sizes="(max-width:980px) 92vw, 480px" width="1200" height="671" loading="lazy" alt="Home Decor Contest artwork">
-        <div class="event-body"><span class="event-tag">Contest</span><h3>Home Decor Contest</h3><p>Decorate your Home, submit your design and vote for your favorites.</p></div></article>
-    </div>
-  </div>
-</section>
-
-<!-- ========== 5. DOWNLOAD + FAQ ========== -->
-<section class="section" id="go2offer">
-  <div class="container">
-    <div class="reveal">
-      <div class="kicker">Your journey starts here</div>
-      <h2 class="title">Ready to enter <em>Midgard?</em></h2>
-      <p class="intro">A few steps stand between you and your first adventure. Check the essentials before heading to Steam.</p>
-    </div>
-    <div class="panel cut reveal">
-      <div class="panel-top">
-        <div>
-          <div class="kicker">Play on Windows PC</div>
-          <h3>Begin your legend</h3>
-          <p>The button opens the game's page on Steam. Install the game on your Windows PC, then launch it and log in.</p>
-          <div class="pills"><span class="pill">Windows PC</span><span class="pill">Steam</span><span class="pill">SEA servers</span><span class="pill">Free to play</span></div>
-          <a class="btn btn-mega" id="steamButton" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" data-cta="journey">Download free on Steam <span>↗</span></a>
-          <div class="micro" style="margin-top:14px">Windows PC · Opens the Steam page · Gravity account required · Optional in-game purchases</div>
+      <div class="hero__content">
+        <div class="hero__copy">
+        <h1 id="hero-title">Your legend begins<br> in <em>Midgard.</em></h1>
+        <p class="hero__description">Explore the open world of Midgard, master your class and take on powerful bosses with your friends and guild.</p>
         </div>
-        <div>
-          <div class="kicker">System check</div>
-          <div class="meters">
-            <div class="meter"><div class="meter-top"><span>Memory</span><b>12 GB</b></div><div class="bar"><i style="width:75%"></i></div><small>Minimum RAM · 16 GB recommended</small></div>
-            <div class="meter"><div class="meter-top"><span>Storage</span><b>30 GB</b></div><div class="bar"><i style="width:60%"></i></div><small>Free disk space · broadband connection</small></div>
+        <div class="hero__action">
+          <a class="cta" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" aria-describedby="hero-cta-note">
+            <span class="cta__surface" aria-hidden="true"></span>
+            <svg class="cta__rim" aria-hidden="true" viewBox="0 0 340 76" preserveAspectRatio="none"><rect x="1" y="1" width="338" height="74" rx="13" pathLength="100"/></svg>
+            <svg aria-hidden="true" width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M12 3.5v11.5m0 0-5-5m5 5 5-5M5 20h14" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Download free on Steam</span>
+            <svg class="cta__chevrons" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="m5 6 6 6-6 6m8-12 6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <span class="cta-note" id="hero-cta-note">Windows PC · Opens the Steam page · Gravity account required · Optional in-game purchases</span>
+        </div>
+      </div>
+    </section>
+    <section class="gameplay" id="gameplay" aria-labelledby="gameplay-title">
+      <div class="gameplay__inner">
+        <h2 id="gameplay-title">See the game in action</h2>
+        <div class="carousel" role="region" aria-roledescription="carousel" aria-labelledby="gameplay-title" tabindex="0" style="--media-ratio:1280 / 800">
+          <div class="carousel__stage">
+            <div class="carousel__backdrop" aria-hidden="true" style="background-image:url('./assets/images/gear-up.webp')"></div>
+            <div class="carousel__card is-active" role="group" aria-roledescription="slide" aria-label="1 of 5: Gear Up" aria-hidden="false" data-title="Gear Up">
+              <video muted playsinline preload="none" width="1280" height="592" poster="./assets/images/gear-up.webp" aria-label="Gear Up" tabindex="-1" disablepictureinpicture>
+                <source src="./assets/videos/gear-up.mp4" type="video/mp4">
+              </video>
+              <button class="carousel__interaction" type="button" tabindex="0" aria-label="Pause Gear Up"></button>
+            </div>
+            <div class="carousel__card is-next" role="group" aria-roledescription="slide" aria-label="2 of 5: Advance Your Class" aria-hidden="true" data-title="Advance Your Class">
+              <video muted playsinline preload="none" width="1280" height="592" poster="./assets/images/advance-your-class.webp" aria-label="Advance Your Class" tabindex="-1" disablepictureinpicture>
+                <source src="./assets/videos/advance-your-class.mp4" type="video/mp4">
+              </video>
+              <button class="carousel__interaction" type="button" tabindex="-1" aria-label="Pause Advance Your Class"></button>
+            </div>
+            <div class="carousel__card is-hidden" role="group" aria-roledescription="slide" aria-label="3 of 5: Face Powerful Monsters" aria-hidden="true" data-title="Face Powerful Monsters">
+              <video muted playsinline preload="none" width="1280" height="592" poster="./assets/images/face-powerful-monsters.webp" aria-label="Face Powerful Monsters" tabindex="-1" disablepictureinpicture>
+                <source src="./assets/videos/face-powerful-monsters.mp4" type="video/mp4">
+              </video>
+              <button class="carousel__interaction" type="button" tabindex="-1" aria-label="Pause Face Powerful Monsters"></button>
+            </div>
+            <div class="carousel__card is-hidden" role="group" aria-roledescription="slide" aria-label="4 of 5: Explore Midgard" aria-hidden="true" data-title="Explore Midgard">
+              <video muted playsinline preload="none" width="1280" height="800" poster="./assets/images/explore-midgard.webp" aria-label="Explore Midgard" tabindex="-1" disablepictureinpicture>
+                <source src="./assets/videos/explore-midgard.mp4" type="video/mp4">
+              </video>
+              <button class="carousel__interaction" type="button" tabindex="-1" aria-label="Pause Explore Midgard"></button>
+            </div>
+            <div class="carousel__card is-previous" role="group" aria-roledescription="slide" aria-label="5 of 5: Join the Battle" aria-hidden="true" data-title="Join the Battle">
+              <video muted playsinline preload="none" width="1280" height="592" poster="./assets/images/join-the-battle.webp" aria-label="Join the Battle" tabindex="-1" disablepictureinpicture>
+                <source src="./assets/videos/join-the-battle.mp4" type="video/mp4">
+              </video>
+              <button class="carousel__interaction" type="button" tabindex="-1" aria-label="Pause Join the Battle"></button>
+            </div>
           </div>
+          <div class="carousel__controls">
+            <button class="carousel__previous" type="button" aria-label="Previous video"><svg aria-hidden="true" focusable="false" width="46" height="46" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="19.5" stroke="currentColor" stroke-width="1" opacity=".8"/><g><path d="M29 13 17 24l12 11-3-7-5-4 5-4 3-7Z" fill="currentColor"/><path d="m24 5-2 3 2 2 2-2-2-3Zm0 33-2 2 2 3 2-3-2-2Z" fill="currentColor" opacity=".85"/></g></svg></button>
+            <button class="carousel__next" type="button" aria-label="Next video"><svg aria-hidden="true" focusable="false" width="46" height="46" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="19.5" stroke="currentColor" stroke-width="1" opacity=".8"/><g transform="rotate(180 24 24)"><path d="M29 13 17 24l12 11-3-7-5-4 5-4 3-7Z" fill="currentColor"/><path d="m24 5-2 3 2 2 2-2-2-3Zm0 33-2 2 2 3 2-3-2-2Z" fill="currentColor" opacity=".85"/></g></svg></button>
+          </div>
+          <p class="carousel__status" aria-live="polite" aria-atomic="true"></p>
+        </div>
+        <p class="carousel__caption" id="gameplay-caption" aria-hidden="true">Gear Up</p>
+        <div class="gameplay__action">
+          <a class="cta" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" aria-describedby="gameplay-cta-note">
+            <span class="cta__surface" aria-hidden="true"></span>
+            <svg class="cta__rim" aria-hidden="true" viewBox="0 0 340 76" preserveAspectRatio="none"><rect x="1" y="1" width="338" height="74" rx="13" pathLength="100"/></svg>
+            <svg aria-hidden="true" width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M12 3.5v11.5m0 0-5-5m5 5 5-5M5 20h14" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Download free on Steam</span>
+            <svg class="cta__chevrons" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="m5 6 6 6-6 6m8-12 6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <span class="cta-note" id="gameplay-cta-note">Windows PC · Opens the Steam page · Gravity account required · Optional in-game purchases</span>
         </div>
       </div>
-      <ol class="steps">
-        <li class="step"><span class="step-no">01</span><div><strong>Open the Steam page</strong><span>The button opens the game's page on Steam. It does not launch the game.</span></div></li>
-        <li class="step"><span class="step-no">02</span><div><strong>Install the game</strong><span>Download and install the game on your Windows PC.</span></div></li>
-        <li class="step"><span class="step-no">03</span><div><strong>Launch the game and log in</strong><span>Follow the launcher instructions and complete your first login.</span></div></li>
-      </ol>
-      <div class="specs" id="before">
-        <div class="spec"><h4>Before you play</h4><ul><li><b>Windows PC:</b> Steam lists a minimum of 12 GB RAM (16 GB recommended), 30 GB of storage and a broadband connection.</li><li><b>Languages:</b> English, Indonesian, Thai and Simplified Chinese (interface, voices and subtitles).</li></ul></div>
-        <div class="spec"><h4>Access</h4><ul><li><b>Servers:</b> Southeast Asia (SEA), for smooth play from the Philippines.</li><li><b>Game account:</b> a Gravity account is required through the launcher.</li><li><b>Free to play:</b> with optional in-game purchases.</li></ul></div>
+    </section>
+    <section class="benefits" id="features" aria-labelledby="features-title">
+      <div class="benefits__inner">
+        <h2 id="features-title">A whole new world to explore with your guild</h2>
+        <div class="benefits__grid">
+          <article class="benefit-card" aria-labelledby="benefit-title-1">
+            <div class="benefit-card__media">
+              <img class="benefit-card__image" src="./assets/images/explore-midgard.webp" width="1280" height="800" alt="" loading="lazy" decoding="async">
+            </div>
+            <div class="benefit-card__body">
+              <h3 id="benefit-title-1">Explore Midgard</h3>
+              <p>The first open-world Ragnarok. Travel across Midgard, take to the skies and discover new places at every turn.</p>
+            </div>
+          </article>
+          <article class="benefit-card" aria-labelledby="benefit-title-2">
+            <div class="benefit-card__media">
+              <img class="benefit-card__image" src="./assets/images/join-the-battle.webp" width="1280" height="592" alt="" loading="lazy" decoding="async">
+            </div>
+            <div class="benefit-card__body">
+              <h3 id="benefit-title-2">Fight Together</h3>
+              <p>Team up with your friends and your guild to take on powerful MVP bosses together.</p>
+            </div>
+          </article>
+          <article class="benefit-card" aria-labelledby="benefit-title-3">
+            <div class="benefit-card__media">
+              <img class="benefit-card__image" src="./assets/images/advance-your-class.webp" width="1280" height="592" alt="" loading="lazy" decoding="async">
+            </div>
+            <div class="benefit-card__body">
+              <h3 id="benefit-title-3">Become a Legend</h3>
+              <p>Develop your character, upgrade your gear and grow into the role you want in your party.</p>
+            </div>
+          </article>
+        </div>
+        <div class="classes" aria-labelledby="classes-title">
+          <div class="classes__intro">
+            <h3 id="classes-title">8 classes. One character. Your way.</h3>
+            <p>Pick the role you want in your party, then change class on the same character with Job Freedom and customize your outfits.</p>
+          </div>
+          <ul class="classes__grid" role="list">
+            <li class="class-card">
+              <img src="./assets/images/class-swordsman.webp" width="480" height="514" alt="" loading="lazy" decoding="async">
+              <h4>Swordsman</h4>
+              <p class="class-card__role">Frontline fighter</p>
+              <p>Durable melee that holds the front line for the party.</p>
+            </li>
+            <li class="class-card">
+              <img src="./assets/images/class-archer.webp" width="480" height="514" alt="" loading="lazy" decoding="async">
+              <h4>Archer</h4>
+              <p class="class-card__role">Safe ranged damage</p>
+              <p>Strike from a distance, a comfortable pick for solo farming.</p>
+            </li>
+            <li class="class-card">
+              <img src="./assets/images/class-mage.webp" width="480" height="514" alt="" loading="lazy" decoding="async">
+              <h4>Mage</h4>
+              <p class="class-card__role">Area damage</p>
+              <p>Clear grouped enemies fast with powerful spells.</p>
+            </li>
+            <li class="class-card">
+              <img src="./assets/images/class-acolyte.webp" width="480" height="514" alt="" loading="lazy" decoding="async">
+              <h4>Acolyte</h4>
+              <p class="class-card__role">Healing &amp; support</p>
+              <p>Heal and protect your party through tough fights.</p>
+            </li>
+            <li class="class-card">
+              <img src="./assets/images/class-thief.webp" width="480" height="514" alt="" loading="lazy" decoding="async">
+              <h4>Thief</h4>
+              <p class="class-card__role">Fast melee burst</p>
+              <p>Quick, aggressive fighter built on speed and critical hits.</p>
+            </li>
+            <li class="class-card">
+              <img src="./assets/images/class-merchant.webp" width="480" height="514" alt="" loading="lazy" decoding="async">
+              <h4>Merchant</h4>
+              <p class="class-card__role">Economy &amp; utility</p>
+              <p>Trade, craft and earn Zeny while you adventure.</p>
+            </li>
+            <li class="class-card">
+              <img src="./assets/images/class-gunslinger.webp" width="480" height="514" alt="" loading="lazy" decoding="async">
+              <h4>Gunslinger</h4>
+              <p class="class-card__role">Ranged burst</p>
+              <p>Switch firearms to deal heavy damage from range.</p>
+            </li>
+            <li class="class-card">
+              <img src="./assets/images/class-druid.webp" width="480" height="514" alt="" loading="lazy" decoding="async">
+              <h4>Druid</h4>
+              <p class="class-card__role">Flexible hybrid</p>
+              <p>Shift between Werewolf, Bird-Man and Human forms.</p>
+            </li>
+          </ul>
+        </div>
+        <div class="benefits__action">
+          <a class="cta" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" aria-describedby="features-cta-note">
+            <span class="cta__surface" aria-hidden="true"></span>
+            <svg class="cta__rim" aria-hidden="true" viewBox="0 0 340 76" preserveAspectRatio="none"><rect x="1" y="1" width="338" height="74" rx="13" pathLength="100"/></svg>
+            <svg aria-hidden="true" width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M12 3.5v11.5m0 0-5-5m5 5 5-5M5 20h14" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Download free on Steam</span>
+            <svg class="cta__chevrons" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="m5 6 6 6-6 6m8-12 6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <span class="cta-note" id="features-cta-note">Windows PC · Opens the Steam page · Gravity account required · Optional in-game purchases</span>
+        </div>
       </div>
-      <div class="mobile-note">On your phone? This game is for Windows PC: open this page on your computer to download it.</div>
-    </div>
-
-    <div class="faq reveal" id="faq">
-      <div class="kicker">Good to know</div><h3>Frequently asked questions</h3>
-      <div class="faq-list">
-        <details><summary>What happens when I click “Download free on Steam”?</summary><p>It opens the game's Steam page, where you install the game on your Windows PC. It does not launch the game directly: you install it first, then log in from the launcher.</p></details>
-        <details><summary>Which platform is this download for?</summary><p>Windows PC, through Steam. You need a Steam account, and a Gravity account that you create in the game launcher.</p></details>
-        <details><summary>Is installing the game enough to start playing?</summary><p>There's one more step: launch the game and follow the account instructions to log in and begin your adventure.</p></details>
-        <details><summary>Is this Ragnarok Online?</summary><p>No. It's a new game set in the same world of Midgard, with an open world and modern features.</p></details>
-        <details><summary>Does the game play itself?</summary><p>The game includes an auto mode, which you can choose to use for routine tasks. Exploring, building your class and boss fights with your guild are the heart of the game.</p></details>
-        <details><summary>Is it pay-to-win?</summary><p>You can level up, explore and join boss battles without paying. In-game purchases are optional, but players who spend may progress faster and rank higher.</p></details>
-        <details><summary>Can I play at my own pace?</summary><p>Yes. The game includes offline resource accumulation: your character keeps collecting resources while you're away.</p></details>
+    </section>
+    <section class="how-to-start" id="go2offer" aria-labelledby="start-title">
+      <div class="how-to-start__inner">
+        <h2 id="start-title">Start your adventure in 3 steps</h2>
+        <ol class="how-to-start__steps" role="list">
+          <li>
+            <h3><span class="how-to-start__number">01</span> — Open the Steam page</h3>
+            <p>Click “Download free on Steam” and add the game to your Steam library. New to Steam? Create a free Steam account first.</p>
+          </li>
+          <li>
+            <h3><span class="how-to-start__number">02</span> — Install the game</h3>
+            <p>Check that you have about 30 GB of free space, then let Steam download and install the game.</p>
+          </li>
+          <li>
+            <h3><span class="how-to-start__number">03</span> — Launch the game and log in</h3>
+            <p>Create your Gravity account in the game launcher, choose your server and complete your first login.</p>
+          </li>
+        </ol>
+        <div class="requirements" aria-labelledby="requirements-title">
+          <h3 id="requirements-title">Before you play</h3>
+          <dl class="requirements__list">
+            <div><dt>Platform</dt><dd>Windows PC via Steam</dd></div>
+            <div><dt>Memory</dt><dd>12 GB RAM minimum</dd></div>
+            <div><dt>Storage</dt><dd>30 GB available space</dd></div>
+            <div><dt>Internet</dt><dd>Broadband connection</dd></div>
+            <div><dt>Servers</dt><dd>Southeast Asia (SEA)</dd></div>
+            <div><dt>Account</dt><dd>Gravity account, created in the game launcher</dd></div>
+            <div class="requirements__wide"><dt>Languages</dt><dd>English, Indonesian, Thai and Simplified Chinese</dd></div>
+          </dl>
+          <p class="requirements__note">Check the full system requirements on the Steam page before installing.</p>
+        </div>
+        <div class="how-to-start__action">
+          <a class="cta" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/" aria-describedby="start-cta-note">
+            <span class="cta__surface" aria-hidden="true"></span>
+            <svg class="cta__rim" aria-hidden="true" viewBox="0 0 340 76" preserveAspectRatio="none"><rect x="1" y="1" width="338" height="74" rx="13" pathLength="100"/></svg>
+            <svg aria-hidden="true" width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M12 3.5v11.5m0 0-5-5m5 5 5-5M5 20h14" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Download free on Steam</span>
+            <svg class="cta__chevrons" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="m5 6 6 6-6 6m8-12 6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <span class="cta-note" id="start-cta-note">Windows PC · Opens the Steam page · Gravity account required · Optional in-game purchases</span>
+          <p class="mobile-note">On your phone? The Steam version runs on Windows PC. Open this page on your computer to install the game.</p>
+        </div>
+      </div>
+    </section>
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <div class="faq__inner">
+        <h2 id="faq-title">Frequently Asked Questions</h2>
+        <details class="faq__item">
+          <summary><span>Is this Ragnarok Online?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <p>No. Ragnarok: The New World is a new open-world game released in 2026, set in Midgard. It is not a remake of Ragnarok Online (2002), but you will recognize the world and its spirit.</p>
+        </details>
+        <details class="faq__item">
+          <summary><span>Is the game free to play?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <p>Yes. The game is free to download and play on Steam, with optional in-game purchases.</p>
+        </details>
+        <details class="faq__item">
+          <summary><span>Is it pay-to-win?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <p>The game includes optional in-game purchases, and player opinions on how much they affect progression are mixed. Since it is free, the best way to decide is to try it yourself before spending anything.</p>
+        </details>
+        <details class="faq__item">
+          <summary><span>Does the game play itself?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <p>The game offers an auto mode and offline resource accumulation, which help when you have little time. You can still explore Midgard, fight and take on bosses with your party yourself.</p>
+        </details>
+        <details class="faq__item">
+          <summary><span>Can I play on my phone?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <p>This page leads to the Windows PC version on Steam. To install it, open the Steam page on your computer.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <img class="site-footer__logo" src="./assets/images/ragnarok-logo.webp" width="420" height="296" alt="Ragnarok: The New World" loading="lazy">
+      <div class="site-footer__legal">
+        <p class="site-footer__copyright">Ragnarok © Gravity Co., Ltd. All rights reserved.</p>
+        <p>The Ragnarok: The New World name, logos and media belong to Gravity Co., Ltd.</p>
+        <p>Independent promotional page, not an official Gravity website.</p>
       </div>
     </div>
-  </div>
-</section>
-</main>
-
-<footer><div class="container footer-inner">
-  <span>Made by Groupe 106 V2 as part of a student challenge. Not an official Gravity website.</span>
-  <span>Ragnarok © Gravity Co., Ltd. Not affiliated with or endorsed by Gravity.</span>
-  <a href="#home">Back to top ↑</a>
-</div></footer>
-
-<!-- Bandeau de consentement : n'apparaît que si un Pixel Meta est configuré dans script.js -->
-<div class="consent" id="consentBar" hidden>
-  <p>We use the Meta Pixel to measure our ads. Do you accept?</p>
-  <div><button class="btn" type="button" data-consent="accept">Accept</button><button class="btn btn-ghost" type="button" data-consent="refuse">Refuse</button></div>
-</div>
-
-<div class="modal" id="videoModal" role="dialog" aria-modal="true" aria-label="PC gameplay video">
-  <div class="modal-box modal-video"><button class="close" data-close aria-label="Close">×</button><div class="video-wrap" id="videoWrap"></div><p class="yt-fallback">Video not playing? <a data-yt-link href="https://www.youtube.com/" target="_blank" rel="noopener">Watch it on YouTube ↗</a></p></div>
-</div>
-<div class="modal" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-  <figure class="modal-box modal-img"><button class="close" data-close aria-label="Close">×</button>
-    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous image">‹</button>
-    <img id="lbImg" src="" alt="">
-    <button class="lb-nav lb-next" id="lbNext" aria-label="Next image">›</button>
-    <figcaption id="lbCap"></figcaption></figure>
-</div>
-
-<script src="script.js?v=20261115b" defer></script>
+  </footer>
 </body>
 </html>
