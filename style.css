@@ -388,3 +388,22 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 
 /* Fix (enhanced edition): on phones the open menu went behind the hero title; keep the hero stage above it */
 @media(max-width:900px){.hero__stage{position:relative;z-index:3}}
+
+/* === Hero slideshow (replaces the hero video): cross-fade + slow cinematic zoom === */
+.hero__slides{position:relative;overflow:hidden;background:#071b26}
+.hero__slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.02);transition:opacity 1.6s ease;will-change:opacity,transform}
+.hero__slide.is-active{opacity:1;animation:hero-zoom-in 7.5s ease-out both}
+.hero__slide.is-active:nth-child(even){animation-name:hero-zoom-out}
+.hero__slide:nth-child(3n+1){transform-origin:30% 40%}
+.hero__slide:nth-child(3n+2){transform-origin:70% 35%}
+.hero__slide:nth-child(3n){transform-origin:50% 60%}
+@keyframes hero-zoom-in{from{transform:scale(1.02)}to{transform:scale(1.12)}}
+@keyframes hero-zoom-out{from{transform:scale(1.12)}to{transform:scale(1.02)}}
+.hero__dots{position:absolute;right:4%;bottom:28px;z-index:2;display:flex;gap:8px}
+.hero__dots span{width:26px;height:3px;border-radius:2px;background:#fff9eb4d;overflow:hidden}
+.hero__dots span.is-active:after{content:"";display:block;height:100%;background:var(--gold);animation:hero-dot 6s linear both}
+.hero__dots span.is-done{background:#f9d787cc}
+@keyframes hero-dot{from{width:0}to{width:100%}}
+@media(max-width:900px){.hero__dots{bottom:14px;right:5%}.hero__dots span{width:18px}}
+@media(prefers-reduced-motion:reduce){.hero__slide,.hero__slide.is-active{animation:none;transition:none;transform:none}.hero__dots{display:none}}
+@media(min-width:901px){.hero__slides:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(4,17,25,.42) 0%,rgba(4,17,25,.18) 40%,transparent 62%)}}

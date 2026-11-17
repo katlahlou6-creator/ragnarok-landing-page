@@ -410,3 +410,42 @@ const pushEvent = (name, data = {}) => {
     }
   });
 })();
+
+
+// Hero slideshow: a new scene every 6 seconds, cross-fading with a slow zoom.
+// Pauses when the hero is off screen or the tab is hidden; stays on the first scene with "reduce motion".
+(() => {
+  const box = document.getElementById('hero-slides');
+  if (!box) return;
+  const slides = [...box.querySelectorAll('.hero__slide')];
+  const dotsBox = document.getElementById('hero-dots');
+  const DELAY = 6000;
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const dots = slides.map(() => { const d = document.createElement('span'); dotsBox?.appendChild(d); return d; });
+  let index = 0, timer = 0, visible = true;
+
+  const show = next => {
+    slides[index].classList.remove('is-active');
+    index = (next + slides.length) % slides.length;
+    const slide = slides[index];
+    // Restart the zoom animation from the beginning on the new scene
+    slide.style.animation = 'none'; void slide.offsetWidth; slide.style.animation = '';
+    slide.classList.add('is-active');
+    dots.forEach((d, i) => {
+      d.classList.toggle('is-active', i === index);
+      d.classList.toggle('is-done', i < index);
+    });
+    const after = slides[(index + 1) % slides.length]; // warm up the next image
+    if (after.loading === 'lazy') after.loading = 'eager';
+  };
+  const start = () => { stop(); if (!motion.matches && visible && !document.hidden) timer = setInterval(() => show(index + 1), DELAY); };
+  const stop = () => { clearInterval(timer); timer = 0; };
+
+  show(0);
+  start();
+  document.addEventListener('visibilitychange', start);
+  motion.addEventListener('change', () => { if (motion.matches) { stop(); show(0); } else start(); });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; start(); }).observe(box);
+  }
+})();

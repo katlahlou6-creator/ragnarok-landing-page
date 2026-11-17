@@ -4,8 +4,8 @@ Landing page du TAF 2 (challenge étudiant), publiée sur GitHub Pages :
 https://katlahlou6-creator.github.io/ragnarok-landing-page/
 
 - `index.html`, `style.css`, `script.js` à la racine
-- `assets/images/` : logo, affiches des vidéos, 8 visuels de classes
-- `assets/videos/` : vidéo du Hero + 5 clips de gameplay
+- `assets/images/` : logo, 6 scènes du Hero (diaporama), affiches des vidéos, 8 visuels de classes
+- `assets/videos/` : 5 clips de gameplay (carrousel)
 - Tous les boutons « Download free on Steam » mènent à
   https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/
 

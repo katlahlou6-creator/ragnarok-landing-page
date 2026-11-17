@@ -6,15 +6,15 @@
   <meta name="description" content="Your legend begins in Midgard. Explore the open world, master your class and take on powerful bosses with your friends and guild. Free download for Windows PC via Steam.">
   <meta name="theme-color" content="#071b26">
   <title>Ragnarok: The New World — Download free on Steam</title>
-  <link rel="preload" as="image" href="./assets/images/midgard-poster.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="./assets/images/hero-slide-5.webp" fetchpriority="high">
   <link rel="icon" type="image/webp" href="./assets/images/ragnarok-logo.webp">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Ragnarok: The New World — Your legend begins in Midgard">
   <meta property="og:description" content="Explore the open world, master your class and take on powerful bosses with your guild. Free on Steam for Windows PC.">
   <meta property="og:image" content="./assets/images/midgard-poster.webp">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="./style.css?v=taf2-20261117d">
-  <script src="./script.js?v=taf2-20261117d" defer></script>
+  <link rel="stylesheet" href="./style.css?v=taf2-20261117e">
+  <script src="./script.js?v=taf2-20261117e" defer></script>
 </head>
 <body>
   <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress"></span></div>
@@ -22,9 +22,15 @@
   <main id="main">
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero__stage">
-        <video class="hero__video" id="hero-video" loop muted playsinline preload="metadata" poster="./assets/images/midgard-poster.webp" aria-label="Promotional cinematic showing adventurers in Midgard">
-          <source src="./assets/videos/midgard-hero.mp4" type="video/mp4">
-        </video>
+        <!-- Hero slideshow: 6 stills from the cinematic, cross-fading with a slow zoom (replaces the video) -->
+        <div class="hero__video hero__slides" id="hero-slides" aria-roledescription="slideshow" aria-label="Scenes from Midgard">
+          <img class="hero__slide is-active" src="./assets/images/hero-slide-5.webp" width="1600" height="900" alt="Heroes of Midgard ready for battle in a sunny forest" fetchpriority="high" decoding="async">
+          <img class="hero__slide" src="./assets/images/hero-slide-3.webp" width="1600" height="900" alt="Adventurers fighting a horned boss in the desert" loading="lazy" decoding="async">
+          <img class="hero__slide" src="./assets/images/hero-slide-2.webp" width="1600" height="900" alt="A horned boss leaping across the sky" loading="lazy" decoding="async">
+          <img class="hero__slide" src="./assets/images/hero-slide-4.webp" width="1600" height="900" alt="A night battle against a pirate captain with blue magic" loading="lazy" decoding="async">
+          <img class="hero__slide" src="./assets/images/hero-slide-6.webp" width="1600" height="900" alt="A young hero striking in the forest" loading="lazy" decoding="async">
+          <img class="hero__slide" src="./assets/images/hero-slide-1.webp" width="1600" height="900" alt="A torch-lit canyon cave at the edge of Midgard" loading="lazy" decoding="async">
+        </div>
         <div class="hero__shade" aria-hidden="true"></div>
         <header class="header">
           <a class="brand-link" href="#top" aria-label="Ragnarok: The New World, back to top">
@@ -45,10 +51,7 @@
           </nav>
           <a class="header__cta" href="https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/">Download free on Steam</a>
         </header>
-        <button class="sound-button" id="sound-toggle" type="button" aria-label="Turn video sound on" aria-pressed="false" hidden>
-          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="m11 5-6 4H2v6h3l6 4V5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path id="sound-waves" d="m16 9 6 6m0-6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          <span id="sound-label">Sound on</span>
-        </button>
+        <div class="hero__dots" id="hero-dots" aria-hidden="true"></div>
       </div>
       <div class="hero__content">
         <div class="hero__copy">
