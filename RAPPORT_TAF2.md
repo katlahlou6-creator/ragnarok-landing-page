@@ -182,3 +182,26 @@ Toutes les images ont `width`/`height` (pas de décalage de mise en page) et `lo
 - Léger parallaxe du hero à la souris sur ordinateur, désactivé sur tactile et avec « réduire les animations ».
 - Le son du trailer reste volontairement activé uniquement après clic sur « Sound on » : aucun son surprise au chargement.
 - Les préférences d'accessibilité « réduire les animations » sont respectées.
+
+
+## 8. Ma touche — Ghali Bennani
+
+Objectif : aider le visiteur à **se projeter** (quelle classe jouer), à **lever le dernier frein** avant le téléchargement (mon PC est-il prêt ?) et à **ne pas perdre le trafic mobile** (les pubs Meta arrivent surtout sur téléphone, alors que le jeu est sur PC).
+
+| Ajout | Ce que ça fait | Pourquoi c'est utile |
+|---|---|---|
+| **Class Finder** (section Features) | 3 questions → la page recommande une des 8 classes, met sa carte en avant (« Your match ») et propose « See how to start ↓ ». | Engagement : le visiteur choisit déjà son personnage avant d'aller sur Steam. Les 8 classes peuvent toutes sortir (testé sur les 36 combinaisons de réponses). |
+| **« Is your PC ready for Midgard? »** (section #go2offer) | 4 cases à cocher (Windows PC, 12 Go de RAM, 30 Go libres, compte Steam) + barre de progression. À 4/4 : « You're all set » et le bouton Steam final s'illumine. | Moins d'abandons entre l'installation et le *first login* (notre conversion) : le joueur vérifie les prérequis avant de télécharger. |
+| **« Send this page to my PC »** (téléphone uniquement) | Ouvre le partage du téléphone (ou copie le lien) pour s'envoyer la page et l'ouvrir sur l'ordinateur. | Récupère les visiteurs mobiles au lieu de les perdre : ils peuvent continuer sur PC. |
+| **Barre de progression de lecture** | Fine ligne dorée en haut de l'écran qui avance avec le défilement. | Repère visuel, donne envie d'aller jusqu'au bout. Purement décorative (pas un bouton fixe). |
+| **Partage et onglet** | Icône d'onglet (logo) + balises Open Graph (titre, description, image). | Aperçu propre quand le lien est partagé. Sur AFBooster, mettre l'adresse complète de l'image dans `og:image`. |
+| **Suivi** | Événements `class_finder_result`, `pc_ready_check_complete`, `send_to_pc_click` envoyés au `dataLayer` s'il existe. | Mesurer si ces ajouts sont utilisés. Ne fait rien si aucun outil de suivi n'est installé. |
+
+**Corrections de l'édition Enhanced :**
+
+- **Débordement horizontal :** l'agrandissement de la vidéo du Hero rendait la page plus large que l'écran (+30 px sur ordinateur, +12 px sur téléphone). Corrigé : retour à 0 px.
+- **Menu téléphone :** une fois ouvert, il passait derrière le titre du Hero et « FAQ » / « Download steps » n'étaient plus cliquables. Corrigé.
+
+**Règles du brief respectées :** toujours 5 boutons Steam avec le lien exact ; pas de CTA secondaire dans le Hero ; pas de bouton fixe sur téléphone ; pas de faux avis, de note Steam ni de « No P2W » ; anglais ; aucune ressource externe (tout reste dans l'archive) ; « réduire les animations » respecté.
+
+**Vérifié :** ordinateur (1440 px) et iPhone 13, aucune erreur JavaScript, aucun débordement horizontal, menu téléphone, Class Finder, check PC, bouton « Send to my PC ».

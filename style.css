@@ -312,3 +312,79 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   .hero__stage::after, .hero__copy h1, .hero__description, .hero__action { animation: none !important; }
   .hero__video, .cta, .benefit-card, .class-card, .class-card img { transition: none !important; }
 }
+
+
+/* === MA TOUCHE — Class Finder, PC check, Send to my PC, progress bar === */
+
+/* Fix: the enhanced hero video (scale + parallax) no longer makes the page wider than the screen */
+.hero{overflow-x:clip}
+
+/* Reading progress line (decorative, not a button) */
+.scroll-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:100;pointer-events:none}
+.scroll-progress span{display:block;height:100%;transform-origin:0 50%;transform:scaleX(0);
+  background:linear-gradient(90deg,#c98a2b,var(--gold),#fff1c8);box-shadow:0 0 10px #f9d787aa}
+
+/* Class Finder */
+.finder{max-width:920px;margin:0 auto 36px;padding:clamp(20px,3vw,32px);border:1px solid #f9d78755;border-radius:16px;
+  background:radial-gradient(ellipse at 100% 0,#f9d78714,transparent 55%),linear-gradient(160deg,#102b38,var(--ink));
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 24px}
+.finder__head{grid-column:1/-1;text-align:center}
+.finder__eyebrow{margin:0 0 4px;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--gold)}
+.finder h4{margin:0;font-family:Georgia,'Times New Roman',serif;font-size:clamp(22px,2.2vw,28px);font-weight:400;color:var(--white)}
+.finder__q{margin:0;padding:0;border:0;min-width:0;display:grid;gap:8px;align-content:start}
+.finder__q legend{padding:0;margin-bottom:10px;font-size:15px;font-weight:700;color:var(--white)}
+.finder__q legend span{display:inline-block;margin-right:6px;padding:2px 7px;border-radius:999px;font-size:11px;background:#f9d78722;color:var(--gold)}
+.finder__q label{position:relative;display:block;padding:11px 14px 11px 40px;border:1px solid #f9d78733;border-radius:10px;
+  font-size:14px;line-height:1.4;color:#e4ecea;cursor:pointer;transition:border-color .2s,background .2s}
+.finder__q label:hover{border-color:#f9d78788;background:#ffffff08}
+.finder__q input{position:absolute;left:14px;top:50%;width:16px;height:16px;margin:-8px 0 0;accent-color:#e7b95e}
+.finder__q label:has(input:checked){border-color:var(--gold);background:#f9d78717;color:#fff}
+.finder__q label:has(input:focus-visible){outline:2px solid var(--gold);outline-offset:2px}
+.finder__result{grid-column:1/-1;margin-top:4px;padding:20px 22px;border-radius:12px;text-align:center;
+  border:1px solid var(--gold);background:#071b26cc;box-shadow:0 0 30px #f9d78722;animation:finder-in .5s cubic-bezier(.2,.7,.2,1)}
+.finder__result[hidden]{display:none}
+.finder__name{margin:2px 0 6px;font-family:Georgia,'Times New Roman',serif;font-size:clamp(28px,3vw,38px);color:var(--gold)}
+.finder__why{margin:0 0 6px;font-size:16px;color:#eef0e9}
+.finder__note{margin:0 0 14px;font-size:13px;color:#cbd8d8}
+.finder__links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.finder__go,.finder__retry{min-height:44px;display:inline-flex;align-items:center;padding:0 18px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
+.finder__go{background:#f9d787;color:#1b1206;text-decoration:none}
+.finder__go:hover{filter:brightness(1.08)}
+.finder__retry{border:1px solid #f9d78766;background:none;color:var(--white)}
+.finder__retry:hover{border-color:var(--gold);color:var(--gold)}
+@keyframes finder-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.class-card{position:relative}
+.class-card.is-match{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold),0 0 34px #f9d78766;transform:translateY(-6px)}
+.class-card.is-match:after{content:"Your match";position:absolute;top:12px;left:12px;padding:5px 10px;border-radius:999px;
+  font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;background:var(--gold);color:#1b1206}
+.classes__grid.has-match .class-card:not(.is-match){opacity:.55;filter:saturate(.6)}
+.classes__grid .class-card{transition:opacity .4s ease,filter .4s ease,transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .3s ease,border-color .3s ease}
+@media(max-width:760px){.finder{grid-template-columns:minmax(0,1fr)}}
+
+/* PC readiness check */
+.ready{max-width:920px;margin:24px auto 0;padding:24px clamp(20px,3vw,36px);border:1px solid #f9d78755;border-radius:16px;background:linear-gradient(160deg,#0f2733,var(--ink))}
+.ready__head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.ready h3{margin:0;font-family:Georgia,'Times New Roman',serif;font-size:clamp(21px,2vw,26px);font-weight:400;color:var(--white)}
+.ready__count{margin:0;font-size:13px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--gold)}
+.ready__bar{height:6px;margin:14px 0 16px;border-radius:999px;background:#ffffff14;overflow:hidden}
+.ready__bar span{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#c98a2b,var(--gold));transition:width .4s cubic-bezier(.2,.7,.2,1)}
+.ready__list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 24px;margin:0;padding:0;list-style:none}
+.ready__list label{display:flex;gap:12px;align-items:center;min-height:44px;padding:8px 12px;border:1px solid #f9d78726;border-radius:10px;font-size:15px;color:#e4ecea;cursor:pointer}
+.ready__list input{flex:none;width:20px;height:20px;margin:0;accent-color:#e7b95e}
+.ready__list label:has(input:checked){border-color:#f9d78788;background:#f9d78712;color:#fff}
+.ready__list strong{color:var(--white)}
+.ready__done{margin:16px 0 0;padding:12px 16px;border-radius:10px;font-size:15px;font-weight:700;text-align:center;color:#1b1206;background:var(--gold);animation:finder-in .5s ease}
+.ready__done[hidden]{display:none}
+.how-to-start__action.is-ready .cta{box-shadow:0 0 0 3px #fff1c8,0 0 44px 10px #f9d787aa}
+@media(max-width:760px){.ready__list{grid-template-columns:minmax(0,1fr)}}
+
+/* Send to my PC (only shown on phones, inside the mobile note) */
+.mobile-note p{margin:0}
+.send-pc{margin-top:12px;min-height:44px;padding:0 18px;border:1px solid var(--gold);border-radius:10px;background:#f9d78717;color:var(--gold);font-weight:700;font-size:14px;cursor:pointer}
+.send-pc:active{transform:scale(.98)}
+.mobile-note .send-pc__status{margin-top:8px;font-size:12px;color:#cbd8d8;min-height:1em}
+
+@media(prefers-reduced-motion:reduce){.finder__result,.ready__done{animation:none}.ready__bar span,.classes__grid .class-card{transition:none}}
+
+/* Fix (enhanced edition): on phones the open menu went behind the hero title; keep the hero stage above it */
+@media(max-width:900px){.hero__stage{position:relative;z-index:3}}

@@ -282,3 +282,131 @@ if (video && soundToggle) {
     stage.style.setProperty('--pointer-y', '0px');
   });
 })();
+
+
+// =========================================================
+// MA TOUCHE — Class Finder, PC check, Send to my PC, progress bar
+// =========================================================
+
+// Pushes an event to Google Tag Manager / AFBooster tracking if a dataLayer exists (does nothing otherwise).
+const pushEvent = (name, data = {}) => {
+  if (Array.isArray(window.dataLayer)) window.dataLayer.push({ event: name, ...data });
+};
+
+// Reading progress line at the very top of the page
+(() => {
+  const bar = document.getElementById('scroll-progress');
+  if (!bar) return;
+  let ticking = false;
+  const update = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? Math.min(window.scrollY / max, 1) : 0})`;
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+
+// Class Finder: 3 questions -> points per class -> the best match is highlighted in the grid
+(() => {
+  const form = document.getElementById('class-finder');
+  if (!form) return;
+  const CLASSES = ['Swordsman', 'Archer', 'Mage', 'Acolyte', 'Thief', 'Merchant', 'Gunslinger', 'Druid'];
+  const POINTS = {
+    q1: { front: { Swordsman: 3, Thief: 3, Merchant: 2, Druid: 1 }, range: { Archer: 3, Gunslinger: 3, Mage: 1 }, back: { Mage: 3, Acolyte: 3, Druid: 1 } },
+    q2: { damage: { Mage: 2, Gunslinger: 2, Thief: 2, Archer: 1 }, team: { Acolyte: 3, Swordsman: 2 }, zeny: { Merchant: 4 }, shape: { Druid: 4 } },
+    q3: { steady: { Swordsman: 2, Archer: 2, Acolyte: 1, Merchant: 1 }, fast: { Thief: 2, Gunslinger: 2 }, clever: { Mage: 2, Druid: 2, Merchant: 1, Archer: 1 } }
+  };
+  const WHY = {
+    Swordsman: 'You hold the front line so your party can shine.',
+    Archer: 'You strike from a distance and stay in control of the fight.',
+    Mage: 'You clear whole groups of enemies with powerful spells.',
+    Acolyte: 'You heal and protect your party through the toughest fights.',
+    Thief: 'You hit fast and hard, built on speed and critical hits.',
+    Merchant: 'You trade, craft and earn Zeny while you adventure.',
+    Gunslinger: 'You switch firearms to deal heavy damage from range.',
+    Druid: 'You shift between Werewolf, Bird-Man and Human forms.'
+  };
+  const result = document.getElementById('finder-result');
+  const grid = document.querySelector('.classes__grid');
+  const cards = [...document.querySelectorAll('.class-card')];
+  const cardFor = name => cards.find(card => card.querySelector('h4')?.textContent.trim() === name);
+
+  const clearMatch = () => {
+    cards.forEach(card => card.classList.remove('is-match'));
+    grid?.classList.remove('has-match');
+  };
+
+  form.addEventListener('change', () => {
+    const answers = ['q1', 'q2', 'q3'].map(q => form.elements[q].value);
+    if (answers.some(a => !a)) return; // wait until all 3 questions are answered
+    const score = Object.fromEntries(CLASSES.map(c => [c, 0]));
+    answers.forEach((a, i) => Object.entries(POINTS['q' + (i + 1)][a]).forEach(([c, p]) => { score[c] += p; }));
+    const best = CLASSES.reduce((a, b) => (score[b] > score[a] ? b : a));
+    const card = cardFor(best);
+
+    document.getElementById('finder-name').textContent = best;
+    document.getElementById('finder-why').textContent = WHY[best];
+    result.hidden = false;
+    clearMatch();
+    if (card) {
+      card.classList.add('is-match');
+      grid?.classList.add('has-match');
+    }
+    pushEvent('class_finder_result', { class_name: best });
+  });
+
+  document.getElementById('finder-retry').addEventListener('click', () => {
+    form.reset();
+    result.hidden = true;
+    clearMatch();
+    form.querySelector('input')?.focus();
+  });
+})();
+
+// PC readiness check: progress bar, then the final CTA lights up when all 4 boxes are ticked
+(() => {
+  const box = document.getElementById('ready-check');
+  if (!box) return;
+  const inputs = [...box.querySelectorAll('input[type=checkbox]')];
+  const action = document.querySelector('.how-to-start__action');
+  let sent = false;
+  const update = () => {
+    const done = inputs.filter(i => i.checked).length;
+    document.getElementById('ready-count').textContent = `${done} / ${inputs.length} ready`;
+    document.getElementById('ready-bar').style.width = `${(done / inputs.length) * 100}%`;
+    const all = done === inputs.length;
+    document.getElementById('ready-done').hidden = !all;
+    action?.classList.toggle('is-ready', all);
+    if (all && !sent) { sent = true; pushEvent('pc_ready_check_complete'); }
+  };
+  inputs.forEach(i => i.addEventListener('change', update));
+  update();
+})();
+
+// Send to my PC: on a phone, share the page link (or copy it) so the visitor can open it on their computer
+(() => {
+  const button = document.getElementById('send-to-pc');
+  if (!button) return;
+  const status = document.getElementById('send-status');
+  const url = window.location.href.split('#')[0];
+  button.addEventListener('click', async () => {
+    pushEvent('send_to_pc_click');
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: 'Ragnarok: The New World', text: 'Download Ragnarok: The New World free on Steam (Windows PC):', url });
+        status.textContent = 'Shared! Open the link on your computer.';
+        return;
+      } catch (error) {
+        if (error && error.name === 'AbortError') return; // the visitor closed the share sheet
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      status.textContent = 'Link copied. Paste it in a message to yourself and open it on your PC.';
+    } catch {
+      status.textContent = url; // last resort: show the link so it can be copied by hand
+    }
+  });
+})();
