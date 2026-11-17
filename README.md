@@ -6,6 +6,7 @@ https://katlahlou6-creator.github.io/ragnarok-landing-page/
 - `index.html`, `style.css`, `script.js` à la racine
 - `assets/images/` : logo, 6 scènes du Hero (diaporama), affiches des vidéos, 8 visuels de classes
 - `assets/videos/` : 5 clips de gameplay (carrousel)
+- `assets/audio/` : musique du Hero en boucle (bouton « Sound on »)
 - Tous les boutons « Download free on Steam » mènent à
   https://store.steampowered.com/app/4212480/Ragnarok_The_New_World/
 

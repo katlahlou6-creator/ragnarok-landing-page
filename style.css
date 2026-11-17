@@ -407,3 +407,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 @media(max-width:900px){.hero__dots{bottom:14px;right:5%}.hero__dots span{width:18px}}
 @media(prefers-reduced-motion:reduce){.hero__slide,.hero__slide.is-active{animation:none;transition:none;transform:none}.hero__dots{display:none}}
 @media(min-width:901px){.hero__slides:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(4,17,25,.42) 0%,rgba(4,17,25,.18) 40%,transparent 62%)}}
+/* Slideshow dots centred so the Sound button keeps its place at the bottom right */
+.hero__dots{right:auto;left:50%;transform:translateX(-50%)}
+@media(max-width:900px){.hero__dots{right:auto}}
+.sound-button.is-on{border-color:var(--gold);color:var(--gold)}
+.sound-button.is-on #music-waves{animation:music-pulse 1.4s ease-in-out infinite}
+@keyframes music-pulse{50%{opacity:.35}}
+@media(prefers-reduced-motion:reduce){.sound-button.is-on #music-waves{animation:none}}

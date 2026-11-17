@@ -449,3 +449,86 @@ const pushEvent = (name, data = {}) => {
     new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; start(); }).observe(box);
   }
 })();
+
+// Hero music: the cinematic's soundtrack as a seamless 17-second loop (assets/audio/midgard-theme.m4a).
+// Always off on arrival; it only starts when the visitor presses "Sound on", fades in gently, and pauses with the tab.
+(() => {
+  const button = document.getElementById('music-toggle');
+  if (!button) return;
+  const SRC = './assets/audio/midgard-theme.m4a';
+  const VOLUME = 0.45;          // the file is normalized to -16 LUFS; 0.45 keeps it in the background
+  const label = document.getElementById('music-label');
+  const waves = document.getElementById('music-waves');
+  let on = false, ctx = null, gain = null, started = false, fallback = null;
+
+  const render = () => {
+    label.textContent = on ? 'Sound off' : 'Sound on';
+    button.setAttribute('aria-label', on ? 'Turn music off' : 'Turn music on');
+    button.setAttribute('aria-pressed', String(on));
+    button.classList.toggle('is-on', on);
+    waves.setAttribute('d', on ? 'M16 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14' : 'm16 9 6 6m0-6-6 6');
+  };
+
+  // Gapless loop through the Web Audio API (an <audio loop> leaves a small gap in some browsers)
+  const startWebAudio = async () => {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) throw new Error('no Web Audio');
+    if (!ctx) {
+      ctx = new AC();                       // created inside the click, so mobile browsers allow it
+      gain = ctx.createGain();
+      gain.gain.value = 0;
+      gain.connect(ctx.destination);
+    }
+    await ctx.resume();
+    if (!started) {
+      const data = await (await fetch(SRC)).arrayBuffer();
+      const buffer = await ctx.decodeAudioData(data);
+      const source = ctx.createBufferSource();
+      source.buffer = buffer;
+      source.loop = true;
+      source.connect(gain);
+      source.start();
+      started = true;
+    }
+    gain.gain.cancelScheduledValues(ctx.currentTime);
+    gain.gain.setTargetAtTime(VOLUME, ctx.currentTime, 0.4);   // ~1.2 s fade-in
+  };
+
+  // Simple fallback (e.g. page opened from a local file, where fetch is blocked)
+  const startFallback = async () => {
+    if (!fallback) { fallback = new Audio(SRC); fallback.loop = true; }
+    fallback.volume = VOLUME;
+    await fallback.play();
+  };
+
+  const stop = () => {
+    if (ctx && gain) {
+      gain.gain.cancelScheduledValues(ctx.currentTime);
+      gain.gain.setTargetAtTime(0, ctx.currentTime, 0.15);
+      setTimeout(() => { if (!on) ctx.suspend(); }, 700);
+    }
+    fallback?.pause();
+  };
+
+  button.hidden = false;
+  render();
+  button.addEventListener('click', async () => {
+    on = !on;
+    render();
+    if (!on) { stop(); return; }
+    try {
+      if (fallback) await startFallback(); else await startWebAudio();
+    } catch {
+      try { ctx?.suspend(); ctx = null; await startFallback(); }
+      catch { on = false; render(); }
+    }
+    if (on && typeof pushEvent === 'function') pushEvent('hero_music_on');
+  });
+
+  // Pause the music while the tab is hidden, resume it when the visitor comes back
+  document.addEventListener('visibilitychange', () => {
+    if (!on) return;
+    if (document.hidden) { ctx?.suspend(); fallback?.pause(); }
+    else { ctx?.resume(); fallback?.play().catch(() => {}); }
+  });
+})();
