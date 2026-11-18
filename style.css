@@ -445,22 +445,28 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
   animation:stars-twinkle 6s ease-in-out infinite alternate}
 @keyframes stars-twinkle{to{opacity:.25}}
 
-/* 3) Une scène du jeu, floutée et teintée, derrière chaque section */
-.gameplay,.benefits,.how-to-start,.faq,.site-footer{background:transparent}
-.gameplay,.benefits,.classes,.how-to-start,.faq{position:relative;isolation:isolate}
-.gameplay::before,.benefits::before,.classes::before,.how-to-start::before,.faq::before{
-  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:var(--scene) center/cover no-repeat;opacity:.75;
-  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 16%,#000 84%,transparent 100%);
-          mask-image:linear-gradient(180deg,transparent 0,#000 16%,#000 84%,transparent 100%)}
-.gameplay{--scene:url("./assets/images/bg-gameplay.webp")}
-.benefits{--scene:url("./assets/images/bg-features.webp")}
-.benefits::before{bottom:auto;height:min(900px,60%)}
-.classes{--scene:url("./assets/images/bg-classes.webp")}
-.classes::before{inset:-60px calc(50% - 50vw);opacity:.6}
-.how-to-start{--scene:url("./assets/images/bg-start.webp")}
-.faq{--scene:url("./assets/images/bg-faq.webp")}
-.faq::before{opacity:.6}
+/* 3) Une scène NETTE du jeu derrière chaque section (mêmes images que le Hero : déjà en cache, 0 Ko en plus).
+      Sur ordinateur, la scène reste fixe pendant le défilement : effet « fenêtre ouverte sur Midgard ». */
+.gameplay,.benefits,.how-to-start,.faq{position:relative;isolation:isolate;
+  background-color:var(--ink);
+  background-image:linear-gradient(180deg,var(--ink) 0%,rgba(7,27,38,.55) 12%,rgba(7,27,38,.38) 45%,rgba(7,27,38,.5) 85%,var(--ink) 100%),var(--scene);
+  background-size:100% 100%,cover;background-position:center,center;background-repeat:no-repeat}
+.gameplay{--scene:url("./assets/images/hero-slide-4.webp")}
+.benefits{--scene:url("./assets/images/hero-slide-6.webp")}
+.how-to-start{--scene:url("./assets/images/hero-slide-1.webp")}
+.faq{--scene:url("./assets/images/hero-slide-2.webp")}
+@media(min-width:901px) and (hover:hover){
+  .gameplay,.benefits,.how-to-start,.faq{background-attachment:scroll,fixed}
+}
+/* Téléphone : l'image garde sa taille d'écran (pas d'agrandissement flou), en haut de la section */
+@media(max-width:900px),(hover:none){
+  .gameplay,.benefits,.how-to-start,.faq{background-size:100% 100%,auto 100svh;background-position:center,center top}
+}
+
+/* Panneaux de lecture : les textes posés directement sur les scènes gardent un fond sombre */
+.how-to-start__steps li{padding:20px 22px 22px;border:1px solid #f9d78740;border-radius:14px;background:rgba(7,27,38,.78);backdrop-filter:blur(2px)}
+.faq__inner .faq__item{padding:0 18px;background:rgba(7,27,38,.8);border:1px solid #f9d78733;border-radius:12px;margin-bottom:10px}
+.faq__inner .faq__item:last-child{border-bottom:1px solid #f9d78733}
 
 /* 4) Séparateur lumineux en haut de chaque section (bleu → or → rose, comme le logo) */
 .gameplay::after,.benefits::after,.how-to-start::after,.faq::after{
@@ -473,7 +479,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
 .gameplay h2,.benefits h2,.classes h3,.how-to-start h2,.faq h2{text-shadow:0 2px 18px rgba(7,27,38,.9),0 0 30px rgba(69,112,200,.35)}
 
 @media(max-width:760px){
-  .classes::before{inset:-40px 0}
   body::after{background-size:180px 180px,240px 240px,210px 210px,150px 150px,320px 320px,280px 280px}
 }
 @media(prefers-reduced-motion:reduce){body::before,body::after{animation:none}}
+.classes__intro p,.gameplay p,.how-to-start__inner > p{text-shadow:0 1px 10px #071b26,0 0 3px #071b26}
